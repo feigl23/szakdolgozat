@@ -1,30 +1,143 @@
-\Chapter{Koncepció}
+\Chapter{Kiterjesztett és virtuális valóság}
 
-\Section{A fejezet célja}
-
-Ez a fejezet még nem a saját eredményekkel foglalkozik, hanem bemutatja, mi a problémakör, milyen módszerekkel, milyeneredményeket sikerült elérni eddig másoknak.
-
-A hivatkozások jelentős része ehhez a fejezethez szokott kötődni.
-(Egy hivatkozás például így néz ki \cite{coombs1987markup}.)
-Itt lehet bemutatni a hasonló alkalmazásokat.
-
-\Section{Tartalom és felépítés}
-
-A fejezet tartalma témától függően változhat. Az alábbiakat attól függően különböző arányban tartalmazhatják.
 \begin{itemize}
-\item Irodalomkutatás. Amennyiben a dolgozat egy módszer kidolgozására, kifejlesztésére irányul, akkor itt lehet részletesen végignézni (módszertani vagy időrendi bontásban), hogy az eddigiekben milyen eredmények születtek a témakörben.
-\item Technológia. Mivel jellemzően kutatásról vagy szoftverfejlesztésről van szó, ezért annak a jellemző elemeit, technikai részleteit itt kell bemutatni.
-Ez tehát egy módszeres bevezetés ahhoz, hogy ha valaki nem jártas a témakörben, akkor tudja, hogy a dolgozat milyen aktuálisan elérhető eredményeket, eszközöket használt fel.
-\item Piackutatás. Bizonyos témáknál új termék vagy szolgáltatás kifejlesztése a cél.
-Ekkor érdemes annak alaposan utánanézni, hogy aktuálisan milyen eszközök érhetők el a piacon.
-Ez szoftverek esetében a hasonló alkalmazások bemutatását, táblázatos formában történő összehasonlítását jelentheti.
-Szerepelhetnek képek és észrevételek a viszonyításként bemutatott alkalmazásokhoz.
-\item Követelmény specifikáció. Külön szakaszban érdemes részletesen kitérni az elkészítendő alkalmazással kapcsolatos követelményekre.
-Ehhez tartozhatnak forgatókönyvek (\textit{scenario}-k).
-A szemléletesség kedvéért lehet hozzájuk képernyőkép vázlatokat is készíteni, vagy a használati eseteket más módon szemléltetni.
+\item[AR] (\textit{Augmented Reality}): A kiterjesztett- vagy augmentált valóság, a valóság egy kiterjesztése, bővítése. 
+\item[VR] (\textit{Virtual reality}): A virtuális valóság, a valóság teljes kizárása és virtuális környezetbe kerülés.
+\item[MR] (\textit{Mixed Reality}): az AR és VR keveréke, a valós környezetre épít, ahogy az AR, azonban itt a cél a virtuális és valós környezet határának elmosása, nagyobb hangsúlyt kap az interakció. 
 \end{itemize}
 
-\Section{Amit csak említés szintjén érdemes szerepeltetni}
+\Section{Hardware}
 
-Az olvasóról annyit feltételezhetünk, hogy programozásban valamilyen szinten járatos, és a matematikai alapfogalmakkal sem ebben a dolgozatban kell megismertetni.
-A speciális eszközök, programozási nyelvek, matematikai módszerekk és jelölések persze jó, hogy ha említésre kerülnek, de nem kell nagyon belemenni a közismertnek tekinthető dolgokba.
+\SubSection{AR hardware}
+
+A kiterjesztett valóság kipróbálásához elegendő lehet egy újabb verziójú Android (7.0-tól felfelé) vagy iOS (11-től felfelé) operációs rendszerrel ellátott okoseszköz is (pl. mobiltelefon, tablet).
+Számos valóság kiterjesztő alkalmazás, játék érhető el ezen platformokra. 
+Ezen eszközök a kiterjesztett valósághoz nélkülözhetetlen kamerával és olyan szenzorokkal vannak ellátva, amik szükségesek a AR alkalmazások használatához.
+Az érzékelők mikro-elektromechanikai (MEMS, \textit{MicroElectroMechanical Systems}) 
+rendszerek, azaz olyan apró ($1-100\mu\ m$ között) rendszerek amelyek mechanikai és elektronikai alkatrészeket is tartalmaznak.
+\begin{itemize}
+\item Inerciális szenzor: accelerometer és giroszkóp.
+\item Gyorsulásérzékelő (accelerometer) : a három tengely irányába méri a gyorsulását az eszköznek. (pl. gravitáció). 
+\item Giroszkóp szenzor: szögelfordulás mérő. (harmonikus rezgőmozgás).
+\item Fontos érzékelő még a távolságérzékelő, iránytű, fényváltozás érzékelő.
+\end{itemize}
+
+Nem csak az okos eszközök, hanem a személyi számítógépek kameráját felhasználva is lehetőségünk van a kiterjesztett valóság tesztelésére.  A Unity legújabb verziói (2019.3-tól) már nem csak a Windowst támogatják, hanem hivatalosan, teljes támogatással lehetővé teszik a Linux operációs rendszerekre való fejlesztést.
+
+Emellett számos speciális, kifejezetten erre a célra fejlesztett eszköz elérhető, 2019 legnépszerűbb darabjai a következők:
+\begin{itemize}
+\item Microsoft Hololens 2 :  egy AR headset, átlátszó lencsékkel. Számos innovációja közé tartozik az írisz felismerés, szemmozgás követés. Könnyű, jól vezérelhető.
+\item Magic Leap One:  AR headset, amit egy ‘Lightpack” nevű, apró, övre csatolható számítógép működtet. 
+\item Epson Moverio: AR headset, átlátszó lencsékkel. Létezik iparra koncentráló változata is, mert a kialakítása megfelel az olyan helyekre, ahol kötelező a védősisak használata. Robosztus kialakítása van. 
+\item Google Glass: hangvezérléssel működik, így nincs szükség kézi irányításra. Android operációs rendszer az alapja, csatlakozik az internethez.
+\end{itemize}
+
+\SubSection{VR hardware}
+
+A virtuális környezet megteremtéséhez szükség van egy szenzorrendszere, amely meghatározza a használója fej, test, kéz mozgását, továbbá egy olyan eszközre, amely az erő és nyomás érzékelésre alkalmas.
+
+A valóság kizárásához szükséges még egy audiorendszer, amely a tér hangjait hivatott adni és egy megjelenítő rendszerre, amely magát a teret vetíti a használó elé (például VR szemüveg).
+Mindehhez nélkülözhetetlen a megfelelő, VR alkalmazást futtatni képes számítógép, okoseszköz, játékkonzol. 
+
+Az első VR szemüveg Oculus Rift volt, meglátva benne a lehetőséget a nagy cégek saját VR szemüveggel álltak elő ilyen például az Playstation VR, a Samsung Gear VR, a Sony Project Morpheus, HTC Vive.
+
+Ezek közül a Samsung Gear VR Samsung okostelefonnal, a Playstation VR és a Sony Playstation konzollal, az Oculus Rift és a HTC Vive pedig számítógéppel kompatibilis. A legnépszerűbbnek és legjobb élményt nyújtónak még mindig az Oculus Rift számít.
+
+A piacon a szemüvegek mellett számos kontroller is elérhető, amik segítségével különböző inputokat vihetünk be, a mozgást irányíthatjuk, a kéz mozgását és a lenyomott gombokat figyelembe véve. (Ilyen kontroller pl. HTC Vive.) A 3DRudder kialakítása pedig képessé teszi a használóját, hogy a lába segítségével irányítson, elérhető továbbá konzol kontroller mintájára készített VR kontroller (Steelseries stratus XL) és 3D egér is (3DConnexion).
+
+A kontroller mellett VR kesztyűt is igen népszerű, ugyanis a kéz mozgását pontosabban alakítják digitális utasítássá.  A szenzorok beépítettek, külön követik az ujjak mozgását, mérik a gyorsulást, térbeli orientációt és gravitációs erőt.
+
+Glove One-nal súlyt is lehet szimulálni, a Teslasuit Glove, a HaptX lehetővé teszi, hogy a használója érezze a virtuális térben megfogott objektumot. 
+A Teslasuit-nak van továbbá VR ruhája is, ami segítségével még könnyebb és pontosabb a test mozgásának a követése, valamint képes a hőmérsékletet változteni lokálisan, így meleg vagy hideg hatást kelt a használója bőrén.
+
+\Section{AR típusok}
+
+\SubSection{Marker alapú (marker based)}
+
+Marker:  egy speciális azonosító, melyet  felismernek az érzékelők és a virtuális tartalmat (pl. 3D objektum) a relatív pozícióhoz igazítják.
+Marker lehet QR kód vagy egyszerűbb szimbólum, fekete négyzet, de adott esetben kép vagy objektum is. A lényeg, hogy egyedi legyen a környezetben és jól felismerhető.
+Ha az eszköz elmozdul, a marker eltűnik vagy nem felismerhető a tartalom eltűnik.
+
+\SubSection{Marker nélküli (markerless)}
+
+A SLAM (Simultaneous Localization and Mapping) az alapja. 
+Feltérképezi a környezetet és 3D modellként értelmezi, a tartalmat ehhez viszonyítva lehet pozícionálni, tájolni. A virtuális tartalom itt nem tűnik elmozdulás miatt, hisz nem egy adott markerhez, hanem az egész környezethez viszonyít.
+
+\SubSection{Projeciós}
+
+A legegyszerűbb típus. Fény vetítése (virtuális tartalom) a valós felülete és interakció ezzel. (pl numpad vetítése és a számok megérintése)
+
+\SubSection{Superimposition}
+
+Alternatív képet kapunk egy valós objektumról azáltal, hogy a valós látványt kicseréljük egy kiterjesztett-tel. (pl. egy emberre irányítva a kamerát a látvány kiegészül a csontjaival.) Használják a katonaságnál, egészségügyben. Ez már inkább MR. 
+
+\Section{Software, SDK}
+
+\SubSection{Apple ARKit}
+
+iOS 11-től elérhető, iPhone-ra és iPad-re való AR alkalmazások fejlesztéséhez. Visual-Inertial odometry (VIO) használ az eszköz mozgásának érzékeléséhez, meghatároz vízszintes objektumokat, mint például: padló, asztal. Az újabb verzió már jobban bevonja az embert is, az emberi test mozgását, pozícióját is meghatározza.
+
+\SubSection{Google ARCore}
+
+Androidos eszközökre (7. Verziótól felfelé).
+Mozgáskövetés, fényérzékelés, környezet felmérése (függőleges és vízszintes tárgyak felmérése, méretük)
+
+\SubSection{Vuforia}
+
+A 2D-s és 3D-s objektumok valós időben történő felismerésére, nyomon követésére. Az eszköz kameráján át tekintve lehetőség van az objektum pozícionálásra a valós objektumokhoz viszonyítva.
+
+Számos marker típust támogat, a “marker nélküli” kép- és objektum targeteket is, továbbá a VuMarkot.
+Elérhetők API-k: C++, Java, .NET nyelven a Unity révén, így iOS, Android és Windows és Linux operációs rendszerekkel ellátott eszközökre is fejleszthetők Vuforiát használva alkalmazások.
+
+\SubSection{Wikitude}
+
+Helyzetmeghatározást végez ( ez volt az első) a felhasználó pozícióját (Wifi vagy GPS) és irányát figyelembe véve. (accelerometer és iránytű segítségével)
+Ezenkívül képfelismerést és SLAM (simultaneous localization and mapping) használ. Az utóbbi lehetővé teszi, hogy elhagyjuk a markereket.
+iOS, Android, Windows.
+
+\SubSection{EasyAR}
+
+Marker alapú, kiváló kezdőknek. Lehetőség van Androidra és iOS-re, Windowsra való fejlesztésre is.
+
+\SubSection{Kudan}
+
+Támogatja a marker és a marker nélküle használatot is. 
+Lehetőség van Androidra és iOS-re, Windows-ra való fejlesztésre is.
+Tapasztaltabb fejlesztőknek ajánlott. 
+
+\SubSection{ARToolKit}
+
+Nyílt forráskódú. (GitHub-on megtalálható).
+Fekete négyzetet használ markerként.
+ARToolKit jelenlegi verziója: Windows, Mac OS,  Linux, Android, iOS
+Unity plugin-ként: Androidra és iOS
+
+\SubSection{MaxST}
+
+Kép követés, SLAM, objekt követés, QR/Barcode szkenner.
+
+\SubSection{AR Lab}
+
+Könnyű használni. A keretrendszer gondoskodik a funkciókról, leginkább a kinézetet kell alakítani.
+iOS, Android.
+
+\SubSection{Pikkart AR SDK}
+
+Könnyű használni, gyors.
+iOS, Android
+
+\SubSection{További API-k}
+
+\begin{itemize}
+\item Banuba FaceAR
+\item Google Cardboard
+\item WebXR Device 
+\item Vuforia VuMArk Generation
+\item NGrain
+\end{itemize}
+
+\Section{Unity}
+
+A Unity egy multiplatform játék motor (game engine), amellyel lehetőségünk van Windowsra Linuxra, Mac OS-re, iOS-re, Androidra, valamint Wii-re és konzolokra fejleszteni.
+
+Van üzleti és személyi változata is. Bizonyos keretek alatt ingyenes lehet a cégeknek is, nem csak a magánszemélyeknek.
