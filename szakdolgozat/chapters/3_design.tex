@@ -7,23 +7,69 @@
 Vonalkód, QR-kód, Aruco marker
 
 % TODO: Összegyűjteni az elérhető változatokat és kisebb összehasonlítást végezni.
+QR kód:
+
+A QR-kód (Quick Response-kód) egy kétdimenziós vonalkód (tulajdonképpen pontkód), amit a japán Denso-Wave cég fejlesztett ki 1994-ben. Nevét az angol Quick Response (=gyors válasz) rövidítéséből kapta, egyszerre utalva a gyors visszafejtési sebességre és a felhasználó által igényelt gyors reakcióra. 
+Jó tulajdonsága, hogy bármilyen irányból készülhet róla fénykép vagy szkennelt kép, nem kell törődni a kód helyes tájolásával. Ez azért lehetséges, mert a kód megfejtésére, dekódolására szolgáló programok a három sarokban elhelyezett jellegzetes, minden QR-kódban azonos minta alapján el tudják dönteni, milyen irányban kell a kód pontjait értelmezni, feldolgozni, még akkor is, ha a kódbélyegről készült kép teljesen ferde. 
+Másik jelentős pozitív tulajdonsága a kód skálázhatósága.
+A QR kódót érdemes körülvenni egy fehér kerettel, hogy jól elkülüníthető legyen.
+
+
+Fekete kerettel rendelkező markerek:
+
+A marker két részből áll, van egy fekete keret és egy belső minta. A belső minta lehet kép, egyedi bináris minta, stb..
+A lényeges a keret, hisz egy fekete téglalapot/négyzetet viszonylag egyszerűen és gyorsan fel lehet ismerni egy képen, meghatározni annak pozicióját a kamerához képest, sarok pontjait, a középpontját.
+Ilyen marker az ARToolKit marker (középen egy kép van, ami bináris képként lesz kezelve), ARTag, AprilTag, ArUco. (mindháromnál egy bináris minta van középen)
+
+Kombinálni is szokták a QR-kódot és a kerettel rendelkező markereket, vagy a QR kód van a keret belsejében vagy pedig a QR kód köpezén szerepel például egy ArUco marker.
+
+Befolyásolja a markerek detektálását a fényviszony, a kamerához viszonyított pozíció, a minta bonolyultsága, a szög amiben látszik és a nagyság is. Továbbá hátrány, hogy ha takarásra kerül egy része a markernek, akkor nem kesz felismerhető.
 
 \SubSection{Betanítható markerek}
 
 % Említés jelleggel, hogy milyen modernebb megoldások vannak hozzá.
 
+Azonban ma már bonyolultabb markerek is léteznek. Használhatók markerként megfelelő betanítás után objektumok(kólás üveg, pénz, stb..), GPS markerek (??).
+Léteznek továbbá úgynevezett marker nélküli AR alkalmazások, a szenzorok felmérik környezetet és megfelelő helyre poziciónálják a megjelenítendő objektumot. 
 \Section{Inerciális szenzorok}
 
 % Mobil eszközök esetében megnézni, hogy milyen adatok állnak rendelkezésre.
 
 \Section{Az Aruco marker használata}
 
-\SubSection{Típusai, használati módok}
+Az ArUco (Augmented Reality University of Cordoba) markereket 2014-ben fejlesztette ki kollégáival S.Garrido-Jurado. 
+Az ArUco könyvtár nyílt forráskódú és C++ nyelven íródott. 
+Ar ArUco markerek két részből állnak, egy fekete keretből és egy egyedi bináris mintából, ami azonosítja a markert.
+Megfelelő kamera kalibráció után a marker kerete kerül felismerésre, meghatározódnak a sarokponjai, a középpontja és a poziciója a kamerához képest.
 
+\SubSection{Típusai, használati módok}
+Az ArUco markerek különböző könyvtárakban érhetők el, a bináris minta különbözteti meg őket. A bináris minta lehet 4x4 mérettől a 7x7 méretig elérhető és ezekhez, 50, 100, 250, 1000 ids. Azonban minél bonyolultabb egy minta, minél nagyobb annál nehezen felismerni, ezért én a  DICT_4X4_50-t használtam. 
 \SubSection{Kamera kalibrálása}
+
+
+A kamera kalibrációjához sakktábla mintát használtam. Minden egyes négyzetnek egyforma méretűnk kell lennie a megfelelő ereményhez, jelen esetben ez 1.5 cm. 
+A kallibrációhoz olyan képek szükségesek, ahol a minta különböző szögekből és távolságokból látható.
+A calibrate() függvény végzni a kalibrációt a kódomban, ami a kép elérési útvonalát, a négyzetek méretét és az oszlopok és sorok számát várja el. A kalibráció során átadtam az elkészített képek elérési útvonalát, majd egy ciklusban minden képre végrehajtottam a megfelelő művelteket.
+Első lépésként a kép fekete-fehér változatára van szükség, majd a beépített cv2.findChessboardCorners() meg kell kereni a sakktábla sarkait.
+SUBPIX(???)
+Az összegyűjtött pontok segítségével bekalibráljuk a kamerát (cv2.calibrateCamera()) és visszatérési értékként megkapjuk a következőket:
+retval, cameraMatrix, distCoeffs, rvecs, tvecs. Ahol:
+
+- cameraMatrix: Bemeneti/kimenti 3x3 lebegőpontos kamera matrix A=⎡⎣⎢fx000fy0cxcy1⎤⎦⎥ 
+- distCoeffs: Bemeneti/kimenti torzítási együttható vektora: (k1,k2,p1,p2[,k3[,k4,k5,k6[,s1,s2,s3,s4[,τx,τy]]]])  4, 5, 8, 12 vagy 14 elemből áll.
+- rvecs: A mintákhoz tartozó elforgatási vektorok becsült kimeneti vektora(Rodrigues ), . Leírni a Rodriguest bővebben!!
+- tvecs	 A mintákhoz tartozó vektorok becsült kimeneti vektor
 
 % TODO: Kalibrációs tutorial alapján lemérni a kamera paramétereit. Közben dokumentálni, hogy mi miért történt, és hogy milyen eredményeket adott.
 
 \SubSection{Demo alkalmazás}
 
 % TODO: Leírni, hogy hogyan lehet OpenCV-ből használni.
+
+A demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a coe_mat és a dist_mat felhasználásával detektálja a markert az élő képen.
+A folyamatos kapcsolat érdekében végtelen ciklust indítunk. 
+Elsőnek is létre kell hozni a kapcsolatot a kamerával. A szürke változata kell az adott pillanatnyi képnek. Meg kell adni a megfelelő dictionary-t, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez DICT_4X4_50. 
+parameters = aruco.DetectorParameters_create()
+parameters.adaptiveThreshConstant = 10
+Majd ezeket és a mxt és dist felhasználva detektáljuk a markert.
+Ha talál a képen markert, akkor körbe rajzolja a markert, kijelöli a sarok pontját és ráteszi a 
