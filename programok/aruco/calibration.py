@@ -1,11 +1,12 @@
-import numpy as np
-import cv2
-import glob
-import argparse
-import sys
-import cv2.aruco as aruco
-import os.path
 from os import path
+import argparse
+import glob
+import os.path
+import sys
+
+import cv2
+import cv2.aruco as aruco
+import numpy as np
 
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
@@ -24,7 +25,8 @@ def calibrate(dirpath, prefix, image_format, square_size, width=9, height=6):
     if dirpath[-1:] == '/':
         dirpath = dirpath[:-1]
 
-    images = glob.glob(dirpath+'/' + prefix + '*.' + image_format)
+    # TODO: Use os.path.join instead!
+    images = glob.glob(dirpath + '/' + prefix + '*.' + image_format)
 
     for fname in images:
 
@@ -67,9 +69,8 @@ def track(matrix_coefficients, distortion_coefficients):
     while True:
 
         ret, frame = cap.read()
-        #frame = cv2.imread("kep.png")
 
-        image= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
         cv2.imshow('frame',image)
 
@@ -79,7 +80,6 @@ def track(matrix_coefficients, distortion_coefficients):
                                                             parameters=parameters,
                                                             cameraMatrix=matrix_coefficients,
                                                             distCoeff=distortion_coefficients)
-        #print(corners, ids, rejectedImgPoints)
         if np.all(ids is not None):
             for i in range(0, len(ids)):
 
@@ -95,10 +95,11 @@ def track(matrix_coefficients, distortion_coefficients):
 
 
 if __name__ == '__main__':
-    if((path.exists('log.txt'))):
-        mtx, dist=load_coefficients("/home/edit/pr/Calibration/log.txt")
+    if path.exists('log.txt'):
+        mtx, dist = load_coefficients("log.txt")
         track(mtx, dist)
     else:
-        ret, mtx, dist, rvecs, tvecs  = calibrate("/home/edit/pr/Calibration","image","png",1.5,6,9)
-        save_coefficients(mtx, dist, "/home/edit/pr/Calibration/log.txt")
+        ret, mtx, dist, rvecs, tvecs  = calibrate("images","image","png",1.5,6,9)
+        save_coefficients(mtx, dist, "log.txt")
         track(mts,dist)
+
