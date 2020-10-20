@@ -12,6 +12,8 @@ criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
 cap = cv2.VideoCapture(0)
 
+global rvec
+global tvec
 def calibrate(dirpath, prefix, image_format, square_size, width=9, height=6):
 
     objp = np.zeros((height*width, 3), np.float32)
@@ -66,13 +68,15 @@ def load_coefficients(path):
     return [camera_matrix, dist_matrix]
 
 def track(matrix_coefficients, distortion_coefficients):
-    while True:
-
+        global rvec
+        global tvec
         ret, frame = cap.read()
+
+    
 
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
-        cv2.imshow('frame',image)
+        #cv2.imshow('frame',image)
 
         parameters = aruco.DetectorParameters_create()
         parameters.adaptiveThreshConstant = 10
@@ -88,18 +92,7 @@ def track(matrix_coefficients, distortion_coefficients):
                 print(rvec,tvec)
                 aruco.drawAxis(frame, matrix_coefficients, distortion_coefficients, rvec, tvec, 0.01)
 
-                cv2.imshow('frame',frame)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-
-if __name__ == '__main__':
-    if path.exists('log.txt'):
-        mtx, dist = load_coefficients("log.txt")
-        track(mtx, dist)
-    else:
-        ret, mtx, dist, rvecs, tvecs  = calibrate("images","image","png",1.5,6,9)
-        save_coefficients(mtx, dist, "log.txt")
-        track(mtx,dist)
-
+                #cv2.imshow('frame',frame)
+                return True, frame, rvec, tvec
+        else:
+            return False, frame, 0,0
