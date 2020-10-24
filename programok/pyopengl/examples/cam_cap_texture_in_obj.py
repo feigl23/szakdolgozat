@@ -30,7 +30,8 @@ def keyboardF(key,x,y):
       sys.exit()
 
 def draw_cube():
-
+    
+        glPushMatrix()
         glClearDepth(1)
         glClearColor(0,0,0,0)
         glClear(GL_COLOR_BUFFER_BIT)
@@ -38,9 +39,9 @@ def draw_cube():
 
         glTranslatef(0.0,0.0,0)
         glScale(0.5,0.5,0.5)
-        glRotatef(-30,1.0,0.0,0.0)
-        glRotatef(-30,0.0,1.0,0.0)
-        glRotatef(-30,0.0,0.0,1.0)
+        glRotatef(30,1.0,0.0,0.0)
+        glRotatef(30,0.0,1.0,0.0)
+        glRotatef(30,0.0,0.0,1.0)
 
         glBegin(GL_QUADS)
         glTexCoord2f(0.0, 0.0); glVertex3f(-1.0, -1.0,  1.0)
@@ -68,6 +69,7 @@ def draw_cube():
         glTexCoord2f(1.0, 1.0); glVertex3f(-1.0,  1.0,  1.0)
         glTexCoord2f(0.0, 1.0); glVertex3f(-1.0,  1.0, -1.0)
         glEnd()
+        glPopMatrix()
 
 def cap_texture():
     red,frame = cap.read() #aktuális kamera kép
@@ -102,7 +104,6 @@ def cap_texture():
     glTexCoord2d(0.0, 0.0)
     glVertex3d(-1.0,  1.0,  0)
     glEnd()
-    draw_cube()
     glPopMatrix()
 
     glEnable(GL_DEPTH_TEST)
@@ -118,7 +119,7 @@ def main():
     glutInitWindowPosition(x, y);
     glutInitWindowSize(width,height);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
-    glutCreateWindow("Window with camera image texture")
+    glutCreateWindow("Object with camera image texture")
     glutDisplayFunc(cap_texture)
     glutKeyboardFunc(keyboardF)
     init()
