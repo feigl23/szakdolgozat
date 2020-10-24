@@ -20,7 +20,7 @@ hx = viewport[0]/3
 hy = viewport[1]/3
 srf = pygame.display.set_mode(viewport, OPENGL | DOUBLEBUF)
 
-
+cap = cv2.VideoCapture(0)
 
 glLightfv(GL_LIGHT0, GL_POSITION,  (-40, 100, 100, 0.0))
 glLightfv(GL_LIGHT0, GL_AMBIENT, (0.2, 0.2, 0.2, 1.0))
@@ -54,7 +54,7 @@ glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
 
 width, height = viewport
-gluPerspective(-90.0, width/float(height), 1, 100.0)
+gluPerspective(90.0, width/float(height), 1, 1000.0)
 
 glMatrixMode(GL_MODELVIEW)
 
@@ -126,16 +126,14 @@ while 1:
 
 
 
+
     keypress = pygame.key.get_pressed()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
-
     # RENDER OBJECT
-    glTranslate(5., -10., - 0)
-    glRotate(150, 1, 0, 0)
-    glRotate(0, 0, 1, 0)
 
+    glLoadIdentity()
 
     for i in range(20):
         glPushMatrix();
@@ -180,9 +178,9 @@ while 1:
 
     glPushMatrix()
 
-    glTranslate(-5, -35, 40)
-    glRotate(90+rx, 0, 0, 1)
-    #lRotate(180, 1, 0, 0)
+    glTranslate(0, 0, 0)
+    glRotate(-90+rx, 0, 0, 1)
+    glRotate(-180, 1, 0, 0)
 
     glBegin(GL_LINES)
     glColor3f(1, 0, 0)
