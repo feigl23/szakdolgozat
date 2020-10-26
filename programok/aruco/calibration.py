@@ -99,7 +99,7 @@ if __name__ == '__main__':
         mtx, dist = load_coefficients("log.txt")
         track(mtx, dist)
     else:
-        ret, mtx, dist, rvecs, tvecs  = calibrate("images","image","png",1.5,6,9)
+        ret, mtx, dist, rvecs, tvecs  = calibrate("images","image","png",0.015,6,9)
         save_coefficients(mtx, dist, "log.txt")
         track(mtx,dist)
 

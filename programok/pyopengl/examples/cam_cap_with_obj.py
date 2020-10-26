@@ -24,7 +24,7 @@ class Penguin:
         #gluPerspective(90, float(width)/float(height), 0.1, 100.0)
         glMatrixMode(GL_MODELVIEW)
 
-        self.penguin=OBJ("models/Penguin/PenguinBaseMesh.obj", swapyz=True)
+        self.penguin=OBJ("../models/Penguin/PenguinBaseMesh.obj", swapyz=True)
         self.penguin.generate()
 
     def keyboardF(self,key,x,y):
