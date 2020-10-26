@@ -7,8 +7,13 @@ import numpy as np
 class Box:
     def __init__(self):
         self.model=OBJ("../models/Crate/Crate1.obj", swapyz=True)
-        self.models = []
-        
+        self.models=[]
+
+    def generate(self):
+        for i in range(0, 82):
+            self.models.append(self.model)
+            self.models[i].generate()
+
     def drawn():
         for i in range(20):
             glPushMatrix();
