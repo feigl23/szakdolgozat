@@ -3,6 +3,7 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import numpy as np
 import cv2
+import cv2. aruco as aruco
 
 class Background:
 
@@ -11,12 +12,13 @@ class Background:
         self.image = None
 
     def gentext(self):
-    #glEnable(GL_TEXTURE_2D)
         self.texture_background = glGenTextures(1)
 
-    def make_bg_text(self,frame):
+    def make_bg_text(self,frame, run, mtx, dist,rvec, tvec):
         self.image = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
         heightI, widthI = self.image.shape[:2]
+        if(run):
+            aruco.drawAxis(self.image, mtx, dist, rvec, tvec, 0.1)
 
         glBindTexture(GL_TEXTURE_2D, self.texture_background)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
@@ -40,7 +42,6 @@ class Background:
         glEnable(GL_LIGHTING)
         glEnable(GL_LIGHT0)
         glDisable(GL_TEXTURE_2D)
-
 
     def draw_background(self):
         glMatrixMode(GL_PROJECTION)

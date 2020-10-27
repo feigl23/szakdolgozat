@@ -9,9 +9,6 @@ import numpy as np
 from camera import *
 from track import *
 from calibration import *
-from penguin import *
-from castle import *
-from box import *
 from background import *
 from drawscene import *
 
@@ -20,9 +17,6 @@ class arGame:
         self.camera = Camera()
         self.calibration = Calibration()
         self.track = Track()
-        self.castle = Castle()
-        self.penguin = Penguin()
-        self.box = Box()
         self.scene = DrawScene()
         self.background = Background()
         #self.view_matrix = np.array([])
@@ -40,6 +34,7 @@ class arGame:
         glLightfv(GL_LIGHT0, GL_DIFFUSE, (0.5, 0.5, 0.2, 1.0))
         self.calibration.calibrate("images","image","png",0.015,6,9)
         self.scene.init()
+        glEnable(GL_TEXTURE_2D)
         self.background.gentext()
 
     def keyboardF(self,key,x,y):
@@ -81,12 +76,11 @@ class arGame:
 
 
     def display(self):
+
         frame = self.camera.get_frame()
         self.track.find_aruco(frame,  self.calibration.mtx, self.calibration.dist)
-        print(self.track.run)
-        if(self.track.run):
-            aruco.drawAxis(frame, self.calibration.mtx, self.calibration.dist, self.track.rvec, self.track.tvec, 0.1)
-        self.background.make_bg_text(frame)
+
+        self.background.make_bg_text(frame, self.track.run, self.calibration.mtx, self.calibration.dist, self.track.rvec, self.track.tvec)
 
         if(self.track.run):
             self.scene.view(self.calibration.mtx, self.track.rvec, self.track.tvec, self.track.ids)
@@ -105,6 +99,7 @@ class arGame:
         glutSpecialFunc(self.arrows)
         self.initsc()
         glutDisplayFunc(self.display)
+        #glutIdleFunc(self.display)
         glutMainLoop()
 
 arGame=arGame()

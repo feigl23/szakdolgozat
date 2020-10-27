@@ -24,6 +24,6 @@ class Track:
             for i in range(0, len(self.ids)):
                 aruco.drawDetectedMarkers(frame, corners)
                 self.run = True
-                self.rvec, self.tvec ,_ = aruco.estimatePoseSingleMarkers(corners, 0.05, mtx, dist)
+                self.rvec, self.tvec ,_ = aruco.estimatePoseSingleMarkers(corners, 0.017, mtx, dist)
         else:
             self.run = False

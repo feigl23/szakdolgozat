@@ -5,7 +5,7 @@
 \SubSection{Klasszikus markeres megoldások}
 
 Vonalkód, QR-kód, Aruco marker
-
+% kellenek képek??
 % TODO: Összegyűjteni az elérhető változatokat és kisebb összehasonlítást végezni.
 QR kód:
 
@@ -13,55 +13,52 @@ A QR-kód (Quick Response-kód) egy kétdimenziós vonalkód (tulajdonképpen po
 Jó tulajdonsága, hogy bármilyen irányból készülhet róla fénykép vagy szkennelt kép, nem kell törődni a kód helyes tájolásával. Ez azért lehetséges, mert a kód megfejtésére, dekódolására szolgáló programok a három sarokban elhelyezett jellegzetes, minden QR-kódban azonos minta alapján el tudják dönteni, milyen irányban kell a kód pontjait értelmezni, feldolgozni, még akkor is, ha a kódbélyegről készült kép teljesen ferde. 
 Másik jelentős pozitív tulajdonsága a kód skálázhatósága.
 A QR kódót érdemes körülvenni egy fehér kerettel, hogy jól elkülüníthető legyen.
+% https://hu.wikipedia.org/wiki/QR-k%C3%B3d
 
+„Keretes” markerek:
 
-Fekete kerettel rendelkező markerek:
+Ezek a markerek két részből állnak; egy fekete keretből és egy belső mintából. A belső minta lehet kép, egyedi bináris minta, stb..
 
-A marker két részből áll, van egy fekete keret és egy belső minta. A belső minta lehet kép, egyedi bináris minta, stb..
-A lényeges a keret, hisz egy fekete téglalapot/négyzetet viszonylag egyszerűen és gyorsan fel lehet ismerni egy képen, meghatározni annak pozicióját a kamerához képest, sarok pontjait, a középpontját.
-Ilyen marker az ARToolKit marker (középen egy kép van, ami bináris képként lesz kezelve), ARTag, AprilTag, ArUco. (mindháromnál egy bináris minta van középen)
-
-Kombinálni is szokták a QR-kódot és a kerettel rendelkező markereket, vagy a QR kód van a keret belsejében vagy pedig a QR kód köpezén szerepel például egy ArUco marker.
-
-Befolyásolja a markerek detektálását a fényviszony, a kamerához viszonyított pozíció, a minta bonolyultsága, a szög amiben látszik és a nagyság is. Továbbá hátrány, hogy ha takarásra kerül egy része a markernek, akkor nem kesz felismerhető.
+A keret fontos szerepet tölt ne, hisz egy fekete téglalapot/négyzetet viszonylag egyszerűen és gyorsan fel lehet ismerni egy képen, meghatározni annak pozícióját a kamerához képest, sarok pontjait, a középpontját.
+Ilyen típusú marker az ARToolKit marker (középen egy kép van, ami bináris képként lesz kezelve), ARTag, AprilTag, ArUco. (mindháromnál egy bináris minta van középen)
+Kombinálni is szokták az egyszerűbb markereket: a QR-kódot és a kerettel rendelkező markereket, vagy a QR kód van a keret belsejében vagy pedig a QR kód közepén szerepel például egy ArUco marker.
 
 \SubSection{Betanítható markerek}
 
 % Említés jelleggel, hogy milyen modernebb megoldások vannak hozzá.
 
-Azonban ma már bonyolultabb markerek is léteznek. Használhatók markerként megfelelő betanítás után objektumok(kólás üveg, pénz, stb..), GPS markerek (??).
-Léteznek továbbá úgynevezett marker nélküli AR alkalmazások, a szenzorok felmérik környezetet és megfelelő helyre poziciónálják a megjelenítendő objektumot.
+A kiterjesztett valóság technikai fejlődéssel a markerek is bonyolultabbá váltak, lehetőség nyílt hétköznapi tárgyak, földrajzi koordináták (pl. PokemonGO), épületek és egyéb dolgok markerként kezelésére. Természetesen ezek detektálása nehezebb, illetve betanítást igényel.
+Léteznek továbbá úgynevezett marker nélküli (markerless) AR alkalmazások is, a szenzorok felmérik környezetet és megfelelő helyre pozicionálják a megjelenítendő objektumot/objektumokat. 
 
 \Section{Inerciális szenzorok}
+Az inerciális szenzorok gyorsulásérzékelőkből, giroszkópokból állnak.
+%KéSŐBB VISSZATÉRNI IDE 
 
 % Mobil eszközök esetében megnézni, hogy milyen adatok állnak rendelkezésre.
 
 % TODO: https://medium.com/@aliyasineser/aruco-marker-tracking-with-opencv-8cb844c26628
 
 \Section{Az Aruco marker használata}
-
-Az ArUco (Augmented Reality University of Cordoba) markereket 2014-ben fejlesztette ki kollégáival S.Garrido-Jurado. 
-Az ArUco könyvtár nyílt forráskódú és C++ nyelven íródott. 
+Az ArUco (Augmented Reality University of Cordoba) markereket 2014-ben fejlesztette ki kollégáival S.Garrido-Jurado Spanyolországban. 
+Az ArUco könyvtár nyílt forráskódú és C++ nyelven íródott, OpenCV alapú. 
 Ar ArUco markerek két részből állnak, egy fekete keretből és egy egyedi bináris mintából, ami azonosítja a markert.
-Megfelelő kamera kalibráció után a marker kerete kerül felismerésre, meghatározódnak a sarokponjai, a középpontja és a poziciója a kamerához képest.
-
+Az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozathoz. A detektálást számos beépített függvény segíti.
+%[kép]
 \SubSection{Típusai, használati módok}
 
 Az ArUco markerek különböző könyvtárakban érhetők el, a bináris minta különbözteti meg őket. A bináris minta lehet 4x4 mérettől a 7x7 méretig elérhető és ezekhez, 50, 100, 250, 1000 ids. Azonban minél bonyolultabb egy minta, minél nagyobb annál nehezen felismerni, ezért én a  \texttt{DICT\_4X4\_50}-t használtam.
 
 \SubSection{Kamera kalibrálása}
+A kamera kalibrációjához 6x9-es sakktábla mintát használtam. (A külső sáv nem számolandó bele, az a felismerést könnyíti, a belső minta számít.) 
+A kalibráció eredményességéhez a négyzeteknek szabályosnak, egyformának kell lenniük és fontos, hogy a nyomtatás során a minta ne torzuljon el, ne legyen átméretezve. 
+A pontosság növelése érdekében a képeket érdemes minél változatosabb szögben és távolságból elkészíteni. Valamint ügyelni kell arra, hogy a lap egyenes legyen, ezért célszerű megfelelő támaszt használni hozzá.
 
-A kamera kalibrációjához sakktábla mintát használtam. Minden egyes négyzetnek egyforma méretűnk kell lennie a megfelelő ereményhez, jelen esetben ez 1.5 cm. 
-A kallibrációhoz olyan képek szükségesek, ahol a minta különböző szögekből és távolságokból látható.
+A kalibráció során kapjuk meg a későbbiekben nélkülözhetetlen együttható (kamera) mátrixot, a disztorziós együtthatókat, az eltolási és forgatási vektorokat.
 
-A calibrate() függvény végzni a kalibrációt a kódomban, ami a kép elérési útvonalát, a négyzetek méretét és az oszlopok és sorok számát várja el. A kalibráció során átadtam az elkészített képek elérési útvonalát, majd egy ciklusban minden képre végrehajtottam a megfelelő művelteket.
-Első lépésként a kép fekete-fehér változatára van szükség, majd a beépített cv2.findChessboardCorners() meg kell kereni a sakktábla sarkait.
-SUBPIX(???)
-
-Az összegyűjtött pontok segítségével bekalibráljuk a kamerát (cv2.calibrateCamera()) és visszatérési értékként megkapjuk a következőket:
-retval, cameraMatrix, distCoeffs, rvecs, tvecs. Ahol:
-
-- cameraMatrix: Bemeneti/kimenti $3 \times 3$ lebegőpontos kamera matrix
+A kalibrációt végző függvénynek a sorok és oszlopok számára, a négyzetek oldalhosszára és a fent említett képekre van szüksége.
+A folyamat során meg kell határozni a sakktábla minta sarokpontjait (findChessboardCorners), pontosabbá tenni azok koordinátáit (cornerSubPix). Majd ezen pontokat (projekciós pontjai a sakktáblába mintának) , a objektum pontjait ( a minta pontjai a minta terében), a kép méretét kell megadni a calibrateCamera() függvénynek. 
+A kimenetei a függvénynek:
+- cameraMatrix: $3 \times 3$ lebegőpontos kamera matrix
 \[
 A = 
 \begin{bmatrix}
@@ -70,26 +67,38 @@ f_x & 0 & 0 \\
 0 & 0 & f_z \\
 \end{bmatrix}
 \]
-- distCoeffs: Bemeneti/kimenti torzítási együttható vektora:
+- distortionCoefficient: Bemeneti/kimenti torzítási együttható vektora:
 \[
 (k_1, k_2, p_1, p_2, [, k_3 [, k_4, k_5, k_6, [, s_1, s_2, s_3, s_4 [, \tau_x, \tau_y]]]])
 \]
-4, 5, 8, 12 vagy 14 elemből áll.
-- rvecs: A mintákhoz tartozó elforgatási vektorok becsült kimeneti vektora(Rodrigues ), . Leírni a Rodriguest bővebben!!
-- tvecs	 A mintákhoz tartozó vektorok becsült kimeneti vektor
+4, 5, 8, 12 vagy 14 elemből állhat.
+- rvecs: A mintákhoz tartozó elforgatási vektorok becsült kimeneti vektora.
+
+- tvecs  A mintákhoz tartozó vektorok becsült kimeneti vektor
+
+
+KÉP montázs
+szöveg alá: A kalibráció felhasznált képek közül pár darab
+
+%https://docs.opencv.org/master/d9/d0c/group__calib3d.html
+%https://medium.com/@aliyasineser/opencv-camera-calibration-e9a48bdd1844
 
 % TODO: Kalibrációs tutorial alapján lemérni a kamera paramétereit. Közben dokumentálni, hogy mi miért történt, és hogy milyen eredményeket adott.
 
 \SubSection{Demo alkalmazás}
 
 % TODO: Leírni, hogy hogyan lehet OpenCV-ből használni.
+A markerek detektálását befolyásolja a fényviszony, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a nagysága is. Továbbá óriási hátrány, hogy ha takarásra kerül egy része a markernek, akkor nem lesz felismerhető.
 
-A demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a \texttt{coe\_mat} és a \texttt{dist\_mat} felhasználásával detektálja a markert az élő képen.
-A folyamatos kapcsolat érdekében végtelen ciklust indítunk. 
-Elsőnek is létre kell hozni a kapcsolatot a kamerával. A szürke változata kell az adott pillanatnyi képnek. Meg kell adni a megfelelő dictionary-t, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez \texttt{DICT\_4X4\_50}.
+Az ArUco marker felismerésére használt demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a kalibrációból kapott \texttt{camera\_matrix} és a \texttt{dist\_Coefficient} felhasználásával detektálja a markert az élő képen.
+
+A folyamatos kapcsolat érdekében végtelen ciklust indul. Majd kapcsolatot kell teremteni a kamerával és mindig az adott pillanatnyi képpel dolgozni. 
+Meg kell adni a megfelelő könyvtárat, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez \texttt{DICT\_4X4\_100}.
 \begin{python}
+aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_100)
 parameters = aruco.DetectorParameters_create()
 parameters.adaptiveThreshConstant = 10
 \end{python}
-Majd ezeket és a mxt és dist felhasználva detektáljuk a markert.
-Ha talál a képen markert, akkor körbe rajzolja a markert, kijelöli a sarok pontját és ráteszi a marker koordinátarendszeréhez tartozó triédert.
+
+Majd ezeket és a kamera mátrixot és disztorziós együtthatókat felhasználva detektáljuk a markert.
+Ha talál a képen markert, akkor körbe rajzolja azt, kijelöli a sarok pontját és ráteszi a marker koordináta rendszeréhez tartozó triédert.

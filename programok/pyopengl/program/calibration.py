@@ -1,9 +1,7 @@
-import argparse
+from os import path
 import glob
-import os.path
 import sys
 
-from os import path
 import cv2
 import cv2.aruco as aruco
 import numpy as np

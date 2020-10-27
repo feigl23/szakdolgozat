@@ -17,6 +17,6 @@ class Penguin:
         glEnable(GL_TEXTURE_2D)
         glRotatef(self.model.rot_z,1,0,0)
         glTranslatef(self.model.x,self.model.y,self.model.z)
-        glScalef(3,3,3)
+        glScalef(6,6,6)
         self.model.render()
         glPopMatrix()

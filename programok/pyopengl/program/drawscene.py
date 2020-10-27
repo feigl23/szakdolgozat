@@ -39,7 +39,7 @@ class DrawScene:
             [0,          0,       -(f+n)/(f-n), (-2.0*f*n)/(f-n)],
             [0,          0,       -1,           0               ],
         ])
-        glLoadTransposeMatrixd(m1.T)
+        glLoadTransposeMatrixd(m1)
 
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
@@ -54,7 +54,7 @@ class DrawScene:
             rvec[0][0][2] = -rvec[0][0][2]
             m = self.compositeArray(cv2.Rodrigues(rvec)[0], tvec[0][0])
 
-            glLoadTransposeMatrixd(m.T)
+            glLoadTransposeMatrixd(m)
 
             self.models()
 
@@ -62,3 +62,4 @@ class DrawScene:
 
     def models(self):
         self.penguin.drawn()
+        self.castle.drawn()

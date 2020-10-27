@@ -11,10 +11,9 @@ class Castle():
 
     def drawn(self):
         glPushMatrix()
+        glRotatef(180,1,0,0)
+        glTranslatef(0,0,60)
+        glScalef(0.4,0.4,0.4)
         glEnable(GL_TEXTURE_2D)
-        #glRotatef(180,1,0,0)
-        glTranslatef(0,0,-20)
-        glTranslatef(0,0,0)
-        glScalef(4,4,4)
         self.model.render()
         glPopMatrix()
