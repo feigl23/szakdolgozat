@@ -86,7 +86,7 @@ def track(matrix_coefficients, distortion_coefficients):
                 aruco.drawDetectedMarkers(frame, corners)
                 rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners, 0.05, matrix_coefficients, distortion_coefficients)
                 print(rvec,tvec)
-                aruco.drawAxis(frame, matrix_coefficients, distortion_coefficients, rvec, tvec, 0.01)
+                aruco.drawAxis(frame, matrix_coefficients, distortion_coefficients, rvec, tvec, 0.05)
 
                 cv2.imshow('frame',frame)
 
@@ -99,7 +99,6 @@ if __name__ == '__main__':
         mtx, dist = load_coefficients("log.txt")
         track(mtx, dist)
     else:
-        ret, mtx, dist, rvecs, tvecs  = calibrate("images","image","png",0.015,6,9)
+        ret, mtx, dist, rvecs, tvecs  = calibrate("images","image","jpg",0.015,6,9)
         save_coefficients(mtx, dist, "log.txt")
         track(mtx,dist)
-

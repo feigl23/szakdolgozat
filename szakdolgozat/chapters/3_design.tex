@@ -2,103 +2,147 @@
 
 \Section{Markerek}
 
-\SubSection{Klasszikus markeres megoldások}
+\SubSection{Klasszikus markeres megoldások}\\
+A kiterjeszetett valóság fontos eszköze a marker, ami a model/modellek térben való elhelyezésében segít. Számos nyílt forráskodú könytár rendelkezésre áll a klasszikus értelemben vett markerekből.\\
 
-Vonalkód, QR-kód, Aruco marker
-% kellenek képek??
-% TODO: Összegyűjteni az elérhető változatokat és kisebb összehasonlítást végezni.
-QR kód:
+{\bf Vonalkód, QR-kód:}\\
+„A  QR  kód vagyis Quick  Response  (gyors  válasz) egy  mátrix  vonalkód,  vagy  más  néven kétdimenziós kód, mely intelligensebb, több információt hordoz magában a vonalkódoknál: míg egy vonalkód mintegy 13 számjegyet tárol, addig a QR kód 7000 számot és 4300 alfanumerikus karaktert illetve weboldalak címeit (URL),nagy terjedelmű szöveget és telefonszámokat is képes tárolni, bármilyen nyelven.”\\
 
-A QR-kód (Quick Response-kód) egy kétdimenziós vonalkód (tulajdonképpen pontkód), amit a japán Denso-Wave cég fejlesztett ki 1994-ben. Nevét az angol Quick Response (=gyors válasz) rövidítéséből kapta, egyszerre utalva a gyors visszafejtési sebességre és a felhasználó által igényelt gyors reakcióra. 
-Jó tulajdonsága, hogy bármilyen irányból készülhet róla fénykép vagy szkennelt kép, nem kell törődni a kód helyes tájolásával. Ez azért lehetséges, mert a kód megfejtésére, dekódolására szolgáló programok a három sarokban elhelyezett jellegzetes, minden QR-kódban azonos minta alapján el tudják dönteni, milyen irányban kell a kód pontjait értelmezni, feldolgozni, még akkor is, ha a kódbélyegről készült kép teljesen ferde. 
-Másik jelentős pozitív tulajdonsága a kód skálázhatósága.
-A QR kódót érdemes körülvenni egy fehér kerettel, hogy jól elkülüníthető legyen.
-% https://hu.wikipedia.org/wiki/QR-k%C3%B3d
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=4.8truecm, height=2truecm]{images/qr_bar.png}
+	\caption{Vonalkód, QR-kód}
+\end{figure}
 
-„Keretes” markerek:
+{\bf „Keretes” markerek:}
 
-Ezek a markerek két részből állnak; egy fekete keretből és egy belső mintából. A belső minta lehet kép, egyedi bináris minta, stb..
+Az ilyen típusú markerek két részből állnak; egy fekete keretből, ami a felismerést segití és egy belső mintából. A belső minta lehet kép, egyedi bináris minta.
 
-A keret fontos szerepet tölt ne, hisz egy fekete téglalapot/négyzetet viszonylag egyszerűen és gyorsan fel lehet ismerni egy képen, meghatározni annak pozícióját a kamerához képest, sarok pontjait, a középpontját.
+A keret fontos szerepet tölt be, hisz egy fekete téglalapot/négyzetet viszonylag egyszerűen és gyorsan fel lehet ismerni egy képen, meghatározni annak pozícióját a kamerához képest, sarok pontjait, a középpontját.
 Ilyen típusú marker az ARToolKit marker (középen egy kép van, ami bináris képként lesz kezelve), ARTag, AprilTag, ArUco. (mindháromnál egy bináris minta van középen)
 Kombinálni is szokták az egyszerűbb markereket: a QR-kódot és a kerettel rendelkező markereket, vagy a QR kód van a keret belsejében vagy pedig a QR kód közepén szerepel például egy ArUco marker.
 
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=3truecm, height=3truecm]{images/markerek.png}
+	\caption{ArToolKit, ARTag, AprilTag, ArUco}
+\end{figure}
+
+
 \SubSection{Betanítható markerek}
 
-% Említés jelleggel, hogy milyen modernebb megoldások vannak hozzá.
+A kiterjesztett valóság technikai fejlődéssel a markerek is bonyolultabbá váltak, lehetőség nyílt hétköznapi tárgyak, földrajzi koordináták (pl. PokemonGO), épületek és egyéb dolgok markerként kezelésére.
 
-A kiterjesztett valóság technikai fejlődéssel a markerek is bonyolultabbá váltak, lehetőség nyílt hétköznapi tárgyak, földrajzi koordináták (pl. PokemonGO), épületek és egyéb dolgok markerként kezelésére. Természetesen ezek detektálása nehezebb, illetve betanítást igényel.
+Természetesen ezek detektálása nehezebb, illetve betanítást igényel.
 Léteznek továbbá úgynevezett marker nélküli (markerless) AR alkalmazások is, a szenzorok felmérik környezetet és megfelelő helyre pozicionálják a megjelenítendő objektumot/objektumokat. 
 
 \Section{Inerciális szenzorok}
-Az inerciális szenzorok gyorsulásérzékelőkből, giroszkópokból állnak.
-%KéSŐBB VISSZATÉRNI IDE 
+Az inerciális szenzorok gyorsulásérzékelőkből, giroszkópokból magnetométerekből állnak.
 
-% Mobil eszközök esetében megnézni, hogy milyen adatok állnak rendelkezésre.
+
+
+\Section{Az Aruco marker használata}
+
+Az ArUco (Augmented Reality University of Cordoba) markereket 2014-ben fejlesztette ki kollégáival S.Garrido-Jurado Spanyolországban. 
+
+Az ArUco könyvtár nyílt forráskódú és C++ nyelven íródott, OpenCV alapú. 
+Ar ArUco markerek két részből állnak, egy fekete keretből és egy egyedi bináris mintából, ami azonosítja a markert.
+
+Az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozathoz. A detektálást számos beépített függvény segíti.\\
+
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=4.8truecm, height=3truecm]{images/kep.png}
+	\caption{Aruco markerek a 4X4-es könyvtárból}
+\end{figure}
+
+\SubSection{Típusai, használati módok}
+
+Az ArUco markerek különböző könyvtárak érhetőek el, a minta mérete és belső mindta oszlop és sor száma tér el. A bináris minta  4x4 mérettől a 7x7 méretig elérhető ( ez a belső mint a és ezekhez, 50, 100, 250, 1000 az oldalméret ez mm-ben értendő). Azonban minél bonyolultabb egy minta és minél nagyobb annál nehezen felismerni, ezért én a  \texttt{DICT\_4X4\_100}-t használtam.
+
+\SubSection{Kamera kalibrálása}
 
 % TODO: https://medium.com/@aliyasineser/aruco-marker-tracking-with-opencv-8cb844c26628
 
-\Section{Az Aruco marker használata}
-Az ArUco (Augmented Reality University of Cordoba) markereket 2014-ben fejlesztette ki kollégáival S.Garrido-Jurado Spanyolországban. 
-Az ArUco könyvtár nyílt forráskódú és C++ nyelven íródott, OpenCV alapú. 
-Ar ArUco markerek két részből állnak, egy fekete keretből és egy egyedi bináris mintából, ami azonosítja a markert.
-Az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozathoz. A detektálást számos beépített függvény segíti.
-%[kép]
-\SubSection{Típusai, használati módok}
-
-Az ArUco markerek különböző könyvtárakban érhetők el, a bináris minta különbözteti meg őket. A bináris minta lehet 4x4 mérettől a 7x7 méretig elérhető és ezekhez, 50, 100, 250, 1000 ids. Azonban minél bonyolultabb egy minta, minél nagyobb annál nehezen felismerni, ezért én a  \texttt{DICT\_4X4\_50}-t használtam.
-
-\SubSection{Kamera kalibrálása}
 A kamera kalibrációjához 6x9-es sakktábla mintát használtam. (A külső sáv nem számolandó bele, az a felismerést könnyíti, a belső minta számít.) 
+
 A kalibráció eredményességéhez a négyzeteknek szabályosnak, egyformának kell lenniük és fontos, hogy a nyomtatás során a minta ne torzuljon el, ne legyen átméretezve. 
+
 A pontosság növelése érdekében a képeket érdemes minél változatosabb szögben és távolságból elkészíteni. Valamint ügyelni kell arra, hogy a lap egyenes legyen, ezért célszerű megfelelő támaszt használni hozzá.
 
 A kalibráció során kapjuk meg a későbbiekben nélkülözhetetlen együttható (kamera) mátrixot, a disztorziós együtthatókat, az eltolási és forgatási vektorokat.
 
 A kalibrációt végző függvénynek a sorok és oszlopok számára, a négyzetek oldalhosszára és a fent említett képekre van szüksége.
-A folyamat során meg kell határozni a sakktábla minta sarokpontjait (findChessboardCorners), pontosabbá tenni azok koordinátáit (cornerSubPix). Majd ezen pontokat (projekciós pontjai a sakktáblába mintának) , a objektum pontjait ( a minta pontjai a minta terében), a kép méretét kell megadni a calibrateCamera() függvénynek. 
+
+A folyamat során meg kell határozni a sakktábla minta sarokpontjait \\
+\texttt{findChessboardCorners()} függvénnyel, pontosabbá tenni azok koordinátáit \\
+\texttt{cornerSubPix()} -lel. Majd ezen pontokat, (projekciós pontjai a sakktáblába mintának) a objektum pontjait ( a minta pontjai a minta terében), a kép méretét kell megadni \texttt{calibrateCamera()} függvénynek. \\
+
+\begin{python}
+  ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints,
+   imgpoints, gray.shape[::-1], None, None)
+\end{python} 
+
 A kimenetei a függvénynek:
-- cameraMatrix: $3 \times 3$ lebegőpontos kamera matrix
+\begin{itemize}
+\item {\bf cameraMatrix}: $3 \times 3$ lebegőpontos kamera matrix
 \[
 A = 
 \begin{bmatrix}
-f_x & 0 & 0 \\
-0 & f_y & 0 \\
-0 & 0 & f_z \\
+	f_x & 0 & 0 \\
+	0 & f_y & 0 \\
+	0 & 0 & f_z \\
 \end{bmatrix}
 \]
-- distortionCoefficient: Bemeneti/kimenti torzítási együttható vektora:
+
+\item {\bf distortionCoefficient}: Bemeneti/kimenti torzítási együttható vektora:
 \[
 (k_1, k_2, p_1, p_2, [, k_3 [, k_4, k_5, k_6, [, s_1, s_2, s_3, s_4 [, \tau_x, \tau_y]]]])
 \]
 4, 5, 8, 12 vagy 14 elemből állhat.
-- rvecs: A mintákhoz tartozó elforgatási vektorok becsült kimeneti vektora.
 
-- tvecs  A mintákhoz tartozó vektorok becsült kimeneti vektor
+\item {\bf rvecs}: A mintákhoz tartozó elforgatási vektorok becsült kimeneti vektora.
+
+\item {\bf tvecs}  A mintákhoz tartozó vektorok becsült kimeneti vektor
+\end{itemize}
 
 
-KÉP montázs
-szöveg alá: A kalibráció felhasznált képek közül pár darab
-
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=7truecm, height=6truecm]{images/calibration.jpg}
+	\caption{Kalibráláshoz használt képek közül néhány}
+\end{figure}
 %https://docs.opencv.org/master/d9/d0c/group__calib3d.html
 %https://medium.com/@aliyasineser/opencv-camera-calibration-e9a48bdd1844
 
-% TODO: Kalibrációs tutorial alapján lemérni a kamera paramétereit. Közben dokumentálni, hogy mi miért történt, és hogy milyen eredményeket adott.
-
 \SubSection{Demo alkalmazás}
 
-% TODO: Leírni, hogy hogyan lehet OpenCV-ből használni.
 A markerek detektálását befolyásolja a fényviszony, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a nagysága is. Továbbá óriási hátrány, hogy ha takarásra kerül egy része a markernek, akkor nem lesz felismerhető.
 
 Az ArUco marker felismerésére használt demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a kalibrációból kapott \texttt{camera\_matrix} és a \texttt{dist\_Coefficient} felhasználásával detektálja a markert az élő képen.
 
 A folyamatos kapcsolat érdekében végtelen ciklust indul. Majd kapcsolatot kell teremteni a kamerával és mindig az adott pillanatnyi képpel dolgozni. 
-Meg kell adni a megfelelő könyvtárat, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez \texttt{DICT\_4X4\_100}.
+Meg kell adni a megfelelő könyvtárat, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez  \texttt{DICT\_4X4\_100}.\\
+
 \begin{python}
-aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_100)
-parameters = aruco.DetectorParameters_create()
-parameters.adaptiveThreshConstant = 10
+aruco_dict = aruco.Dictionary_get(aruco.\texttt{DICT\_4X4\_100})
 \end{python}
 
+
 Majd ezeket és a kamera mátrixot és disztorziós együtthatókat felhasználva detektáljuk a markert.
-Ha talál a képen markert, akkor körbe rajzolja azt, kijelöli a sarok pontját és ráteszi a marker koordináta rendszeréhez tartozó triédert.
+Ha talál a képen markert, akkor körbe rajzolja azt, kijelöli a sarok pontját és ráteszi a marker koordináta rendszeréhez tartozó triédert.\\
+
+\begin{python}
+rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners,
+0.17, matrix_coefficients, distortion_coefficients)       
+aruco.drawAxis(frame, matrix_coefficients, distortion_coefficients, 
+rvec, tvec, 0.01)
+\end{python}
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=4truecm, height=2.8truecm]{images/felismeres_aruco.png}
+	\caption{A demó eredménye}
+\end{figure}
+
+\SubSection{A marker felismerésére készített program tesztje:}
+
