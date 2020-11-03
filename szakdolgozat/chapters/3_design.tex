@@ -19,8 +19,10 @@ A kiterjeszetett valóság fontos eszköze a marker, ami a model/modellek térbe
 Az ilyen típusú markerek két részből állnak; egy fekete keretből, ami a felismerést segití és egy belső mintából. A belső minta lehet kép, egyedi bináris minta.
 
 A keret fontos szerepet tölt be, hisz egy fekete téglalapot/négyzetet viszonylag egyszerűen és gyorsan fel lehet ismerni egy képen, meghatározni annak pozícióját a kamerához képest, sarok pontjait, a középpontját.
+
 Ilyen típusú marker az ARToolKit marker (középen egy kép van, ami bináris képként lesz kezelve), ARTag, AprilTag, ArUco. (mindháromnál egy bináris minta van középen)
-Kombinálni is szokták az egyszerűbb markereket: a QR-kódot és a kerettel rendelkező markereket, vagy a QR kód van a keret belsejében vagy pedig a QR kód közepén szerepel például egy ArUco marker.
+
+Kombinálni is szokták az egyszerűbb markereket: a QR-kódot és a kerettel rendelkező markereket, vagy a QR kód van a keret belsejében vagy pedig a QR kód közepén szerepel például egy ArUco marker vagy egy kép (pl.VuMark).
 
 \begin{figure}[htp]
     \centering
@@ -31,15 +33,14 @@ Kombinálni is szokták az egyszerűbb markereket: a QR-kódot és a kerettel re
 
 \SubSection{Betanítható markerek}
 
-A kiterjesztett valóság technikai fejlődéssel a markerek is bonyolultabbá váltak, lehetőség nyílt hétköznapi tárgyak, földrajzi koordináták (pl. PokemonGO), épületek és egyéb dolgok markerként kezelésére.
+A kiterjesztett valóság technikai fejlődéssel a markerek is bonyolultabbá váltak, lehetőség nyílt hétköznapi tárgyak, épületek és egyéb dolgok markerként kezelésére.
 
 Természetesen ezek detektálása nehezebb, illetve betanítást igényel.
-Léteznek továbbá úgynevezett marker nélküli (markerless) AR alkalmazások is, a szenzorok felmérik környezetet és megfelelő helyre pozicionálják a megjelenítendő objektumot/objektumokat. 
+
+Léteznek továbbá úgynevezett marker nélküli (markerless) AR alkalmazások is, a szenzorok felmérik környezetet és megfelelő helyre pozicionálják a megjelenítendő objektumot/objektumokat. (pl. földrajzi koordináták felhasználása: PokemonGO)
 
 \Section{Inerciális szenzorok}
 Az inerciális szenzorok gyorsulásérzékelőkből, giroszkópokból magnetométerekből állnak.
-
-
 
 \Section{Az Aruco marker használata}
 
@@ -58,7 +59,11 @@ Az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozathoz. A dete
 
 \SubSection{Típusai, használati módok}
 
-Az ArUco markerek különböző könyvtárak érhetőek el, a minta mérete és belső mindta oszlop és sor száma tér el. A bináris minta  4x4 mérettől a 7x7 méretig elérhető ( ez a belső mint a és ezekhez, 50, 100, 250, 1000 az oldalméret ez mm-ben értendő). Azonban minél bonyolultabb egy minta és minél nagyobb annál nehezen felismerni, ezért én a  \texttt{DICT\_4X4\_100}-t használtam.
+Az ArUco markerek különböző könyvtárak érhetőek el, a minta mérete és belső mindta oszlop és sor száma tér el.
+
+A bináris minta  4x4 mérettől a 7x7 méretig elérhető ( ez a belső mint a és ezekhez, 50, 100, 250, 1000 az oldalméret ez mm-ben értendő).
+
+Azonban minél bonyolultabb egy minta és minél nagyobb annál nehezen felismerni, ezért én a  \texttt{DICT\_4X4\_100}-t használtam.
 
 \SubSection{Kamera kalibrálása}
 
@@ -117,20 +122,28 @@ A =
 
 \SubSection{Demo alkalmazás}
 
-A markerek detektálását befolyásolja a fényviszony, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a nagysága is. Továbbá óriási hátrány, hogy ha takarásra kerül egy része a markernek, akkor nem lesz felismerhető.
+A markerek detektálását befolyásolja a fényviszony, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a mérete. Továbbá óriási hátrány, hogy ha takarásra kerül egy része a markernek, akkor nem lesz felismerhető.
 
 Az ArUco marker felismerésére használt demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a kalibrációból kapott \texttt{camera\_matrix} és a \texttt{dist\_Coefficient} felhasználásával detektálja a markert az élő képen.
 
 A folyamatos kapcsolat érdekében végtelen ciklust indul. Majd kapcsolatot kell teremteni a kamerával és mindig az adott pillanatnyi képpel dolgozni. 
-Meg kell adni a megfelelő könyvtárat, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez  \texttt{DICT\_4X4\_100}.\\
-
+Meg kell adni a megfelelő könyvtárat, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez  \texttt{DICT\_4X4\_100}.
 \begin{python}
 aruco_dict = aruco.Dictionary_get(aruco.\texttt{DICT\_4X4\_100})
 \end{python}
 
+Majd ezt a változót,a paramétereket, a képet, a kamera mátrixot és disztorziós együtthatókat felhasználva detektáljuk a markert a \texttt{aruco.detectMarker()} függvény segítségével.
 
-Majd ezeket és a kamera mátrixot és disztorziós együtthatókat felhasználva detektáljuk a markert.
-Ha talál a képen markert, akkor körbe rajzolja azt, kijelöli a sarok pontját és ráteszi a marker koordináta rendszeréhez tartozó triédert.\\
+\begin{python}
+corners, ids, rejectedImgPoints = aruco.detectMarkers(image, aruco_dict,
+parameters=parameters,
+cameraMatrix=mtx,
+distCoeff=dist)
+\end{python}
+
+Eredményként a sarok pontokat, forgásvektorok és eltolási vektorok tömbjét kapjuk meg, amik a markerre való rajzolásnál kapnak majd nagyobb szerepet.
+
+Ha talál a képen markert a program, akkor körbe rajzolja azt, kijelöli a felső sarok pontját és ráteszi a képre marker koordináta rendszeréhez tartozó triédert.\\
 
 \begin{python}
 rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners,
@@ -145,4 +158,26 @@ rvec, tvec, 0.01)
 \end{figure}
 
 \SubSection{A marker felismerésére készített program tesztje:}
+
+A programban az ArUco marker felismerés egy olyan függvényként jelenik meg, ami megkap egy képet és ha talál rajta markert, akkor visszaadja a megfelelő vektorokat. (forgás és eltolás)
+
+Ezen programrésznek a tesztelésére készítettem a nyomtatott markeremről pár képet és megnéztem milyen eredményeket ad vissza és felismeri-e a képen szereplő markert.
+
+Azon kijelentés, hogy ha takarásba kerül a marker bármely része, akkor nem lesz továbbá felismerhető teljesen helytálló, hisz legyen bármilyen kicsi az eltakart rész a program nem ismeri fel. 
+
+A képek, ahol felismerte a markert:
+
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=6truecm, height=4.8truecm]{images/detect.jpg}
+	\caption{sikeres detektálás}
+\end{figure}
+
+
+A képek, ahol nem ismerte fel a markert:
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=6truecm, height=4.8truecm]{images/not_detect.jpg}
+	\caption{sikertelen detektálás}
+\end{figure}
 

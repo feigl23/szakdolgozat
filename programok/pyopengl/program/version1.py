@@ -80,41 +80,38 @@ class Penguin:
         glPushMatrix()
 
         if not ids is None:
-            tvec[0][0][0] = tvec[0][0][0]
+            tvec[0][0][0] = -tvec[0][0][0]
             tvec[0][0][1] = -tvec[0][0][1]
-            tvec[0][0][2] = -tvec[0][0][2]
+            tvec[0][0][2] = - tvec[0][0][2]
 
             rvec[0][0][1] = -rvec[0][0][1]
             rvec[0][0][2] = -rvec[0][0][2]
             m = self.compositeArray(cv2.Rodrigues(rvec)[0], tvec[0][0])
 
-            glLoadTransposeMatrixd(m.T)
-
-            glPushMatrix()
-
-
-            glPushMatrix()
-            glEnable(GL_TEXTURE_2D)
-            glRotatef(180,1,0,0)
-            #glTranslatef(0,0,-20)
+            #glLoadTransposeMatrixd(m.T)
+            glTranslate(tvec[0][0][0],  tvec[0][0][1],  tvec[0][0][2])
+            #glEnable(GL_TEXTURE_2D)
+            #glRotatef(180,1,0,0)
+            #glTranslatef(-10,0,0)
             #glTranslatef(0,0,0)
             glScalef(4,4,4)
-            #glBegin(GL_LINES)
-            #glColor3f(1, 0, 0)
-            #glVertex3f(0, 0, 0)
-            #glVertex3f(-50, 0, 0)
+            glTranslate(0,0,-20)
+            glBegin(GL_LINES)
+            glColor3f(1, 0, 0)
+            glVertex3f(0, 0, 0)
+            glVertex3f(10, 0, 0)
 
-            #glColor3f(0, 1, 0)
-            #glVertex3f(0, 0, 0)
-            #glVertex3f(0, -50, 0)
+            glColor3f(0, 1, 0)
+            glVertex3f(0, 0, 0)
+            glVertex3f(0, 10, 0)
 
-            #glColor3f(0, 0, 1)
-            #glVertex3f(0, 0, 0)
-            #glVertex3f(0, 0, -50)
-            #glEnd()
-            self.penguin.render()
-            glPopMatrix()
-            glPopMatrix()
+            glColor3f(0, 0, 1)
+            glVertex3f(0, 0, 0)
+            glVertex3f(0, 0, 10)
+            glEnd()
+            #self.penguin.render()
+
+
 
         glPopMatrix()
 

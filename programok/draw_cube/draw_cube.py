@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# A példához felhasználva: http://openglsamples.sourceforge.net/cube_py.html
+# A példához felhasználva: http://openglsamples.sourceforge.net/cube_py.html (kocka)
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -44,7 +44,7 @@ def draw_cube():
         glVertex3f(-1.0,-1.0,-1.0)
         glVertex3f( 1.0,-1.0,-1.0)
 
-        glColor3f(0.0,1.0,0.0)
+        glColor3f(1.0,0.0,1.0)
         glVertex3f( 1.0, 1.0, 1.0)
         glVertex3f(-1.0, 1.0, 1.0)
         glVertex3f(-1.0,-1.0, 1.0)

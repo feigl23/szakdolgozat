@@ -20,11 +20,10 @@ class Penguin:
         glShadeModel(GL_SMOOTH)
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
-        gluPerspective(33.7, 1.3, 0.1, 100.0)
-        #gluPerspective(90, float(width)/float(height), 0.1, 100.0)
+        gluPerspective(90, float(640)/float(480), 0.1, 100.0)
         glMatrixMode(GL_MODELVIEW)
 
-        self.penguin=OBJ("../models/Penguin/PenguinBaseMesh.obj", swapyz=True)
+        self.penguin=OBJ("models/Penguin/PenguinBaseMesh.obj", swapyz=True)
         self.penguin.generate()
 
     def keyboardF(self,key,x,y):
@@ -32,11 +31,15 @@ class Penguin:
           sys.exit()
 
     def draw_obj(self):
+        glEnable(GL_TEXTURE_2D)
+        glLoadIdentity()
+
         glScale(0.3,0.3,0.3)
         glRotate(90,1,0,0)
         glRotate(180,0,1,0)
         glRotate(-180,0,0,1)
         glTranslatef(0,-3,0)
+        
         self.penguin.render()
 
     def cap_texture(self):

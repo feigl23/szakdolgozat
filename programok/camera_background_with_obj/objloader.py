@@ -92,7 +92,7 @@ class OBJ:
     def generate(self):
         self.gl_list = glGenLists(1)
         glNewList(self.gl_list, GL_COMPILE)
-        #glEnable(GL_TEXTURE_2D)
+        glEnable(GL_TEXTURE_2D)
         glFrontFace(GL_CCW)
         for face in self.faces:
             vertices, normals, texture_coords, material = face
@@ -113,7 +113,7 @@ class OBJ:
                     glTexCoord2fv(self.texcoords[texture_coords[i] - 1])
                 glVertex3fv(self.vertices[vertices[i] - 1])
             glEnd()
-        #glDisable(GL_TEXTURE_2D)
+        glDisable(GL_TEXTURE_2D)
         glEndList()
 
     def render(self):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#Felhasználva: https://rdmilligan.wordpress.com/2015/08/29/opencv-and-opengl-using-python/ a kocka,
+#Felhasználva: https://rdmilligan.wordpress.com/2015/08/29/opencv-and-opengl-using-python/ (kocka)
 
 import cv2
 from OpenGL.GL import *
@@ -37,7 +37,6 @@ def draw_cube():
         glClear(GL_COLOR_BUFFER_BIT)
         glLoadIdentity();
 
-        glTranslatef(0.0,0.0,0)
         glScale(0.5,0.5,0.5)
         glRotatef(30,1.0,0.0,0.0)
         glRotatef(30,0.0,1.0,0.0)
@@ -119,7 +118,7 @@ def main():
     glutInitWindowPosition(x, y);
     glutInitWindowSize(width,height);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
-    glutCreateWindow("Object with camera image texture")
+    glutCreateWindow("Cube with camera image texture")
     glutDisplayFunc(cap_texture)
     glutKeyboardFunc(keyboardF)
     init()
