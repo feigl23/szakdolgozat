@@ -104,26 +104,26 @@ class KeyboardCube:
             self.y += 1
         elif key == GLUT_KEY_DOWN:
             self.y -= 1
-        elif key == GLUT_KEY_RIGHT: 
+        elif key == GLUT_KEY_RIGHT:
             self.x+=1
 
     def mouse(self,x,y):
         self.rx += x
         self.ry += y
-         
+
 
     def main(self):
         glutInit()
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-        glutInitWindowPosition(300, 150);
-        glutInitWindowSize(640,480);
-        glutCreateWindow("Load object")
+        glutInitWindowPosition(300, 150)
+        glutInitWindowSize(640,480)
+        glutCreateWindow("Keyboard func")
         glutKeyboardFunc(self.keyboardF)
         glutSpecialFunc(self.arrows)
         glutMotionFunc(self.mouse)
         self.init()
         glutDisplayFunc(self.draw_trieder)
-        glutMainLoop()  
+        glutMainLoop()
 
 
 keyboardCube = KeyboardCube()

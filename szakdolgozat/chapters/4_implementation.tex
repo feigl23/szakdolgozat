@@ -6,12 +6,17 @@
 
 \Section{Megjelenítési mód}
 
-{\bf OpenGL, PyOpenGL:}
+\SubSection {OpenGL, PyOpenGL}
 
 Az OpenGL egy 2D-s és 3D-s vektor grafikus  API, ami elérhető és támogatott a fő operációs rendszereken (Linux, macOS, Windows) valamint számos programozási nyelvvel kompatibilis.
 
-Az OpenGL pythonnal használható verziója a cross-platform, nyíltforráskodú PyOpenGL. A PyOpenGL zámogatja a GL, GLU és GLUT könyvtárakat.
+Az OpenGL pythonnal használható verziója a cross-platform, nyíltforráskodú PyOpenGL. A PyOpenGL támogatja a GL, GLU és GLUT könyvtárakat. 
 
+Továbbá lehetőség van a PyGame használatára OpenGL-s kódok megvalósításához.
+
+A dolgozathoz tartozó program felhasználja mindhárom könyvtárat és a modell betöltéshez a PyGame-t is.
+
+\SubSection{Modellek}
 A program obj kiterjesztésű modellekkel dolgozik, amikhez mtl kiterjesztésű textúrát rendel. 
 \begin{itemize}
 \item {\bf obj}: Az OBJ (vagy .OBJ) egy geometria-definíciós fájlformátum, amelyet a Wavefront Technologies fejlesztett ki először az Advanced Visualizer animációs csomagjához. A fájlformátum nyílt forrású, ezért más 3D-s grafikus alkalmazások gyártói átvették.
@@ -19,29 +24,30 @@ Az OBJ egy egyszerű formátum (ember által is olvasható), ami a 3D geometriá
 \item {\bf mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak meghatározását tartalmazza, amelyekhez OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy newmtl utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokot.
 \end{itemize} 
 
-
-A program fő elemei az ágensek. A model, amit felhasználtam egy császárpingvin. 
+A program fő elemei az ágensek. 
+A modell, amit felhasználtam erre a célra egy császárpingvin. 
+Minden ágenst egy ilyen modell valósít meg, csupán a színűk változik, ami pedig a programkódban kerül megvalósításba. \\
 \begin{figure}[htp]
     \centering
-   	\includegraphics[width=4truecm, height=3truecm]{images/penguin.png}
+   	\includegraphics[width=4truecm, height=3truecm]{images/pingvin.png}
 	\caption{császárpingvin modell}
 \end{figure}
 
-A program szinterének fő eleme a kastély modell, ahol maga a jelenet játszódik.\\
+A program szinterének fő eleme a kastély modell, ahol maga a jelenet játszódik.
 \begin{figure}[htp]
     \centering
    	\includegraphics[width=4truecm, height=3truecm]{images/castle.png}
 	\caption{kastély modell}
 \end{figure}
 
-Felhasználtam továbbá doboz modelleket, amiknek az elmozgatása a feladat.
+Felhasználtam továbbá doboz modelleket, amiknek az elmozgatása a feladat. Ezen modellek színének manipulációja szintén a programban történik.
 \begin{figure}[htp]
     \centering
    	\includegraphics[width=4truecm, height=3truecm]{images/box.png}
 	\caption{doboz modell}
 \end{figure}
 
-{\bf Fények:}
+\SubSection{Fények:}
 
 Az objektumok megjelenítéséhez elengedhetetlenek a megfelelő fénybeállítások.\\
 
@@ -53,22 +59,81 @@ Az objektumok megjelenítéséhez elengedhetetlenek a megfelelő fénybeállít�
 \item A {\bf tükröző fénynek} (\texttt{specular light}) is van iránya és forrása, és hatása nemcsak az anyag-tulajdonságoktól és a pontbeli normálistól, hanem a nézőponttól is függ. Gondoljunk egy sima felületű fémgömbre, amit erős, koncentrált fénnyel világítunk meg. Megfelelő szögből nézve egy fényes (többnyire fehér) foltot látunk, amelynek mérete és helye a nézőponttól függ, fejünket mozgatva a folt is mozog, mígnem eltűnik.”
 \end{itemize}
 
+\SubSection{A modellek átszínezése:}
+
+A modellek átszínezésére az OpenGL \texttt{glColorf} függvényét használtam, ahhoz azonban hogy ezt alkalmazni tudjuk, meg kell érteni, miként értelmezzük a színeket a számítógép grafikában.
+
+,,A színeket legcélszerűbb egy háromdimenziós tér pontjaiként felfogni. A tér egy bázisának(koordináta-rendszerének) rögzítése után minden színt egy számhármas segítségével lehetazonosítani. A számítógépi grafikában két színmegadási (színkeverési) mód, kétféle bázisterjedt el.”
+\begin{itemize}
+\item  RGB (additív): ,,Additív színkeverés esetén azt írjuk elő, hogy mennyi vörös (Red), zöld (Green) és kék (Blue) színkomponenst adjunk a fekete színhez, a fekete képernyőhöz.”
+\item CYM (szubtraktív): ,,Szubtraktív színkeverés esetén azt írjuk elő, hogy mennyi türkiz (Cyan), bíbor (Magenta) és sárga (Yellow) színt kell kivonnunk a legösszetettebb színből, a fehérből (a papírszíne) a kívánt szín előállítása érdekébe.”
+\end{itemize}
+
+A \texttt{glColor3f} az RGB bázisrendszert használja fel, tehát a három paramétere egy-egy lebegőpontos szám (az egész számokra vonatkozó változata a \texttt{glColor}) továbbá a \texttt{glColor4f} rendelkezik egy negyedik paraméterrel is, az \texttt{alpha}-val, ami az átlátszóságot határozza meg.
+Például: 
+\begin{python}
+glColor3f(0.0,0.0,0.0) #fekete
+glColor3f(1.0,1.0,1.0) #feher
+glColor3f(1.0,0.0,0.0) #piros
+glColor3f(0.0,1.0,0.0) #zold
+glColor3f(0.0,0.0,1.0) #kek
+\end{python}
+
 \Section{Interaktív elemek}
 
-Szintér
-A térben mozgatható, interaktív elemek.
+A színtér interkatív elmei az ágensek és a dobozok. 
+Az ágensek képesek fordulni, előrehaladni, ugorni. 
+A dobozok pedig olyan írányú elmozdulásra, amerre tolják őket.
 
-Az obj formátum nem támogatja az animációt, ezért minden egyes mozdulatnak külön obj és mtl fájlja készült.
-Az animációkat a testvérem készítette el Blender felhasználásával. Az elkészült animációk a következők:
-ugrás, séta és a dobozok tolásához a doboz megfodása és elengedése.
+\SubSection{Animáció}
+
+Ahhoz, hogy a program látványosabb legyen animációkra van szükség, így a modell nem csak elmozul például olyan írányba, amerre szeretnénk, hanem az animáció használata séta hatását kelti.
+
+A modellek formátuma (.obj) azonban nem támogatja az animációkat, ezért minden egyes mozdulatnak külön modell, a hozzátartozó mtl fájllal, készült.
+
+Az animációkat a testvérem készítette el Blender felhasználásával. 
+
+Az elkészült animációk a következők: ugrás, séta és a dobozok tolásához a doboz megfogása és elengedése.
  
-Fizika megvalósításával kapcsolatban észrevételek.
+A programkódban az animácókat úgy valósítottam meg, hogy egymás után, apró szünetet beiktatva betöltöttem a modelleket egymás helyére.
+ 
+\SubSection{Ütközésvizsgálat}
+
+Ahhoz, hogy az ágensek a megfelelő térrészben maradjanak (tehát ne tudják elhagyni a kastélyt), ne sétáljanak át egymáson, illetve másik modelleken, szüksgé van ütközés vizsgálatra.
+
+Ez azt jelenti, hogy figyeljük a modellek egymáshoz való helyzetét a térben. A távolságot a \texttt{x,y,z} tengelyeken és ha túl közel kerülnek egymáshoz, akkor megakadályozzuk, hogy tovább haladjon a mozogni képes abba az írányba, ami már nem megengedett.
+%Fizika megvalósításával kapcsolatban észrevételek.
+
+\Section{nem tudom mi a neve}
+
+A játék fő színhelye az előbb említett kastély modell, amiből nem lehet kijutni csak akkor, ha a karakterek teljesítik a rájuk kiszabott feladatot.
+
+A kastély falain nem lehet átjutni és az ajtók sem használhatóak.
+
+A feladat, amit el kell végeznie a karaktereknek az az, hogy a saját színűkhöz tartozó dobozokat kell a megfelelő helyre jutatniuk, ami jelen esetben a szökőkútak egyike. 
+
+Bármelyik játékos bármelyik szökőkútat használhajta erre a célra.
+
+Fontos, hogy minden játékos csak a saját színével megegyező színű dobozt képes mozgatni és csak azt szabad mozgatnia. Azonban csak az tilos, hogy eltolja, például hozzá érhet vagy megállhat rajta. 
+
+Ha nem a saját dobozát próbálja meg eltolni (például hamar végez és megpróbál segíteni a társának), akkor a játék végetér.
+
+Minden játékosnak a saját részét szabad csak megcsinália  kiszabott feladatból. 
+
+A játékosoknak minden esetben együtt kell működniűk, mert csak akkor jutnak ki, ha minden doboz eltűnt. ebben valósul meg a játék kooperatív jellege. 
+
+ 
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=6truecm, height=4truecm]{images/game.png}
+	\caption{példakép a játékból}
+\end{figure}
 
 \Section{Az elemek vezérlése}
 
 {\bf Billentyű, egér funkciók:}\\
 
-Az ágens irányításához (lépés előre, hátra, fordulás, ugrás) a nyíl és a space-t billentyűket használtam fel, a  programból való kilépéshez az „ESC” billentyűt. Továbbá ez egér lehetővé teszi, hogy más szögből lássuk a jelenetet.\\
+Az ágens irányításához (lépés előre, hátra, fordulás, ugrás) a nyíl és a space-t billentyűket használtam fel, a  programból való kilépéshez az „ESC” billentyűt. Továbbá ez egér lehetővé teszi, hogy más szögből lássuk a jelenetet.\\ %NEM KELL AZ EGÉR
 %Kell valami amivel tollja a dobozt is és ha lesz menü, akkor arra is egy gombot kijelölni!!
 
 { \bf A felhasznált függvények:}

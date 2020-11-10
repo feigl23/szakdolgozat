@@ -28,12 +28,13 @@ class KeyboardObj:
         glMatrixMode(GL_MODELVIEW)
         self.model=OBJ("models/Penguin/PenguinBaseMesh.obj", swapyz=True)
         self.model.generate()
- 
+
 
     def draw_trieder(self):
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
             glLoadIdentity()
             glTranslate(0,0,-5)
+            glPushAttrib(GL_CURRENT_BIT)
             glBegin(GL_LINES)
             glColor3f(1, 0, 0)
             glVertex3f(0, 0, 0)
@@ -47,9 +48,10 @@ class KeyboardObj:
             glVertex3f(0, 0, 0)
             glVertex3f(0, 0, 10)
             glEnd()
+            glPopAttrib()
             glTranslate(self.x,self.y,self.z)
             glScale(2,2,2)
-            
+
             self.model.render()
             glutPostRedisplay()
             glutSwapBuffers()
@@ -67,23 +69,23 @@ class KeyboardObj:
             self.y += 1
         elif key == GLUT_KEY_DOWN:
             self.y -= 1
-        elif key == GLUT_KEY_RIGHT: 
+        elif key == GLUT_KEY_RIGHT:
             self.x+=1
-      
-    
- 
+
+
+
 
     def main(self):
         glutInit()
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-        glutInitWindowPosition(300, 150);
-        glutInitWindowSize(640,480);
-        glutCreateWindow("Load object")
+        glutInitWindowPosition(300, 150)
+        glutInitWindowSize(640,480)
+        glutCreateWindow("Keyboard func")
         glutKeyboardFunc(self.keyboardF)
         glutSpecialFunc(self.arrows)
         self.init()
         glutDisplayFunc(self.draw_trieder)
-        glutMainLoop()  
+        glutMainLoop()
 
 
 keyboardObj = KeyboardObj()

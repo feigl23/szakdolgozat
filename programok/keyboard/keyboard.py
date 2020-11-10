@@ -21,7 +21,7 @@ class Keyboard:
         glLoadIdentity()
         gluPerspective(90.0, float(640)/float(480), 0.1, 100.0)
         glMatrixMode(GL_MODELVIEW)
- 
+
 
     def draw_trieder(self):
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -60,23 +60,23 @@ class Keyboard:
             self.z += 1
         elif key == GLUT_KEY_DOWN:
             self.z -= 1
-        elif key == GLUT_KEY_RIGHT: 
+        elif key == GLUT_KEY_RIGHT:
             self.x -=1
-      
-    
- 
+
+
+
 
     def main(self):
         glutInit()
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-        glutInitWindowPosition(300, 150);
-        glutInitWindowSize(640,480);
-        glutCreateWindow("Load object")
+        glutInitWindowPosition(300, 150)
+        glutInitWindowSize(640,480)
+        glutCreateWindow("Keyboard func")
         glutKeyboardFunc(self.keyboardF)
         glutSpecialFunc(self.arrows)
         self.init()
         glutDisplayFunc(self.draw_trieder)
-        glutMainLoop()  
+        glutMainLoop()
 
 
 keyboard = Keyboard()

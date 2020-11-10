@@ -39,7 +39,7 @@ class Penguin:
         glRotate(180,0,1,0)
         glRotate(-180,0,0,1)
         glTranslatef(0,-3,0)
-        
+
         self.penguin.render()
 
     def cap_texture(self):
@@ -70,7 +70,7 @@ class Penguin:
         glDisable(GL_TEXTURE_2D)
         self.draw_obj()
         glutPostRedisplay()
-        glFlush();
+        glFlush()
         glutSwapBuffers()
 
     def draw_background(self):
@@ -91,8 +91,8 @@ class Penguin:
 
     def main(self):
         glutInit()
-        glutInitWindowPosition(300, 150);
-        glutInitWindowSize(640,480);
+        glutInitWindowPosition(300, 150)
+        glutInitWindowSize(640,480)
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
         glutCreateWindow("Window with camera image texture and a obj")
         glutKeyboardFunc(self.keyboardF)

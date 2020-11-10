@@ -18,7 +18,7 @@ class Trieder:
         glLoadIdentity()
         gluPerspective(90.0, float(640)/float(480), 0.1, 100.0)
         glMatrixMode(GL_MODELVIEW)
- 
+
 
     def draw_trieder(self):
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -49,9 +49,9 @@ class Trieder:
     def main(self):
         glutInit()
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-        glutInitWindowPosition(300, 150);
-        glutInitWindowSize(640,480);
-        glutCreateWindow("Load object")
+        glutInitWindowPosition(300, 150)
+        glutInitWindowSize(640,480)
+        glutCreateWindow("Draw Trieder")
         glutKeyboardFunc(self.keyboardF)
         self.init()
         glutDisplayFunc(self.draw_trieder)

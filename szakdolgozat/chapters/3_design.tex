@@ -16,11 +16,11 @@ A kiterjeszetett valóság fontos eszköze a marker, ami a model/modellek térbe
 
 {\bf „Keretes” markerek:}
 
-Az ilyen típusú markerek két részből állnak; egy fekete keretből, ami a felismerést segití és egy belső mintából. A belső minta lehet kép, egyedi bináris minta.
+Az ilyen típusú markerek két részből állnak; egy fekete keretből, ami a felismerést segití és egy belső mintából. A belső minta lehet kép, egyedi bináris minta, valami azonosítja a markert, információt hordoz.
 
 A keret fontos szerepet tölt be, hisz egy fekete téglalapot/négyzetet viszonylag egyszerűen és gyorsan fel lehet ismerni egy képen, meghatározni annak pozícióját a kamerához képest, sarok pontjait, a középpontját.
 
-Ilyen típusú marker az ARToolKit marker (középen egy kép van, ami bináris képként lesz kezelve), ARTag, AprilTag, ArUco. (mindháromnál egy bináris minta van középen)
+Ilyen típusú marker például az ARToolKit marker (középen egy kép van, ami bináris képként lesz kezelve), ARTag, AprilTag, ArUco. (mindháromnál egy bináris minta van középen)
 
 Kombinálni is szokták az egyszerűbb markereket: a QR-kódot és a kerettel rendelkező markereket, vagy a QR kód van a keret belsejében vagy pedig a QR kód közepén szerepel például egy ArUco marker vagy egy kép (pl.VuMark).
 
@@ -40,14 +40,32 @@ Természetesen ezek detektálása nehezebb, illetve betanítást igényel.
 Léteznek továbbá úgynevezett marker nélküli (markerless) AR alkalmazások is, a szenzorok felmérik környezetet és megfelelő helyre pozicionálják a megjelenítendő objektumot/objektumokat. (pl. földrajzi koordináták felhasználása: PokemonGO)
 
 \Section{Inerciális szenzorok}
-Az inerciális szenzorok gyorsulásérzékelőkből, giroszkópokból magnetométerekből állnak.
+
+A fejlettebb telefonokban található inerciális szenzorok fontosak a kiterjeszett valóság felhasználásával készült alkalmazások müködtetéséhez.  
+
+Az inerciális szenzorok gyorsulásérzékelőkből és giroszkópokból állnak, minél nagyobb a számuk, annál pontosabb eredményeket képesek biztosítani.
+
+Az inerciális szenzorokkkal a telefon térbeli helyzetének és annak változára vonatkozó adatokat kaphatunk meg.
+
+Az accelerométer a telefon helyzetének változását méri a x, y és y tengelyeket alapul véve. 
+
+A telefonokban található giroszkóp (vagy gyro szenzor) a gyorsulásmérő egy fejletebb verziója.
+Míg accelerometer tengely alapú elmozdulást mér, addig a giroszkóp az acceletométert felhasználva minden apró változást érzékel. Pontosabb adatokat kaphatunk vele.
+
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[width=3truecm, height=2truecm]{images/inertial.jpg}
+	\caption{inerciális szenzor}
+\end{figure}
+
 
 \Section{Az Aruco marker használata}
 
 Az ArUco (Augmented Reality University of Cordoba) markereket 2014-ben fejlesztette ki kollégáival S.Garrido-Jurado Spanyolországban. 
 
 Az ArUco könyvtár nyílt forráskódú és C++ nyelven íródott, OpenCV alapú. 
-Ar ArUco markerek két részből állnak, egy fekete keretből és egy egyedi bináris mintából, ami azonosítja a markert.
+
+Ar ArUco markerek két részből állnak, egy fekete keretből és az egyedi bináris mintából, ami azonosítja a markert. 
 
 Az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozathoz. A detektálást számos beépített függvény segíti.\\
 
@@ -59,11 +77,15 @@ Az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozathoz. A dete
 
 \SubSection{Típusai, használati módok}
 
-Az ArUco markerek különböző könyvtárak érhetőek el, a minta mérete és belső mindta oszlop és sor száma tér el.
+Az ArUco markerek különböző könyvtárak érhetőek el, a marker méretében (szükséges bitek száma), belső minta oszlop és sor számában (az oszlop és sor szám mindig megegyezik) és az elérhető azonosítók számában térnek el.
 
-A bináris minta  4x4 mérettől a 7x7 méretig elérhető ( ez a belső mint a és ezekhez, 50, 100, 250, 1000 az oldalméret ez mm-ben értendő).
+
+A bináris minta 4x4-től a 7x7 bitig terjed, ebbe nem számít bele a keret.
 
 Azonban minél bonyolultabb egy minta és minél nagyobb annál nehezen felismerni, ezért én a  \texttt{DICT\_4X4\_100}-t használtam.
+
+Ahol a a \texttt{\_4x4} a bitek száma \texttt{100} pedig a könyvtárban lévő markerek azonosítóit jelöli.
+Ez azt jelenti, hogy az azonosítók  0 és 99 között vannak.
 
 \SubSection{Kamera kalibrálása}
 
@@ -73,15 +95,22 @@ A kamera kalibrációjához 6x9-es sakktábla mintát használtam. (A külső s�
 
 A kalibráció eredményességéhez a négyzeteknek szabályosnak, egyformának kell lenniük és fontos, hogy a nyomtatás során a minta ne torzuljon el, ne legyen átméretezve. 
 
-A pontosság növelése érdekében a képeket érdemes minél változatosabb szögben és távolságból elkészíteni. Valamint ügyelni kell arra, hogy a lap egyenes legyen, ezért célszerű megfelelő támaszt használni hozzá.
+A pontosság növelése érdekében a képeket érdemes minél változatosabb szögben és távolságból elkészíteni. Valamint ügyelni kell arra, hogy a lap egyenes legyen tartva, ezért célszerű megfelelő támaszt használni hozzá.
 
 A kalibráció során kapjuk meg a későbbiekben nélkülözhetetlen együttható (kamera) mátrixot, a disztorziós együtthatókat, az eltolási és forgatási vektorokat.
 
 A kalibrációt végző függvénynek a sorok és oszlopok számára, a négyzetek oldalhosszára és a fent említett képekre van szüksége.
 
-A folyamat során meg kell határozni a sakktábla minta sarokpontjait \\
-\texttt{findChessboardCorners()} függvénnyel, pontosabbá tenni azok koordinátáit \\
-\texttt{cornerSubPix()} -lel. Majd ezen pontokat, (projekciós pontjai a sakktáblába mintának) a objektum pontjait ( a minta pontjai a minta terében), a kép méretét kell megadni \texttt{calibrateCamera()} függvénynek. \\
+A folyamat során meg kell határozni a fekete-fehérré tett képen szereplő a sakktábla minta sarokpontjait 
+\texttt{findChessboardCorners()} függvénnyel, pontosabbá tenni azok koordinátáit 
+\texttt{cornerSubPix()} -lel. 
+\begin{python}
+ret, corners = cv2.findChessboardCorners(gray, (width, height), None)
+...
+corners2 = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
+\end{python} 
+
+Majd ezen pontokat, (projekciós pontjai a sakktáblába mintának) a objektum pontjait ( a minta pontjai a minta terében), a kép méretét kell megadni \texttt{calibrateCamera()} függvénynek. \\
 
 \begin{python}
   ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints,
@@ -117,17 +146,26 @@ A =
    	\includegraphics[width=7truecm, height=6truecm]{images/calibration.jpg}
 	\caption{Kalibráláshoz használt képek közül néhány}
 \end{figure}
-%https://docs.opencv.org/master/d9/d0c/group__calib3d.html
-%https://medium.com/@aliyasineser/opencv-camera-calibration-e9a48bdd1844
+
 
 \SubSection{Demo alkalmazás}
 
-A markerek detektálását befolyásolja a fényviszony, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a mérete. Továbbá óriási hátrány, hogy ha takarásra kerül egy része a markernek, akkor nem lesz felismerhető.
+A markerek detektálásának eredményességét befolyásolja a fényviszony, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a mérete. Továbbá óriási hátrány, hogy ha takarásra kerül egy része a markernek (legyen ez akármilyen kicsi), akkor nem lesz felismerhető.
 
 Az ArUco marker felismerésére használt demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a kalibrációból kapott \texttt{camera\_matrix} és a \texttt{dist\_Coefficient} felhasználásával detektálja a markert az élő képen.
 
-A folyamatos kapcsolat érdekében végtelen ciklust indul. Majd kapcsolatot kell teremteni a kamerával és mindig az adott pillanatnyi képpel dolgozni. 
-Meg kell adni a megfelelő könyvtárat, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez  \texttt{DICT\_4X4\_100}.
+A folyamatos kapcsolat érdekében végtelen ciklust indul.
+Ezután kapcsolatot kell teremteni a kamerával és mindig az adott pillanatnyi képpel dolgozni. 
+Ehhez az OpenCv \texttt{VideoCapture} függvényére van szükség. A 0 a laptop saját beépített kameráját jelöli , ha csatlakoztatható USB-s kamerával szeretnénk dolgozni, akkor az 1 paramétert kell megadni.
+
+\begin{python}
+cap = cv2.VideoCapture(0)
+...
+ret, frame = cap.read()
+\end{python}
+A kamera kép olvasásakor visszakapott második paraméterre lesz szükségünk, ami maga a kép. Ha valamilyen okból kifolyólag nem sikerül olvasni, akkor hamis értékkel és üres képpel tér vissza.
+
+Ha meg van a kép, meg kell adni a megfelelő könyvtárat, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez  \texttt{DICT\_4X4\_100}.
 \begin{python}
 aruco_dict = aruco.Dictionary_get(aruco.\texttt{DICT\_4X4\_100})
 \end{python}
@@ -141,9 +179,12 @@ cameraMatrix=mtx,
 distCoeff=dist)
 \end{python}
 
-Eredményként a sarok pontokat, forgásvektorok és eltolási vektorok tömbjét kapjuk meg, amik a markerre való rajzolásnál kapnak majd nagyobb szerepet.
+Eredményként a megtalált markerek sarokpontjait és a belső minta által definiált id-kat kapjuk vissza.
 
-Ha talál a képen markert a program, akkor körbe rajzolja azt, kijelöli a felső sarok pontját és ráteszi a képre marker koordináta rendszeréhez tartozó triédert.\\
+A sarokpontokat és a kamera mátrixot és a disztorziós együtthatót felhasználva a 
+\texttt{estimatePoseSingleMarkers} meghatározza a marker elfordulását és eltolását kamerához képest. 
+
+Ezután  mindenezt felhasználva a képen talált markert a program  körbe rajzolja, kijelöli a felső sarok pontját és ráteszi a képre marker koordináta rendszeréhez tartozó triédert.\\
 
 \begin{python}
 rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners,
@@ -159,25 +200,51 @@ rvec, tvec, 0.01)
 
 \SubSection{A marker felismerésére készített program tesztje:}
 
-A programban az ArUco marker felismerés egy olyan függvényként jelenik meg, ami megkap egy képet és ha talál rajta markert, akkor visszaadja a megfelelő vektorokat. (forgás és eltolás)
+A végső programban az ArUco marker felismerés egy olyan függvényként jelenik meg, ami megkap egy képet és ha talál rajta markert, akkor visszaadja a megfelelő vektorokat. (forgás és eltolás)
 
 Ezen programrésznek a tesztelésére készítettem a nyomtatott markeremről pár képet és megnéztem milyen eredményeket ad vissza és felismeri-e a képen szereplő markert.
 
 Azon kijelentés, hogy ha takarásba kerül a marker bármely része, akkor nem lesz továbbá felismerhető teljesen helytálló, hisz legyen bármilyen kicsi az eltakart rész a program nem ismeri fel. 
 
+Az eredmény a vektorokat a fent már említett \texttt{estimatePoseSingleMarkers} adja vissza. 
+
+Az \texttt{rvec} a marker kamerához képest vett elfordulása \texttt{ x, y, z} tengelyeken a \texttt{tvec} pedig a marker eltolása ugyanezekhez. Tehát egy markerhez két vektorhármast kapunk vissza.   
+
+Ezen vektorok fogják a későbbiekben meghatározni a kirajzolandó modellek helyét a térben.
+
+A lentebb szereplő képekhez kapot értékek közül néhány:
+\begin{itemize}
+\item 1.kép rvec és tvec értékei::
+\[[-0.00010618, -0.00181233, 0.04695004]\]
+\[[ 1.91320312, -1.6522394,  0.60923043]\]
+\item 2.kép rvec és tvec értékei::
+\[[-0.00082155,  0.00022395,  0.06280824]\]
+\[[ 1.83895896, -1.46640971,  0.69940467]\]
+\item 3.kép rvec és tvec értékei:
+\[[-0.00619668, 0.00013297,  0.04769506]\]
+\[[ 1.87260078 -1.66750728  0.64313328]\]
+\item 5.kép rvec és tvec értékei:
+\[-0.00501719, -0.01433891,  0.08986719]\]
+\[[ 1.25084371,  2.11521712, -1.07834937]\]
+
+\end{itemize}
+
+Látható például, hogy az 5. kép eltolási és forgatási vektorainak értéke nagyobb, mint a 1. vagy 2., hisz ez messzebb van a képen a kamerához képest és jobban el van forgatva, mint a másik kettő.
+
+
+Természetesen ha nem ismeri fel a amerkert vagy nincs marker a képen 0 add vissza a program.
+
 A képek, ahol felismerte a markert:
 
 \begin{figure}[htp]
     \centering
-   	\includegraphics[width=6truecm, height=4.8truecm]{images/detect.jpg}
+   	\includegraphics[width=7truecm, height=5truecm]{images/detect.jpg}
 	\caption{sikeres detektálás}
 \end{figure}
-
 
 A képek, ahol nem ismerte fel a markert:
 \begin{figure}[htp]
     \centering
-   	\includegraphics[width=6truecm, height=4.8truecm]{images/not_detect.jpg}
+   	\includegraphics[width=7truecm, height=5truecm]{images/not_detect.jpg}
 	\caption{sikertelen detektálás}
 \end{figure}
-

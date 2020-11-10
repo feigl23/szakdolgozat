@@ -51,8 +51,8 @@ mtx, dist = load_coefficients("log.json")
 
 for i in range(1,13):
     path = "images/" +str(i)+".jpg"
-    target_path =  "result/"+str(i)+".jpg"
+    target_path =  "results/"+str(i)+".jpg"
     rvec, tvec = find_aruco(path,mtx,dist,target_path)
     print(str(i), ". tvec:" ,tvec , ",\nrvec:", rvec)
-    target_path_log =  "result/"+str(i)+".json"
+    target_path_log =  "results/"+str(i)+".json"
     save_data(rvec, tvec, target_path_log)

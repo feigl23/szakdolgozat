@@ -57,13 +57,13 @@ def cap_texture():
     glDisable(GL_TEXTURE_2D)
 
     glutPostRedisplay()
-    glFlush();
+    glFlush() 
     glutSwapBuffers()
 
 def main():
     glutInit()
-    glutInitWindowPosition(x, y);
-    glutInitWindowSize(width,height);
+    glutInitWindowPosition(x, y) 
+    glutInitWindowSize(width,height) 
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
     glutCreateWindow("Window with camera image texture")
     glutDisplayFunc(cap_texture)
