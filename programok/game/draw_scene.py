@@ -56,14 +56,9 @@ class Game:
         if key == b'\x1b':
           sys.exit()
         elif key == b'a':
-            if(self.blue.rot_z==360):
-                self.blue.rot_z -=90
-            elif(self.blue.rot_z==-360):
                 self.blue.rot_z +=90
-            else:
-                self.blue.rot_z -=90
         elif key == b'w':
-            if self.blue.rot_z == 90:
+            if self.blue.rot_z == 90 :
                 self.blue.x-=0.5
             elif self.blue.rot_z == 180:
                 self.blue.y-=0.5
@@ -72,18 +67,18 @@ class Game:
             elif self.blue.rot_z == 270:
                 self.blue.x +=0.5
             elif self.blue.rot_z == -90:
-                self.blue.x-=0.5
-            elif self.blue.rot_z == -270:
                 self.blue.x+=0.5
+            elif self.blue.rot_z == -270:
+                self.blue.x-=0.5
             else:
                 self.blue.y += 0.5
         elif key == b's':
             if  self.blue.rot_z == -90:
-                self.blue.x+=0.5
+                self.blue.x-=0.5
             elif  self.blue.rot_z == 180:
                 self.blue.y+=0.5
             elif self.blue.rot_z == -180:
-                self.blue.x -=0.5
+                self.blue.y -=0.5
             elif  self.blue.rot_z == -270:
                 self.blue.x+=0.5
             elif  self.blue.rot_z == 90:
@@ -93,54 +88,49 @@ class Game:
             else:
                 self.blue.y-=0.5
         elif key ==  b'd':
-            if(self.blue.rot_z==-360):
-                self.blue.rot_z +=90
-            elif(self.blue.rot_z== 360):
                 self.blue.rot_z -=90
-            else:
-                self.blue.rot_z +=90
+
+        if(self.blue.rot_z==360 or self.blue.rot_z ==-360):
+            self.blue.rot_z = 0
 
     def arrows(self,key, x, y):
         if key == GLUT_KEY_LEFT:
-            if(self.lilac.rot_z==360):
-                self.lilac.rot_z -=90
-            elif(self.lilac.rot_z==-360):
-                self.lilac.rot_z +=90
-            else:
                 self.lilac.rot_z -=90
         elif key == GLUT_KEY_UP:
             if self.lilac.rot_z == 90:
-                self.lilac.x+=0.5
-            elif self.lilac.rot_z == 180 or self.lilac.rot_z ==-180:
-                self.lilac.y+=0.5
-            elif self.lilac.rot_z == 270:
-                self.lilac.x -=0.5
-            elif self.lilac.rot_z == -90:
                 self.lilac.x-=0.5
+            elif self.lilac.rot_z == 180:
+                self.lilac.y-=0.5
+            elif self.lilac.rot_z ==-180:
+                self.lilac.y-=0.5
+            elif self.lilac.rot_z == 270:
+                self.lilac.x +=0.5
+            elif self.lilac.rot_z == -90:
+                self.lilac.x+=0.5
             elif self.lilac.rot_z == -270:
                 self.lilac.x-=0.5
             else:
-                self.lilac.y -= 0.5
+                self.lilac.y += 0.5
         elif key == GLUT_KEY_DOWN:
             if  self.lilac.rot_z == -90:
-                self.lilac.x+=0.5
-            elif  self.lilac.rot_z == 180 or  self.lilac.rot_z == -180 :
-                self.lilac.y-=0.5
-            elif  self.lilac.rot_z == -270:
                 self.lilac.x-=0.5
-            elif  self.lilac.rot_z == 90:
-                self.lilac.x-=0.5
-            elif  self.lilac.rot_z == 270:
-                self.lilac.x+=0.5
-            else:
+            elif  self.lilac.rot_z == 180 :
                 self.lilac.y+=0.5
-        elif key == GLUT_KEY_RIGHT:
-            if(self.lilac.rot_z==-360):
-                self.lilac.rot_z +=90
-            elif(self.lilac.rot_z==360):
-                self.lilac.rot_z -=90
+            elif self.lilac.rot_z == -180 :
+                self.lilac.y+=0.5
+            elif  self.lilac.rot_z == -270:
+                self.lilac.x+=0.5
+            elif  self.lilac.rot_z == 90:
+                self.lilac.x+=0.5
+            elif  self.lilac.rot_z == 270:
+                self.lilac.x-=0.5
             else:
+                self.lilac.y-=0.5
+        elif key == GLUT_KEY_RIGHT:
                 self.lilac.rot_z +=90
+
+        if(self.lilac.rot_z==360 or self.lilac.rot_z ==-360):
+            self.lilac.rot_z = 0
 
     def main(self):
         glutInit()

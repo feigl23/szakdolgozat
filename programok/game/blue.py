@@ -19,7 +19,6 @@ class Blue:
         glPushMatrix()
         glScale(5,5,5)
         glTranslate(self.x,self.y,self.z)
-
         glRotate(self.rot_z,0,0,1)
         glPushAttrib(GL_CURRENT_BIT)
         glColor(0,0.8,1)
