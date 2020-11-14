@@ -9,14 +9,14 @@ class Box:
         self.lilac_box = []
         self.blue_box= []
         self.lx = [-18,-14,-10,-6,-2,2,6,10,14,18]
-        self.ly=[-2,-2,-2,-2,-2,-2,-2,-2,-2,-2]
+        self.ly=[-2,13,-2,13,-2,13,-2,13,-2,13]
         self.lz =[0,0,0,0,0,0,0,0,0,0]
         self.bx =[-18,-14,-10,-6,-2,2,6,10,14,18]
-        self.by =[13,13,13,13,13,13,13,13,13,13]
+        self.by =[13,-2,13,-2,13,-2,13,-2,13,-2]
         self.bz=[0,0,0,0,0,0,0,0,0,0]
 
     def load_lilac(self):
-        for i in range(0,11):
+        for i in range(0,10):
             self.lilac_box.append(OBJ("models/Crate/Crate1.obj", swapyz=True))
             self.lilac_box[i].generate()
 

@@ -2,7 +2,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from objloader import *
-
+import time
+from animation import *
 
 class Blue:
     def __init__(self):
@@ -10,10 +11,46 @@ class Blue:
         self.y =-1
         self.z =0
         self.rot_z = 0
+        self.walk_models = []
+        self.jump_models = []
+        self.release_models = []
+        self.grab_models = []
+        self.axis = ""
+        self.dist = 0
+        self.const_dist =0
+        self.anim = ""
+        self.block = False
+        self.animation = Animation()
+        self.color = [0,0.8,1]
+        self.length=0
 
     def model_init(self):
         self.model = OBJ("models/Penguin/PenguinBaseMesh.obj", swapyz=True)
         self.model.generate()
+        for i in range(1,31):
+            if(i<10):
+                self.walk_models.append(OBJ("models/walk/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+            else:
+                self.walk_models.append(OBJ("models/walk/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+            self.walk_models[i-1].generate()
+        self.const_dist = 0.5 / (len(self.walk_models)-1)
+        #for i in range(1,21):
+        #    if(i<10):
+        #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+        #    else:
+        #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+        #    self.jump_models[i-1].generate()
+        #for i in range(1,16):
+        #    if(i<10):
+        #        self.release_models.append(OBJ("models/release/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+        #        self.grab_models.append(OBJ("models/grab/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+        #    else:
+        #        self.release_models.append(OBJ("models/release/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+        #        self.grab_models.append(OBJ("models/grab/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+        #    self.release_models[i-1].generate()
+        #    self.grab_models[i-1].generate()
+
+
 
     def draw_model(self):
         glPushMatrix()
@@ -25,3 +62,13 @@ class Blue:
         self.model.render()
         glPopAttrib()
         glPopMatrix()
+
+    def which_animation(self, i):
+        if("walk" in self.anim):
+            self.animation.walk(self,i)
+        elif("jump" in self.anim):
+            self.jump(i)
+        elif("grab" in self.anim):
+            self.grab(i)
+        elif("release" in self.anim):
+            self.release()
