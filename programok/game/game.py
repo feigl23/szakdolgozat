@@ -10,6 +10,7 @@ from castle import *
 from collision import *
 from keyboard import *
 from direct_animation import *
+from draw_brackground import *
 
 class Game:
     def __init__(self):
@@ -22,11 +23,11 @@ class Game:
         self.direct_animation = DirectAnim()
         self.x =0
         self.y=0
-        self.z =-30
+        self.z =-40
         self.run_lilac = False
         self.run_blue = False
         self.anim = False
-        self.is_end = True
+        self.is_not_end = True
 
     def init(self):
         glClearColor(0.8, 0.8, 1.0, 0.0)
@@ -44,30 +45,33 @@ class Game:
         self.castle.model_init()
         self.lilac.model_init()
         self.blue.model_init()
-        self.box.load_lilac()
-        self.box.load_blue()
+        self.box.load_boxes()
 
 
     def draw_scene(self):
-        if(self.anim == False):
+        if(self.box.is_over):
             glClearColor(0.8, 0.8, 1.0, 0.0)
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            glLoadIdentity()
-            glTranslate(self.x,self.y,self.z)
-            self.castle.draw_model()
-            self.blue.draw_model()
-            self.lilac.draw_model()
-            self.box.draw_models()
-            glutPostRedisplay()
-            glutSwapBuffers()
+            print("VÉGE")
         else:
-            self.is_end =True
-            self.anim = self.direct_animation.direct(self)
-
-    def arrows(self,key,x,y):
-        self.keyboard.arrows(self,key)
+            if(self.anim == False):
+                glClearColor(0.8, 0.8, 1.0, 0.0)
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+                glLoadIdentity()
+                glTranslate(self.x,self.y,self.z)
+                self.castle.draw_model()
+                self.blue.draw_model()
+                self.lilac.draw_model()
+                self.box.draw_models()
+                glutPostRedisplay()
+                glutSwapBuffers()
+            else:
+                self.is_not_end =True
+                self.anim = self.direct_animation.direct(self)
 
     def keyboardF(self,key,x,y):
+        if key == b'\x1b':
+             sys.exit()
         self.keyboard.keyboardF(self,key)
 
     def main(self):
@@ -77,7 +81,6 @@ class Game:
         glutInitWindowSize(640,480)
         glutCreateWindow("Game")
         glutKeyboardFunc(self.keyboardF)
-        glutSpecialFunc(self.arrows)
         self.init()
         glutDisplayFunc(self.draw_scene)
         glutMainLoop()

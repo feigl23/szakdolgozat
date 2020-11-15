@@ -2,9 +2,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from objloader import *
-import time
 from animation import *
-
 
 class Lilac:
     def __init__(self):
@@ -23,8 +21,9 @@ class Lilac:
         self.block = True
         self.color = [1,0,1]
         self.animation = Animation()
-        self.length =0
-
+        self.length = 0
+        self.box =0
+        self.box_axis=""
 
     def model_init(self):
         self.model =OBJ("models/Penguin/PenguinBaseMesh.obj", swapyz=True)
@@ -35,22 +34,21 @@ class Lilac:
             else:
                 self.walk_models.append(OBJ("models/walk/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
             self.walk_models[i-1].generate()
-        self.const_dist = 0.5/(len(self.walk_models)-1)
-        #for i in range(1,21):
-        #    if(i<10):
-        #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
-        #    else:
-        #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
-        #    self.jump_models[i-1].generate()
-        #for i in range(1,16):
-        #    if(i<10):
-        #        self.release_models.append(OBJ("models/release/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
-        #        self.grab_models.append(OBJ("models/grab/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
-        #    else:
-        #        self.release_models.append(OBJ("models/release/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
-        #        self.grab_models.append(OBJ("models/grab/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
-        #    self.release_models[i-1].generate()
-        #    self.grab_models[i-1].generate()
+        self.const_dist = 0.4 /(len(self.walk_models)-1)
+        
+        for i in range(1,21):
+            if(i<10):
+                self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+            else:
+                self.jump_models.append(OBJ("models/jump/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+            self.jump_models[i-1].generate()
+
+        for i in range(1,16):
+            if(i<10):
+                self.grab_models.append(OBJ("models/grab/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+            else:
+                self.grab_models.append(OBJ("models/grab/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+            self.grab_models[i-1].generate()
 
     def draw_model(self):
         glPushMatrix()
@@ -63,12 +61,10 @@ class Lilac:
         glPopAttrib()
         glPopMatrix()
 
-    def which_animation(self,i):
+    def which_animation(self,i, box):
         if("walk" in self.anim):
             self.animation.walk(self,i)
         elif("jump" in self.anim):
             self.animation.jump(self,i)
         elif("grab" in self.anim):
-            self.animation.grab(self,i)
-        elif("release" in self.anim):
-            self.animation.release(self,i)
+            self.animation.grab(self,i, box)

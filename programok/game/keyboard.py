@@ -1,12 +1,8 @@
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from OpenGL.GLUT import *
 
 class Keyboard:
     def keyboardF(self,game,key):
-        if key == b'\x1b':
-          sys.exit()
-        elif key == b'a':
+        ## blue
+        if key == b'a':
                 game.blue.rot_z +=90
         elif key == b'w':
             if(game.run_blue != True):
@@ -26,7 +22,6 @@ class Keyboard:
                 else:
                     game.blue.axis = "y"
                     game.blue.dist =game.blue.const_dist
-
         elif key == b's':
             if(game.run_blue != True):
                 game.run_blue= True
@@ -48,60 +43,26 @@ class Keyboard:
 
         elif key ==  b'd':
                 game.blue.rot_z -=90
-        #elif key == b' ':
-        #    if(game.run_blue != True):
-        #        game.run_blue = True
-        #        game.anim = True
-        #        game.blue.anim="jump"
-        #        game.tav = (0.5/30)
-        #        game.blue.axis ="z"
-        #        game.blue.length=21
-        #elif key == b'i':
-        #    if(game.run_lilac != True):
-        #        game.run_lilac = True
-        #        game.anim = True
-        ##        game.lilac.anim="jump"
-        #        game.tav = (0.5/30)
-        #        game.lilac.axis ="z"
-        #        game.lilac.length=21
-        #elif key == b'k':
-        #    if(game.run_lilac != True):
-        #        game.run_lilac = True
-        #        game.anim = True
-        #        game.lilac.anim="grab"
-        #        game.tav = (0.5/30)
-        #        game.lilac.axis ="z"
-        #        game.lilac.length=16
-        #elif key == b'l':
-        #    if(game.run_lilac != True):
-        #        game.run_lilac = True
-        #        game.anim = True
-        #        game.lilac.anim="release"
-        #        game.tav = (0.5/30)
-        #        game.lilac.axis ="z"
-        #        game.lilac.length=16
-        #elif key == b'e':
-        #    if(game.run_blue != True):
-        #        game.run_blue = True
-        #        game.anim = True
-        #        game.blue.anim="grab"
-        #        game.blue.length=16
-        #elif key == b'r':
-        #    if(game.run_blue != True):
-        #        game.run_blue = True
-        #        game.anim = True
-        #        game.blue.anim="release"
-        #        game.blue.length=16
-
-
+        elif key == b'e':
+            if(game.run_blue != True):
+                game.run_blue = True
+                game.anim = True
+                game.blue.anim="grab"
+                game.blue.length=16
+        elif key == b' ':
+            if(game.run_blue != True):
+                game.run_blue = True
+                game.anim = True
+                game.blue.anim="jump"
+                game.blue.length=21
 
         if(game.blue.rot_z==360 or game.blue.rot_z ==-360):
             game.blue.rot_z = 0
 
-    def arrows(self,game,key):
-        if key == GLUT_KEY_LEFT:
-                game.lilac.rot_z +=90
-        elif key == GLUT_KEY_UP:
+        ## lilac
+        if key == b'l':
+            game.lilac.rot_z +=90
+        elif key == b'i':
             if(game.run_lilac != True):
                 game.run_lilac= True
                 game.anim = True
@@ -123,7 +84,7 @@ class Keyboard:
                     game.lilac.axis="y"
                     game.lilac.dist=game.lilac.const_dist
 
-        elif key == GLUT_KEY_DOWN:
+        elif key == b'k':
             if(game.run_lilac != True):
                 game.run_lilac = True
                 game.anim = True
@@ -144,8 +105,21 @@ class Keyboard:
                 else:
                     game.lilac.axis="y"
                     game.lilac.dist=-1*game.lilac.const_dist
-        elif key == GLUT_KEY_RIGHT:
-                game.lilac.rot_z -=90
+        elif key == b'j':
+                    game.lilac.rot_z -=90
+
+        elif key == b'p':
+            if(game.run_lilac != True):
+                game.run_lilac = True
+                game.anim = True
+                game.lilac.anim="grab"
+                game.lilac.length=16
+        elif key == b'o':
+            if(game.run_lilac != True):
+                game.run_lilac = True
+                game.anim = True
+                game.lilac.anim="jump"
+                game.lilac.length=21
 
         if(game.lilac.rot_z==360 or game.lilac.rot_z ==-360):
             game.lilac.rot_z = 0

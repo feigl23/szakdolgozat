@@ -3,7 +3,6 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from objloader import *
 
-
 class Castle:
     def __init__(self):
         self.x =0
