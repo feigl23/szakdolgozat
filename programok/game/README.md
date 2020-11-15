@@ -51,8 +51,3 @@ játékosok.
 
     Az inputokat kezeli és minden szükséges változónak megadja a megfelelő értéket.
     A kék pingvin a w,s,a,d,space,e a lila a i,j,k,o,p billentyűket használja.
-
-
-https://image.freepik.com/free-vector/game-neon-sign_191108-127.jpg
-
-https://image.freepik.com/free-vector/you-win-lettering-pop-art-text-banner_185004-60.jpg

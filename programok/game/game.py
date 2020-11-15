@@ -10,7 +10,6 @@ from castle import *
 from collision import *
 from keyboard import *
 from direct_animation import *
-from draw_brackground import *
 
 class Game:
     def __init__(self):
