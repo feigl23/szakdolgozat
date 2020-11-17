@@ -9,6 +9,10 @@ import cv2.aruco as aruco
 
 
 class Penguin:
+    INVERSE_MATRIX = np.array([[ 1.0, 1.0, 1.0, 1.0],
+                               [-1.0,-1.0,-1.0,-1.0],
+                               [-1.0,-1.0,-1.0,-1.0],
+                               [ 1.0, 1.0, 1.0, 1.0]])
     def __init__(self):
         self.webcam = cv2.VideoCapture(0)
         self.penguin = None
@@ -54,8 +58,10 @@ class Penguin:
         if np.all(ids is not None):
             for i in range(0, len(ids)):
                 aruco.drawDetectedMarkers(frame, corners)
-                rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners, 0.05, matrix_coefficients, distortion_coefficients)
-                return rvec, tvec, matrix_coefficients, distortion_coefficients, ids
+
+                rvecs, tvecs ,_ = aruco.estimatePoseSingleMarkers(corners, 8.0, matrix_coefficients, distortion_coefficients)
+
+                return rvecs, tvecs, matrix_coefficients, distortion_coefficients, ids
         else:
             return [], [], matrix_coefficients, distortion_coefficients, ids
 
@@ -64,56 +70,43 @@ class Penguin:
         beta = mtx[1][1]
         cx = mtx[0][2]
         cy = mtx[1][2]
-        f = 1000.0
-        n = 1.0
+        f = 1000.0  #far
+        n = 1.0     #near
 
         m1 = np.array([
-            [(alpha)/cx, 0,       0,            0               ],
-            [0,          beta/cy, 0,            0               ],
-            [0,          0,       -(f+n)/(f-n), (-2.0*f*n)/(f-n)],
-            [0,          0,       -1,           0               ],
+        [(alpha)/cx, 0,       0,                0 ],
+        [0,          beta/cy, 0,                0 ],
+        [0,          0,       -(f+n)/(f-n),     -1],
+        [0,          0,       (-2.0*f*n)/(f-n), 0 ],
         ])
-        #glLoadMatrixd(m1.T)
 
+        glLoadMatrixd(m1.T)
+
+        ## draw cube
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        glPushMatrix()
-
+        glPushMatrix()  #projection Push(?)
         if not ids is None:
-            tvec[0][0][0] = -tvec[0][0][0]
+            # fix axis
+            tvec[0][0][0] = tvec[0][0][0]
             tvec[0][0][1] = -tvec[0][0][1]
-            tvec[0][0][2] = - tvec[0][0][2]
+            tvec[0][0][2] = -tvec[0][0][2]
 
             rvec[0][0][1] = -rvec[0][0][1]
             rvec[0][0][2] = -rvec[0][0][2]
             m = self.compositeArray(cv2.Rodrigues(rvec)[0], tvec[0][0])
+            glPushMatrix()
+            glLoadMatrixd(m.T)
 
-            glLoadTransposeMatrixd(m.T)
-            #glTranslate(-tvec[0][0][0],  -tvec[0][0][1],  -tvec[0][0][2])
-            #glEnable(GL_TEXTURE_2D)
-            #glRotatef(180,1,0,0)
-            #glTranslatef(-10,0,0)
-            #glTranslatef(0,0,0)
-            glScalef(4,4,4)
-            glTranslate(0,0,-20)
-            glBegin(GL_LINES)
-            glColor3f(1, 0, 0)
-            glVertex3f(0, 0, 0)
-            glVertex3f(10, 0, 0)
+            glTranslatef(0, 0, 0)
+            glutSolidCube(10.0)
+            glPopMatrix()
 
-            glColor3f(0, 1, 0)
-            glVertex3f(0, 0, 0)
-            glVertex3f(0, 10, 0)
-
-            glColor3f(0, 0, 1)
-            glVertex3f(0, 0, 0)
-            glVertex3f(0, 0, 10)
-            glEnd()
-            #self.penguin.render()
+        glPopMatrix()   #projection POP(?)
 
 
-
-        glPopMatrix()
+        glFlush();
+        glutSwapBuffers()
 
     def load_coefficients(self,path):
 
@@ -164,7 +157,7 @@ class Penguin:
         if(rvec != []):
             self.draw_obj(rvec, tvec, mtx, dst, ids)
         glutPostRedisplay()
-        glFlush() 
+        glFlush()
         glutSwapBuffers()
 
     def draw_background(self):
@@ -187,8 +180,8 @@ class Penguin:
 
     def main(self):
         glutInit()
-        glutInitWindowPosition(300, 150) 
-        glutInitWindowSize(640,480) 
+        glutInitWindowPosition(300, 150)
+        glutInitWindowSize(640,480)
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
         glutCreateWindow("Window with camera image texture and a obj")
         glutKeyboardFunc(self.keyboardF)
