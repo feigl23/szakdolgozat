@@ -5,6 +5,14 @@ class World:
 
     def __init__(self):
         self._agents = []
+        self._entities = self.load_entities()
+
+    def load_entities(self):
+        """
+        Load the entities.
+        """
+        # TODO: Use a JSON file!
+        pass
 
     def add_agent(self, agent):
         """
@@ -20,3 +28,4 @@ class World:
         """
         for agent in self._agents:
             agent.draw()
+

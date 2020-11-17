@@ -4,7 +4,9 @@ from OpenGL.GL import *
 
 
 class WavefrontObj:
+
     generate_on_init = True
+
     @classmethod
     def loadTexture(cls, imagefile):
         surf = pygame.image.load(imagefile)
@@ -121,3 +123,4 @@ class WavefrontObj:
 
     def free(self):
         glDeleteLists([self.gl_list])
+

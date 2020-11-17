@@ -9,3 +9,4 @@ class Camera:
     def get_frame(self):
         self.frame = self.cap.read()[1]
         return self.frame
+
