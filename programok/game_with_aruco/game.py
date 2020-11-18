@@ -31,9 +31,9 @@ class Game:
         self.camera = Camera()
         self.background = Background()
         self.constans = Constans()
-        self.x =0
-        self.y=0
-        self.z =-40
+        self.x =-2
+        self.y=-4
+        self.z =20
         self.run_lilac = False
         self.run_blue = False
         self.anim = False
@@ -45,10 +45,9 @@ class Game:
         self.frame = None
         self.rvec = []
         self.tvec = []
+        self.i=0
 
     def init(self):
-        glClearColor(0.8, 0.8, 1.0, 0.0)
-        glClearDepth(1.0)
         glDepthFunc(GL_LESS)
         glEnable(GL_DEPTH_TEST)
         glShadeModel(GL_SMOOTH)
@@ -65,14 +64,23 @@ class Game:
 
 
     def capture(self):
-        s,self.frame = cap.read()
-        self.rvec,self.tvec, self.ids = self.traker.track(self.frame, self.mtx, self.dist)
-        self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
-        if(self.rvec !=[]):
-            self.draw_scene()
-        glutPostRedisplay()
-        glFlush()
-        glutSwapBuffers()
+        if(self.anim == False):
+            s,self.frame = cap.read()
+            self.rvec,self.tvec, self.ids = self.traker.track(self.frame, self.mtx, self.dist)
+            self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
+            if(self.rvec !=[]):
+                self.draw_scene()
+        else:
+            self.is_not_end =True
+            game.i = 1
+            while(self.is_not_end):
+                s,self.frame = cap.read()
+                self.rvec,self.tvec, self.ids = self.traker.track(self.frame, self.mtx, self.dist)
+                self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
+                self.direct_animation.direct(self)
+                glutPostRedisplay()
+                glutSwapBuffers()
+
 
     def draw_scene(self):
         if(self.box.is_over):
@@ -80,14 +88,12 @@ class Game:
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
             print("VÉGE")
         else:
-            if(self.anim == False):
                 glEnable(GL_DEPTH_TEST)
                 glDisable(GL_TEXTURE_2D)
-                glLoadMatrixd(self.view.T)
+                glLoadMatrixd(self.view)
 
                 glMatrixMode(GL_MODELVIEW)
                 glLoadIdentity()
-
 
                 if not self.ids is None:
                     self.tvec[0][0][0] = self.tvec[0][0][0]
@@ -100,7 +106,8 @@ class Game:
                     rot_m = self.constans.compositeArray(cv2.Rodrigues(self.rvec)[0], self.tvec[0][0])
                     glPushMatrix()
                     glLoadMatrixd(rot_m.T)
-                    #glTranslate(self.x,self.y,self.z)
+                    glTranslate(self.x,self.y,self.z)
+
                     self.castle.draw_model()
                     self.blue.draw_model()
                     self.lilac.draw_model()
@@ -108,9 +115,6 @@ class Game:
                     glPopMatrix()
                 glutPostRedisplay()
                 glutSwapBuffers()
-            else:
-                self.is_not_end =True
-                self.anim = self.direct_animation.direct(self)
 
     def keyboardF(self,key,x,y):
         if key == b'\x1b':

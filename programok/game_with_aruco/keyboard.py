@@ -12,16 +12,16 @@ class Keyboard:
                 game.blue.length = 31
                 if game.blue.rot_z == 90 or game.blue.rot_z ==-270 :
                     game.blue.axis = "x"
-                    game.blue.dist =-1*game.blue.const_dist
+                    game.blue.dist =game.blue.const_dist
                 elif game.blue.rot_z == 180 or game.blue.rot_z == -180:
                     game.blue.axis = "y"
-                    game.blue.dist =-1*game.blue.const_dist
+                    game.blue.dist =game.blue.const_dist
                 elif game.blue.rot_z == 270 or game.blue.rot_z == -90:
                     game.blue.axis = "x"
-                    game.blue.dist =game.blue.const_dist
+                    game.blue.dist =-1*game.blue.const_dist
                 else:
                     game.blue.axis = "y"
-                    game.blue.dist =game.blue.const_dist
+                    game.blue.dist =-1*game.blue.const_dist
         elif key == b's':
             if(game.run_blue != True):
                 game.run_blue= True
@@ -30,16 +30,16 @@ class Keyboard:
                 game.blue.length = 31
                 if  game.blue.rot_z == -90 or game.blue.rot_z == 270:
                     game.blue.axis = "x"
-                    game.blue.dist =-1*game.blue.const_dist
+                    game.blue.dist =game.blue.const_dist
                 elif  game.blue.rot_z == 180 or game.blue.rot_z == -180:
                     game.blue.axis = "y"
-                    game.blue.dist =game.blue.const_dist
+                    game.blue.dist =-1*game.blue.const_dist
                 elif  game.blue.rot_z == -270 or game.blue.rot_z == 90:
                     game.blue.axis = 'x'
-                    game.blue.dist =game.blue.const_dist
+                    game.blue.dist =-1*game.blue.const_dist
                 else:
                     game.blue.axis = 'y'
-                    game.blue.dist =-1*game.blue.const_dist
+                    game.blue.dist =-game.blue.const_dist
 
         elif key ==  b'd':
                 game.blue.rot_z -=90
@@ -70,19 +70,19 @@ class Keyboard:
                 game.lilac.length = 31
                 if game.lilac.rot_z == 90 or game.lilac.rot_z == -270:
                     game.lilac.axis="x"
-                    game.lilac.dist=-1* game.lilac.const_dist
+                    game.lilac.dist=game.lilac.const_dist
                 elif game.lilac.rot_z == 180:
                     game.lilac.axis="y"
-                    game.lilac.dist=-1*game.lilac.const_dist
+                    game.lilac.dist=game.lilac.const_dist
                 elif game.lilac.rot_z ==-180:
                     game.lilac.axis="y"
-                    game.lilac.dist=-1*game.lilac.const_dist
+                    game.lilac.dist=game.lilac.const_dist
                 elif game.lilac.rot_z == 270 or game.lilac.rot_z == -90:
                     game.lilac.axis="x"
-                    game.lilac.dist=game.lilac.const_dist
+                    game.lilac.dist=-1*game.lilac.const_dist
                 else:
                     game.lilac.axis="y"
-                    game.lilac.dist=game.lilac.const_dist
+                    game.lilac.dist=-1*game.lilac.const_dist
 
         elif key == b'k':
             if(game.run_lilac != True):
@@ -92,19 +92,19 @@ class Keyboard:
                 game.lilac.length = 31
                 if  game.lilac.rot_z == -90 or game.lilac.rot_z == 270:
                     game.lilac.axis="x"
-                    game.lilac.dist=-1*game.lilac.const_dist
+                    game.lilac.dist=game.lilac.const_dist
                 elif  game.lilac.rot_z == 180 :
                     game.lilac.axis="y"
-                    game.lilac.dist=game.lilac.const_dist
+                    game.lilac.dist=-1*game.lilac.const_dist
                 elif game.lilac.rot_z == -180 :
                     game.lilac.axis="y"
-                    game.lilac.dist=game.lilac.const_dist
+                    game.lilac.dist=-1*game.lilac.const_dist
                 elif  game.lilac.rot_z == -270 or game.lilac.rot_z == 90:
                     game.lilac.axis="x"
-                    game.lilac.dist=game.lilac.const_dist
+                    game.lilac.dist=-1*game.lilac.const_dist
                 else:
                     game.lilac.axis="y"
-                    game.lilac.dist=-1*game.lilac.const_dist
+                    game.lilac.dist=game.lilac.const_dist
         elif key == b'j':
                     game.lilac.rot_z -=90
 

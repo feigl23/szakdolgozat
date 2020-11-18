@@ -17,14 +17,14 @@ Számos alkalmazás, játék eléhető, amik nem igényelnek speciális eszköz�
 Ezek az okos eszközök azért felelnek erre a célra, mert rendelkeznek kamerával ( a legújabb telefonok már igen éles és tiszta képet adnak) és olyan szenzorokkal, amik  szükségesek.
 
 Ezen érzékelők  mikro-elektromechanikai (MEMS, \textit{MicroElectroMechanical Systems}) 
-rendszerek, azaz olyan apró (karakterisztikus méretük jellemzően 20\-1000 mikrométer) rendszerek amelyek mechanikai és elektronikai alkatrészeket is tartalmaznak.
+rendszerek, azaz olyan apró (karakterisztikus méretük jellemzően 20\-1000 mikrométer) rendszerek amelyek mechanikai és elektronikai alkatrészeket is tartalmaznak.\cite{mems}
 
 A telefonok a következő MEMS szenzorokat tartalmazzák:
 \begin{itemize}
 \item {\bf Inerciális szenzor}: accelerometer és giroszkóp együttese.
-\item {\bf Gyorsulásérzékelő} (accelerometer) : „ A gyorsulásmérő gyorsulás mérésére szolgáló műszer. Mivel azonban a gyorsulást közvetlenül nehéz(kes) mérni, ezért az ilyen műszer a gyorsuláskor fellépő erőt méri, ami Newton 2. törvényének megfelelően: $F = m\cdot a.$"
+\item {\bf Gyorsulásérzékelő} (accelerometer) : „ A gyorsulásmérő gyorsulás mérésére szolgáló műszer. Mivel azonban a gyorsulást közvetlenül nehéz(kes) mérni, ezért az ilyen műszer a gyorsuláskor fellépő erőt méri, ami Newton 2. törvényének megfelelően: $F = m\cdot a.$"\cite{gyorsulas}
 
-\item {\bf Giroszkóp}: „A szögelfordulás és szögsebesség mérésére szolgáló eszköz.”
+\item {\bf Giroszkóp}: „A szögelfordulás és szögsebesség mérésére szolgáló eszköz.”\cite{giroszkop}
 \item Fontos érzékelő még a távolságérzékelő, iránytű, fényváltozás érzékelő.
 \end{itemize}
 
@@ -32,25 +32,42 @@ Az asztali számítógépek valamint laptopok is használhatók erre a célra, h
 
 A Unity legújabb verziói (2019.3-tól sé annál frissebb) már nem csak a Windows-t és MacOS támogatják, hanem  lehetővé teszik a Linux operációs rendszerekre való fejlesztést is.
 
-Emellett számos speciális, kifejezetten erre a célra fejlesztett eszköz elérhető, 2019 legnépszerűbb darabjai a következők:
+Emellett számos speciális, kifejezetten erre a célra fejlesztett eszköz elérhető, 2019 legnépszerűbb AR headsetjei a következők:
 \begin{itemize}
-\item {\bf Microsoft Hololens 2} egy olyan vezeték nélküli AR headset, ami két 2k-s 120Hz-ces kijelzővel rendelkezik, ami jobb felhasználói élményt bíztosít, mint a versenytársai. Számos mikrofonnal, egy HD kamerával és fényérzékelővel fel szerelve a Holographic Processing Unit mellett, ami a felhasználó és a virtuális világ közötti interakciót biztosítja..
-\item A {\bf MagicLeap One} futurisztikus kinézettel rendelkező AR headset, amit egy Lightpack nevű apró számítógép vezérel, ami elfér az ember zsebében.  A Hololens-hez hasonlóan nem csak kivetít egy képet a valós képre, hanem bizonyos fokú interakciót is lehetővé tesz. A különbség az interakció módjában rejlik, ugyanis a MagicLeap a szem és kéz mozgás követése helyett kontrollerrel rendelkezik.
-\item Az {\bf Epson Moverio} kifejezetten munkára tervezetett AR headset, robosztus kialakítása van. Az Epson Moverio által használt Si-Oiled technológia tiszta, éles képet bíztosít. Egy Intel Axom 3 processzor hajtja és Android 5.1 használ.  Alkamlas drón írányításhoz, ami a szem mozgását követve nevigálja magát.
+\item {\bf Microsoft Hololens 2} egy vezeték nélküli AR headset, ami két éles kijelzővel rendelkezik, ezért jobb felhasználói élményt bíztosít, mint a versenytársai.
+
+A interakciót a 3D-s objektumokkal a Holographic Processing Unit biztosítja, illetve elvan látva egy HD kamerával, számos mikrofonnal és fényérzékelővel.
+
+Írányítani a tekintet, fejmozgás és a testmozgás segítségével lehet. 
+\item A {\bf MagicLeap One} egy igazán futurisztikus kinézettel rendelkező AR headset.
+
+Szintén lehetőség van a kivetített objektumokkal való interakciókra, azonban a Hololenssel ellentétben nem a felhasználó mozgása, hanem egy kontrollel valósítja meg ezt. 
+
+Egy igen kisméterű számítógép felel a interakció további megvalósításáért,ami a Lightpack nevet viseli,tehát nem vezeték nélküli.
+  
+\item Az {\bf Epson Moverio} kifejezetten munkára tervezetett AR headset, ezért robosztus kialakításasal rendelkezik.
+
+Az Epson Moverio által felhasznált Si-Oiled technológia tiszta, éles képet bíztosít a felhasználó számára.
+
+Egy Intel Axom 3 processzorral rendelkezik és az Android 5.1-es verzióját használja. 
+
+A szemmozgást követi.
 \item A {\bf Google Glass Enterprise} verziója nem igényel kontrollert, kéz nélkül használható.
 Az Enterprise plussz funkciói a többi Googke Glass-hoz képest:
 \begin{itemize}
 \item hangvezérlés
 \item könnyebb súly
 \item hosszabb akkumulátor élettartam
-\item gyorsabb processzor és 8Mp kamera.
+\item gyorsabb processzor és 8Mp kamera. \cite{arhardware}
 \end{itemize}
 \end{itemize}
+
 
 \begin{figure}[htp]
     \centering
    	\includegraphics[width=5truecm, height=3.8truecm]{images/holo.jpg}
 	\caption{Hololens 2 Ar szemüveg}
+	\cite{hololens}
 \end{figure}
 
 Azonban ezeknek az eszközöknek magas áruk van. 
@@ -61,17 +78,18 @@ A virtuális tér kialakításához szükség van megfelelő hardwarekre (hangre
 
 {\bf 2020\- ban a legjobb VR headseatek:}
 \begin{itemize}
-\item Valve Index : remekül működik régebbi GPU esetén is, éles kijelzővel rendelkezik és a Valve kontroller képes az összes új mozgását követni. Azonban nehéz kalibrálni és beállítani. Drága és nehéz hozzájutni.
-\item Oculus Quest 2: standalone, könnyű a használata, azonban Facebook fiók hozzáadást igényel.
-\item PlayStation VR: PS4 konzol szükséges hozzá, sok ajáték elérhető hozzá. Nem a legjobbb a mozgás követése.
-\item Oculus Rift S : Nem vezeték nélküli, így korlátoltabb a mozgás tér.  KÉnyelmesebb, mint az előző verziója, könnyű. Viszonylag sok játék érhető el hozzá.
-\item Samsung Gear VR: Okos telefonnal használható. (Galaxy S8-tól felfelé)  
+\item {\bf Valve Index} : remekül működik régebbi GPU esetén is, éles kijelzővel rendelkezik és a Valve kontroller képes az összes új mozgását követni. Azonban nehéz kalibrálni és beállítani. Drága és nehéz hozzájutni.
+\item {\bf Oculus Quest 2}: standalone, könnyű a használata, azonban Facebook fiók hozzáadást igényel.
+\item {\bf PlayStation VR}: PS4 konzol szükséges hozzá, sok ajáték elérhető hozzá. Nem a legjobbb a mozgás követése.
+\item {\bf Oculus Rift S}: Nem vezeték nélküli, így korlátoltabb a mozgás tér.  Kényelmesebb, mint az előző verziója, könnyű. Viszonylag sok játék érhető el hozzá.
+\item {\bf Samsung Gear VR}: Okos telefonnal használható. (Galaxy S8-tól felfelé)  \cite{vrheadset}
 \end{itemize}
 
 \begin{figure}[htp]
     \centering
    	\includegraphics[width=5truecm, height=3.8truecm]{images/oculus.png}
-	\caption{Oculus Quest 2 VR szemüveg}
+	\caption{Oculus Quest 2 VR szemüveg }
+	\cite{occulus}
 \end{figure}
 
 
@@ -79,7 +97,7 @@ A virtuális tér kialakításához szükség van megfelelő hardwarekre (hangre
 \begin{itemize}
 \item HTC Vive : követi a kéz mozdulatot, az ujjak mozgását.
 \item 3DRudder : lábbal vezérelhető.
-\item SteelSeries Stratus XL: konzolhoz való kontroller kialakítású.
+\item SteelSeries Stratus XL: konzolhoz való kontroller kialakítású.\cite{kontroller}
 \end{itemize}
 
 {\bf VR kesztyűk:}
@@ -94,6 +112,7 @@ Precízebben lehet velük követni a kéz mozgását, külön követik a ujjak m
     \centering
    	\includegraphics[width=5truecm, height=3.8truecm]{images/gloveone.jpg}
 	\caption{OneGlove VR kesztyű}
+	\cite{gloveOne}
 \end{figure}
 
 {\bf VR ruha:}
@@ -106,6 +125,7 @@ Precízebben lehet velük követni a kéz mozgását, külön követik a ujjak m
     \centering
    	\includegraphics[width=5truecm, height=3.8truecm]{images/tesla.jpg}
 	\caption{TeslaSuit VR ruha}
+	\cite{tesla}
 \end{figure}
 
 \Section{A kiterjesztett valóság fajtái:}
@@ -135,13 +155,12 @@ Például képes:
 \begin{itemize}
 \item 2D-s kép felismerésére és annak követésére.
 \item 3D-s objektum felismerésére és annak elhelyezésére a térben.
-\item Függöleges és vízszintes sík felismerésre.
-\item Arcmozgás követésére.
+\item Multiplayer játékok készítésére a legúabb verzióval
 \end{itemize}
 
 \SubSection{Google ARCore}
 
-A Google ARCore igen népszerű AR SDK, használható tabletre, telefonra való iOS és Android alkalmazások elkészítéséhez. Az alapját a pozició követés és az objektum felismerés adja.
+A Google ARCore igen népszerű AR SDK, használható tabletre, telefonra való iOS és Android alkalmazások elkészítéséhez. Az SDK alapját a pozició követés és az objektum felismerés jelenti.
 Fontos eleme még:
 \begin{itemize}
 \item A fény követés a valósághűbb objektumok kialakításához.
@@ -151,46 +170,63 @@ Fontos eleme még:
 
 \SubSection{Vuforia}
 
-A Vuforia az egyik legnépszerűbb SDK a AR alkalmazások készítéséhez. Annak köszönhetően, hogy Unityben jól használható, lehetővé válik vele a Androidra és iOS-re való natív alkamazások készítése. Továbbá asztali gépekre is lehet vele fejleszteni, szintén a Unity-nek köszönhetően. Használható:
+A Vuforia az egyik legnépszerűbb SDK a AR alkalmazások készítéséhez.
+
+Annak köszönhetően, hogy Unityben jól használható, lehetővé válik vele a Androidra és iOS-re való natív alkamazások készítése (számos programozási nyelvet használva).
+
+Továbbá asztali gépekre is lehet vele fejleszteni, szintén a Unity-nek köszönhetően. 
+  
+Használható:
 \begin{itemize}
 \item  Kép, szöveg (csak angol természetesen), 3D-s objektumok felismerése és követése valós időben.
 \item  Virtuális elemek elhelyezése a térben.  
-\item  Virtuális gombok. Virtual buttons
+\item  Virtuális gombok. 
 \item  Lokalizált okklúzió felismerés a virtuális gombok használatával.
 \end{itemize}
 Használható számos marker típussal, marker nélkül, markerként használt objektumokkal, VuMark-kal (A VuMArk a QR-kód és kép együttese). 
 
 \SubSection{Wikitude}
 
-A Wikitude kíválóan alkalmazható hely-központú( WIFI vagy GPS felhasználásával) alkalmazások fejlesztésére telefonra. Továbbá népszerű a cégeknél annak köszönhetően, hogy a legrövidebb idő alatt ezzel lehet elkészíteni a vásárló-központú alkalmazásokat. Funkciói:
+A Wikitude kíválóan alkalmazható hely-központú( WIFI vagy GPS felhasználásával) alkalmazások fejlesztésére telefonra. 
+
+Továbbá népszerű a cégeknél annak köszönhetően, hogy a legrövidebb idő alatt ezzel lehet elkészíteni a vásárló-központú alkalmazásokat. Funkciói:
 \begin{itemize}
 \item 3D, kép felismerés és követés 
 \item Helymeghatározáson alapuló AR
-\item Okos szemüveg itegráció.
+\item Okos szemüveg integráció.
 \end{itemize}
 
 \SubSection{Kudan}
 
-A Kudan egy réteget add hozzá az objektumokhoz a felismerés megkönnyítése végett. Gyors és kézenfekvő, de igényel előismereteket. Jól írányíthatók az adatok, a sebesség, az érzékenység a prokejtekből. Jól működik markerrel és anélkülis, 
+A Kudan egy réteget add hozzá az objektumokhoz a felismerés megkönnyítése végett. Gyors és egészen egyszerű a használata de igényel előismereteket. 
+
+Jól írányíthatók az adatok, a sebesség, az érzékenység a prokejtekből.
+ Jól működik markerrel és anélkül is.
 
 \SubSection{ARToolKit}
 
-Az ARToolKit nyílt forráskodú (elérhető GitHub-on), használható akár okosszemüvegekhez készített alkalmazások fejlesztéséhez is. Fejleszhető vele iOS, Android, Windows, MacOS és Linux platformra is alkalmazás. Rendelkezik Unity és OpenSceneGraph támogatottsággal. Támogatja az egy vagy duálkamerával való követést. Számos programozási nyelvvel hazsnáható.
+Az ARToolKit nyílt forráskodú (elérhető GitHub-on), használható akár okosszemüvegekhez készített alkalmazások fejlesztéséhez is. Fejleszhető vele iOS, Android, Windows, MacOS és Linux platformra is alkalmazás. 
+
+Rendelkezik Unity és OpenSceneGraph támogatottsággal
+
+. Támogatja az egy vagy duálkamerával való követést. Számos programozási nyelvvel használható.
 
 \SubSection{EasyAR}
 
-Az EasyAr ingyenes, kiváló kezdőknek., Van Pro verziója is üzleti használatra, ami extra funkciókat tartalmaz (az ingyenes verzóhoz képest sokkal hosszabb az elérhető funkciók listája.). Androidra, iOs-re és Windowsra van lehetőség fejleszteni vele.
+Az EasyAr ingyenes, kiváló kezdőknek. Van Pro verziója is üzleti használatra, ami extra funkciókat tartalmaz (az ingyenes verzóhoz képest sokkal hosszabb az elérhető funkciók listája.). Androidra, iOs-re és Windowsra van lehetőség fejleszteni vele.
 
 \SubSection{MaxST}
 
-A MaxST két SDK-ra válik szét: egy a 2D kép felismeréshezés egy a 3D objektumokhoz. Felismeri a függőleges és vízszintes síkokat, akár több objektumot is képes egyszerre követni, alkalmas QR-kód és vonalkód szkenneléshez.
+A MaxST két SDK-ra válik szét: egy a 2D kép felismeréshezés egy a 3D objektumokhoz.
+
+ Felismeri a függőleges és vízszintes síkokat, akár több objektumot is képes egyszerre követni, alkalmas QR-kód és vonalkód szkenneléshez.
 
 \SubSection{Pikkart AR SDK}
 
 A Pikkart SDK segítségével egyedi, funkció gazdag, felhasználóbarát alkallmazásokat lehet készíteni. Könnyű fejlesztési folyamatot biztosít.
 \SubSection{AR.js}
 
-Az AR.js egy JavaScript alapú, nyíltforráskodú AR SDK. Böngészőben használható Ar alklamazások készítéséhez használható, nem igényel telepítést. Minden mobil platformon képes futni az ezzel az SDK-val készített alkalmazás.
+Az AR.js egy JavaScript alapú, nyíltforráskodú AR SDK. Böngészőben használható AR alkalmazások készítéséhez használható, nem igényel semmilyen telepítést. Minden mobil platformon képes futni az ezzel az SDK-val készített alkalmazás (Android,iOS, régeben WindowsPhone).
 
 \SubSection{További API-k}
 
@@ -202,7 +238,7 @@ Az AR.js egy JavaScript alapú, nyíltforráskodú AR SDK. Böngészőben haszn�
 \item Xzimg
 \item DroidAR
 \item HP Reveal Studio
-\item BlippBuilder
+\item BlippBuilder \cite{arsdks}
 \end{itemize}
 
 \Section{Unity}
@@ -215,4 +251,4 @@ A dolgozat elkésztéséhez először Unityt akartam használni, azonban több p
 
 Túlságosan erőforrás igényes, speciális eszközöket igényelnek a kiprobálható demók (pl. VR szemüveg), nem találtam megfelelő leírásokat a példákhoz és a verziók közötti váltás is problémát okozott.
 
-Ezért a dolgozat OpenCV, OpenGL és python segytségével készítettem el.
+Ezért a dolgozat OpenCV, OpenGL és python segítségével készítettem el.

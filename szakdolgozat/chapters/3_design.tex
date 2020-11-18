@@ -6,12 +6,13 @@
 A kiterjeszetett valóság fontos eszköze a marker, ami a model/modellek térben való elhelyezésében segít. Számos nyílt forráskodú könytár rendelkezésre áll a klasszikus értelemben vett markerekből.\\
 
 {\bf Vonalkód, QR-kód:}\\
-„A  QR  kód vagyis Quick  Response  (gyors  válasz) egy  mátrix  vonalkód,  vagy  más  néven kétdimenziós kód, mely intelligensebb, több információt hordoz magában a vonalkódoknál: míg egy vonalkód mintegy 13 számjegyet tárol, addig a QR kód 7000 számot és 4300 alfanumerikus karaktert illetve weboldalak címeit (URL),nagy terjedelmű szöveget és telefonszámokat is képes tárolni, bármilyen nyelven.”\\
+„A  QR  kód vagyis Quick  Response  (gyors  válasz) egy  mátrix  vonalkód,  vagy  más  néven kétdimenziós kód, mely intelligensebb, több információt hordoz magában a vonalkódoknál: míg egy vonalkód mintegy 13 számjegyet tárol, addig a QR kód 7000 számot és 4300 alfanumerikus karaktert illetve weboldalak címeit (URL),nagy terjedelmű szöveget és telefonszámokat is képes tárolni, bármilyen nyelven.”\cite{QR}\\
 
 \begin{figure}[htp]
     \centering
    	\includegraphics[width=4.8truecm, height=2truecm]{images/qr_bar.png}
 	\caption{Vonalkód, QR-kód}
+	\cite{qrkep}
 \end{figure}
 
 {\bf „Keretes” markerek:}
@@ -28,6 +29,7 @@ Kombinálni is szokták az egyszerűbb markereket: a QR-kódot és a kerettel re
     \centering
    	\includegraphics[width=3truecm, height=3truecm]{images/markerek.png}
 	\caption{ArToolKit, ARTag, AprilTag, ArUco}
+	\cite{markerek}
 \end{figure}
 
 
@@ -50,12 +52,14 @@ Az inerciális szenzorokkkal a telefon térbeli helyzetének és annak változá
 Az accelerométer a telefon helyzetének változását méri a x, y és y tengelyeket alapul véve. 
 
 A telefonokban található giroszkóp (vagy gyro szenzor) a gyorsulásmérő egy fejletebb verziója.
-Míg accelerometer tengely alapú elmozdulást mér, addig a giroszkóp az acceletométert felhasználva minden apró változást érzékel. Pontosabb adatokat kaphatunk vele.
 
+Míg accelerometer tengely alapú elmozdulást mér, addig a giroszkóp az acceletométert felhasználva minden apró változást érzékel. Pontosabb adatokat kaphatunk vele.
+\cite{inercialis}
 \begin{figure}[htp]
     \centering
    	\includegraphics[width=3truecm, height=2truecm]{images/inertial.jpg}
 	\caption{inerciális szenzor}
+	\cite{iner_kep}
 \end{figure}
 
 
@@ -67,12 +71,12 @@ Az ArUco könyvtár nyílt forráskódú és C++ nyelven íródott, OpenCV alap�
 
 Ar ArUco markerek két részből állnak, egy fekete keretből és az egyedi bináris mintából, ami azonosítja a markert. 
 
-Az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozathoz. A detektálást számos beépített függvény segíti.\\
-
+Az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozathoz. A detektálást számos beépített függvény segíti.\cite{arucom}\\
 \begin{figure}[htp]
     \centering
    	\includegraphics[width=4.8truecm, height=3truecm]{images/kep.png}
 	\caption{Aruco markerek a 4X4-es könyvtárból}
+	\cite{aruco}
 \end{figure}
 
 \SubSection{Típusai, használati módok}
@@ -89,7 +93,6 @@ Ez azt jelenti, hogy az azonosítók  0 és 99 között vannak.
 
 \SubSection{Kamera kalibrálása}
 
-% TODO: https://medium.com/@aliyasineser/aruco-marker-tracking-with-opencv-8cb844c26628
 
 A kamera kalibrációjához 6x9-es sakktábla mintát használtam. (A külső sáv nem számolandó bele, az a felismerést könnyíti, a belső minta számít.) 
 
@@ -115,7 +118,8 @@ Majd ezen pontokat, (projekciós pontjai a sakktáblába mintának) a objektum p
 \begin{python}
   ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints,
    imgpoints, gray.shape[::-1], None, None)
-\end{python} 
+\end{python}  
+\cite{camera_calibration}
 
 A kimenetei a függvénynek:
 \begin{itemize}
@@ -135,10 +139,12 @@ A =
 \]
 4, 5, 8, 12 vagy 14 elemből állhat.
 
+
 \item {\bf rvecs}: A mintákhoz tartozó elforgatási vektorok becsült kimeneti vektora.
 
-\item {\bf tvecs}  A mintákhoz tartozó vektorok becsült kimeneti vektor
+\item {\bf tvecs}  A mintákhoz tartozó vektorok becsült kimeneti vektor. \cite{camera_calib_opencv}
 \end{itemize}
+
 
 
 \begin{figure}[htp]
@@ -150,7 +156,9 @@ A =
 
 \SubSection{Demo alkalmazás}
 
-A markerek detektálásának eredményességét befolyásolja a fényviszony, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a mérete. Továbbá óriási hátrány, hogy ha takarásra kerül egy része a markernek (legyen ez akármilyen kicsi), akkor nem lesz felismerhető.
+A markerek detektálásának eredményességét befolyásolja a fényviszony, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a mérete. 
+
+Továbbá óriási hátrány, hogy ha takarásra kerül egy része a markernek (legyen ez akármilyen kicsi), akkor nem lesz felismerhető.
 
 Az ArUco marker felismerésére használt demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a kalibrációból kapott \texttt{camera\_matrix} és a \texttt{dist\_Coefficient} felhasználásával detektálja a markert az élő képen.
 
@@ -184,7 +192,7 @@ Eredményként a megtalált markerek sarokpontjait és a belső minta által def
 A sarokpontokat és a kamera mátrixot és a disztorziós együtthatót felhasználva a 
 \texttt{estimatePoseSingleMarkers} meghatározza a marker elfordulását és eltolását kamerához képest. 
 
-Ezután  mindenezt felhasználva a képen talált markert a program  körbe rajzolja, kijelöli a felső sarok pontját és ráteszi a képre marker koordináta rendszeréhez tartozó triédert.\\
+Ezután  mindenezt felhasználva a képen talált markert a program  körbe rajzolja, kijelöli a felső sarok pontját és ráteszi a képre marker koordináta rendszeréhez tartozó triédert. \cite{demo}\\
 
 \begin{python}
 rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners,

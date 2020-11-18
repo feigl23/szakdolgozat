@@ -8,7 +8,7 @@
 
 \SubSection {OpenGL, PyOpenGL}
 
-Az OpenGL egy 2D-s és 3D-s vektor grafikus  API, ami elérhető és támogatott a fő operációs rendszereken (Linux, macOS, Windows) valamint számos programozási nyelvvel kompatibilis.
+Az OpenGL egy 2D-s és 3D-s vektor grafikus  API, ami elérhető és támogatott a fő operációs rendszereken (Linux, macOS, Windows) valamint számos programozási nyelvvel kompatibilis. \cite{opengl}
 
 Az OpenGL pythonnal használható verziója a cross-platform, nyíltforráskodú PyOpenGL. A PyOpenGL támogatja a GL, GLU és GLUT könyvtárakat. 
 
@@ -19,9 +19,12 @@ A dolgozathoz tartozó program felhasználja mindhárom könyvtárat és a model
 \SubSection{Modellek}
 A program obj kiterjesztésű modellekkel dolgozik, amikhez mtl kiterjesztésű textúrát rendel. 
 \begin{itemize}
-\item {\bf obj}: Az OBJ (vagy .OBJ) egy geometria-definíciós fájlformátum, amelyet a Wavefront Technologies fejlesztett ki először az Advanced Visualizer animációs csomagjához. A fájlformátum nyílt forrású, ezért más 3D-s grafikus alkalmazások gyártói átvették.
-Az OBJ egy egyszerű formátum (ember által is olvasható), ami a 3D geometriát adja meg csupán: a csúcsok helyzetét, az egyes textúra koordináta-csúcsok helyzetét, a csúcsok normálisát (???), az egyes sokszögeket csúcsok listájaként definiáló faces(???), textúre csúcsokat.  
-\item {\bf mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak meghatározását tartalmazza, amelyekhez OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy newmtl utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokot.
+\item {\bf obj}: A Wavefront Technologies által a Advanced Visualizer animációs csomagjukhoz kifejleszett obj fájlformátum egy geometria-definíciós formátum. 
+Annak köszönhetően, hogy ynílt forráskodú más 3D-s grafikus alkalmazások gyártói átvették.
+
+Az obj egy egyszerű formátum ( akár ember által is olvasható), ami semmi mást nem add meg, mint a 3D geometriát. Mint például a csúcsok helyzetét, az egyes textúra koordináta-csúcsok helyzetét, a csúcsok normálisát, az egyes sokszögeket csúcsok listájaként, textúra csúcsokat. \cite{obj}
+
+\item {\bf mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak meghatározását tartalmazza, amelyekhez OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy newmtl utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokot.\cite{mtl}
 \end{itemize} 
 
 A program fő elemei az ágensek. 
@@ -56,7 +59,7 @@ Az objektumok megjelenítéséhez elengedhetetlenek a megfelelő fénybeállít�
 \begin{itemize}
 \item A {\bf környezeti fény} (\texttt{ambient light}) az ábrázolandó térrészben mindenütt jelen lévő, állandó intenzitású fény, amelynek forrása, iránya nem ismert (gondoljunk olyan nappali fényre,amikor a nap a felhők mögött van).
 \item A {\bf szórt fénynek} (\texttt{diffuse light}) van iránya, mindig valamelyik fényforrásból jön. Fő jellemzője, hogy az objektumokkal ütközve minden irányba azonos módon és mértékben verődik vissza, tehát teljesen mindegy, hogy milyen irányból nézzük az objektumokat, a hatás csak a fényforrástól, az anyagtulajdonságoktól és a pontbeli normálistól függ.
-\item A {\bf tükröző fénynek} (\texttt{specular light}) is van iránya és forrása, és hatása nemcsak az anyag-tulajdonságoktól és a pontbeli normálistól, hanem a nézőponttól is függ. Gondoljunk egy sima felületű fémgömbre, amit erős, koncentrált fénnyel világítunk meg. Megfelelő szögből nézve egy fényes (többnyire fehér) foltot látunk, amelynek mérete és helye a nézőponttól függ, fejünket mozgatva a folt is mozog, mígnem eltűnik.”
+\item A {\bf tükröző fénynek} (\texttt{specular light}) is van iránya és forrása, és hatása nemcsak az anyag-tulajdonságoktól és a pontbeli normálistól, hanem a nézőponttól is függ. Gondoljunk egy sima felületű fémgömbre, amit erős, koncentrált fénnyel világítunk meg. Megfelelő szögből nézve egy fényes (többnyire fehér) foltot látunk, amelynek mérete és helye a nézőponttól függ, fejünket mozgatva a folt is mozog, mígnem eltűnik.”\cite{fenyek_szinek}
 \end{itemize}
 
 \SubSection{A modellek átszínezése:}
@@ -66,7 +69,7 @@ A modellek átszínezésére az OpenGL \texttt{glColorf} függvényét használt
 ,,A színeket legcélszerűbb egy háromdimenziós tér pontjaiként felfogni. A tér egy bázisának(koordináta-rendszerének) rögzítése után minden színt egy számhármas segítségével lehetazonosítani. A számítógépi grafikában két színmegadási (színkeverési) mód, kétféle bázisterjedt el.”
 \begin{itemize}
 \item  RGB (additív): ,,Additív színkeverés esetén azt írjuk elő, hogy mennyi vörös (Red), zöld (Green) és kék (Blue) színkomponenst adjunk a fekete színhez, a fekete képernyőhöz.”
-\item CYM (szubtraktív): ,,Szubtraktív színkeverés esetén azt írjuk elő, hogy mennyi türkiz (Cyan), bíbor (Magenta) és sárga (Yellow) színt kell kivonnunk a legösszetettebb színből, a fehérből (a papírszíne) a kívánt szín előállítása érdekébe.”
+\item CYM (szubtraktív): ,,Szubtraktív színkeverés esetén azt írjuk elő, hogy mennyi türkiz (Cyan), bíbor (Magenta) és sárga (Yellow) színt kell kivonnunk a legösszetettebb színből, a fehérből (a papírszíne) a kívánt szín előállítása érdekébe.”\cite{fenyek_szinek}
 \end{itemize}
 
 A \texttt{glColor3f} az RGB bázisrendszert használja fel, tehát a három paramétere egy-egy lebegőpontos szám (az egész számokra vonatkozó változata a \texttt{glColor}) továbbá a \texttt{glColor4f} rendelkezik egy negyedik paraméterrel is, az \texttt{alpha}-val, ami az átlátszóságot határozza meg.
@@ -93,9 +96,13 @@ A modellek formátuma (.obj) azonban nem támogatja az animációkat, ezért min
 
 Az animációkat a testvérem készítette el Blender felhasználásával. 
 
+Az animációk elkészítéséhez elsőnek a modell úgynevezett vázára van szükség,azt kell elkészíteni és azt lehet a továbbiakban animálni. 
+ 
 Az elkészült animációk a következők: ugrás, séta és a dobozok tolásához a doboz megfogása és elengedése.
  
 A programkódban az animácókat úgy valósítottam meg, hogy egymás után, apró szünetet beiktatva betöltöttem a modelleket egymás helyére.
+
+Fontos, hogy minden egyes mozdulatot rajzolását úgy kell megvalósítani, hogy minden más modell és a kamera képből készült háttér is kirajzolódik.
  
 \SubSection{Ütközésvizsgálat}
 
@@ -120,8 +127,6 @@ Mivel a pingvin modellek középpontja a modell közepébe esik, ezért egy bizo
 Az ágenseknél továbbá azt is figyelmbe kell venni, hogy a kódban át lettek méretezve, ezért a poziciójuk koordinátáit is a megfelelő arányban kell növelni/csökkenteni.
 
 Ugyanez vonatkozik a doboz modellek való ütközésvizsgálatra, mindig lesz valamekkora plusz érték, ami a modell szélét hivatott jelenteni.
-
-A dobozoknál azonban nem csak az y és x tengelyeket kell figyelembe venni, hanem a z-t is, mert lehetősége van az ágenseknek ráugrani a tetejükre. 
 
 Az, hogy figyelembe vesszük, hogy az ágens modelljének az alja hogyan viszonyul a doboz tetejéhez, lehetővé teszi, hogy az ágens ne essen bele a dobozba, hanem megálljon annak a tetején.
 
@@ -159,14 +164,18 @@ A játékosoknak minden esetben együtt kell működniűk, mert csak akkor jutna
 
 {\bf Billentyű, egér funkciók:}\\
 
-Az ágens irányításához (lépés előre, hátra, fordulás, ugrás) a nyíl és a space-t billentyűket használtam fel, a  programból való kilépéshez az „ESC” billentyűt. Továbbá ez egér lehetővé teszi, hogy más szögből lássuk a jelenetet.\\ %NEM KELL AZ EGÉR
-%Kell valami amivel tollja a dobozt is és ha lesz menü, akkor arra is egy gombot kijelölni!!
+Az ágens irányításához (lépés előre, hátra, fordulás, ugrás, doboz megfogása) különböző billenytűket haszbnáltam (például w,s,a,d) és a space-t billentyűket használtam fel, a  programból való kilépéshez az „ESC” billentyűt. Továbbá ez egér lehetővé teszi, hogy más szögből lássuk a jelenetet.
+
 
 { \bf A felhasznált függvények:}
 
 \begin{itemize}
-\item A \texttt{glutKeyBoardFunc()}-nek három paramétere van: \texttt{key} a generált ASCII karakter, az \texttt{x} és \texttt{y} pedig az egér pozíciója abban az időpontban, mikor a billentyű lenyomás történt a \texttt{GLUT} ablakhoz képest. Ezzel a funkcióval csak a kilépéshez szükséges \texttt{ESC} billentyű lenyomás kezelődött le és a \texttt{space}, a nyíl billentyűkhöz egy másik funkció szükséges.
+\item A \texttt{glutKeyBoardFunc()}-nek három paramétere van: \texttt{key} a generált ASCII karakter, az \texttt{x} és \texttt{y} pedig az egér pozíciója abban az időpontban, mikor a billentyű lenyomás történt a \texttt{GLUT} ablakhoz képest.
+
+ Ezzel a funkcióval csak a kilépéshez szükséges \texttt{ESC} billentyű lenyomás kezelődött le és a \texttt{space}, a nyíl billentyűkhöz egy másik funkció szükséges.\cite{keyboardfunc}
 \item A \texttt{glutSpecialFunc()} szükséges speciális billentyűk lenyomásának kezeléséhez,  
-aminek szintén három paramétere van, a key, ami egy \texttt{GLUT\_KEY\_*} konstans, és az \texttt{x} és \texttt{y}, amik ugyanazt jelölik, mint az előző esetben, az egér relatív helyzetét az ablakhoz képest.
-\item A \texttt{glutMouseFunc()} az egér billentyűinek a lenyomását a  tudjuk nyomon követni, a mozgását pedig a \texttt{glutMotionFunc()}-al vagy a \texttt{glutPassiveMotionFunc()}-al. A glutMotionFunc azt az eshetőséget kezelei le, amikor egy vagy több billentyű lenyomás történt és közben lett mozgatva az egér. A \texttt{glutPassiveMotionFunc()} pedig azt, amikor úgy lett mozgatva az egér, hogy nem lett lenyomva egyetlen egér gomb sem.  
+aminek szintén három paramétere van, a key, ami egy \texttt{GLUT\_KEY\_*} konstans, és az \texttt{x} és \texttt{y}, amik ugyanazt jelölik, mint az előző esetben, az egér relatív helyzetét az ablakhoz képest.\cite{keyboardspec}
+\item A \texttt{glutMouseFunc()} az egér billentyűinek a lenyomását a  tudjuk nyomon követni, a mozgását pedig a \texttt{glutMotionFunc()}-al vagy a \texttt{glutPassiveMotionFunc()}-al. 
+
+A glutMotionFunc azt az eshetőséget kezelei le, amikor egy vagy több billentyű lenyomás történt és közben lett mozgatva az egér. A \texttt{glutPassiveMotionFunc()} pedig azt, amikor úgy lett mozgatva az egér, hogy nem lett lenyomva egyetlen egér gomb sem.\cite{mousemot}\cite{mousefunc}
 \end{itemize}

@@ -7,8 +7,8 @@ from animation import *
 class Blue:
     def __init__(self):
         self.x =0
-        self.y =-1
-        self.z =-30
+        self.y =3.2
+        self.z =5.5
         self.rot_z = 0
         self.walk_models = []
         self.jump_models = []
@@ -35,25 +35,26 @@ class Blue:
             self.walk_models[i-1].generate()
         self.const_dist = 0.4 / (len(self.walk_models)-1)
 
-        #for i in range(1,21):
-        #    if(i<10):
-        #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
-        #    else:
-        #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
-        #    self.jump_models[i-1].generate()
+        for i in range(1,21):
+            if(i<10):
+                self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+            else:
+                self.jump_models.append(OBJ("models/jump/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+            self.jump_models[i-1].generate()
 
-        #for i in range(1,16):
-        #    if(i<10):
-        #        self.grab_models.append(OBJ("models/grab/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
-        #    else:
-        #        self.grab_models.append(OBJ("models/grab/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
-        #    self.grab_models[i-1].generate()
+        for i in range(1,16):
+            if(i<10):
+                self.grab_models.append(OBJ("models/grab/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+            else:
+                self.grab_models.append(OBJ("models/grab/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+            self.grab_models[i-1].generate()
 
     def draw_model(self):
         glPushMatrix()
-        glScale(30,30,30)
+        glScale(5,5,5)
         glTranslate(self.x,self.y,self.z)
         glRotate(self.rot_z,0,0,1)
+        glRotate(180,1,0,0)
         glPushAttrib(GL_CURRENT_BIT)
         glColor(0,0.8,1)
         self.model.render()

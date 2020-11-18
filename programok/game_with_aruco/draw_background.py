@@ -9,7 +9,6 @@ class Background:
         def draw(self,frame, dist, mtx, texture_background, rvec, tvec):
             image = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
             heightI, widthI = image.shape[:2]
-            print(rvec)
             if(rvec != []):
                 aruco.drawAxis(image, mtx, dist, rvec, tvec, 7)
             glBindTexture(GL_TEXTURE_2D, texture_background)

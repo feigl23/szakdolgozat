@@ -12,7 +12,7 @@ class Constans:
 
     def get_matrix(self):
         mtx,dist = self.load_coefficients("log.json")
-        alpha = mtx[0][0]
+        alpha =mtx[0][0]
         beta = mtx[1][1]
         cx = mtx[0][2]
         cy = mtx[1][2]

@@ -17,7 +17,7 @@ class Traker:
         if np.all(ids is not None):
             for i in range(0, len(ids)):
                 aruco.drawDetectedMarkers(frame, corners)
-                rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners, 8.0, mtx, dist)
+                rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners, 17, mtx, dist)
 
             return rvec, tvec, ids
         else:

@@ -2,10 +2,11 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from objloader import *
-
+from is_active import *
 
 class Box:
     def __init__(self):
+        self.isActive = isActive()
         self.remove=[]
         self.is_over = False
         self.boxes ={
@@ -13,7 +14,7 @@ class Box:
         "color" : [],
         "x" : [-14,-10,-6,-2,2,6,10,14,-14,-10,-6,-2,2,6,10,14],
         "y" : [13,-2,13,-2,13,-2,13,-2,-2,13,-2,13,-2,13,-2,13],
-        "z" : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+        "z" : [30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30]}
 
 
     def load_boxes(self):
@@ -45,12 +46,6 @@ class Box:
             self.boxes['y'][m]= self.boxes['y'][m]+dist
         else:
             self.boxes['x'][m]= self.boxes['x'][m]+dist-0.1
-        self.check_spot(m)
-
-    def check_spot(self, m):
-        if (self.boxes['x'][m] >=10.5 and self.boxes['x'][m] <=13.5 and self.boxes['y'][m] >=4 and self.boxes['y'][m] <=5.5
-        or self.boxes['x'][m] <=-10.5 and self.boxes['x'][m] >=-13.5 and self.boxes['y'][m] >=4 and self.boxes['y'][m] <=5.5 ):
-            if( m not in self.remove):
-                self.remove.append(m)
-            if len(self.remove) == len(self.boxes['model']):
-                self.is_over = True
+        self.isActive.check_spot(self,m)
+        if len(self.remove) == len(self.boxes['model']):
+            self.is_over = True
