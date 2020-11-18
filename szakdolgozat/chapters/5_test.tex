@@ -11,12 +11,99 @@ Az ezt követő részben a korábban bemutatott kliens alkalmazás kiegészíté
 \Section{Központi szerver}
 
 Egyenrangú kliens alkalmazásokat feltételezve a virtuális térben lévő ágensek és entitások adatait a központi szervernek kell kezelnie.
+A szerverben tehát megjelenik a kliensben korábban bemutatott világmodell egy része.
 
-% TODO: Kezelt adatok, adatszerkezetek
+Az adatmegosztási probléma tulajdonképpen úgy is tekinthető, hogy a kliensek szinkronizálják a szerverben lévő adatmodellt.
+A szinkronizálásnak itt két fő iránya van.
+\begin{itemize}
+	\item A kliensnek le kell tudni kérdezni, hogy aktuálisan a térben hol vannak az entitások.
+	\item A saját pozícióját vissza kell tudnia küldeni a szervernek.
+\end{itemize}
+Az elemek azonosításához szükséges, hogy minden ágensnek egyedi azonosítója legyen.
+
+További tényező, hogy a játéknak a kezdetekor tudni kell, hogy mennyi ágens lesz majd, mivel az szerepet játszik a további elemek létrehozásában és elhelyezésében.
+Egyszerűbb esetben azt mondhatjuk, hogy a szerver indításakor megadjuk, hogy mennyi ágens szerepeljen az adott térképen, majd akkor fog ténylegesen létrejönni a kooperációs tér, amikor az adott számú résztvevő már bejelentkezett.
+Ezt valamilyen formában jelezni kell a kliensek felé is.
+Egy lehetséges megoldás, hogy a virtuális tér állapotára vonatkozóan ilyen esetben egy speciális üzenetet kap, amelyben egyúttal az is szerepel, hogy mennyi ágens van már bejelentkezve és összesen mennyire van szükség.
+
+% TODO: Tulajdonképpen a World adatszerkezetet kell megosztania.
+
+% TODO: Feltételezzük, hogy egyetlen közös virtuális tér van.
 
 \Section{REST API}
 
-% TODO: GET -> összes pozíció lekérdezése
-% TODO: POST -> Saját pozíció felterjesztése
+A REST alapvetően egy állapotmentes protokoll.
+Az a fő előnye, hogy az erőforrások felé intézett kérésekben minden olyan információ szerepel, amely a válasz kiszámításához/összerakásához szükséges.
+
+Tegyük fel, hogy a kooperációs teret egy \texttt{world} nevű elérési pont jelöli.
+Az elérési útvonalban ezt érdemes úgy szerepeltetni, hogy \texttt{/api/world}.
+
+\SubSection{Bejelentkezés a virtuális térbe}
+
+\texttt{/api/login}
+Egy példa kérés a szerver felé.
+\begin{python}
+{ "name": "Agent Name" }
+\end{python}
+Erre a szerver (sikeres bejelentkezés esetén) az ágens saját, egyedi azonosítójával tér vissza.
+Például, hogy ha az első bejelentkező ágensről van szó, akkor
+\begin{python}
+{ "agent_id": 1 }
+\end{python}
+
+% TODO: Készíteni példát hibaüzenetre!
+
+\SubSection{Entitások adatainak lekérdezése}
+
+Az adatok lekérdezéséhez a kliens egy GET kérést küld a \texttt{world} erőforrás felé.
+Az a válaszüzenetben visszaadja az összes entitás állapotát.
+
+Tegyük fel, hogy a térben két ágens és két mozgatható elem van már csak.
+
+% TODO: Üres üzenetre, további bejelentkezőkre váró üzenet.
+
+\SubSection{Saját pozíció visszaküldése}
+
+Az irányított ágens adatainak küldéséhez a klienseknek egy POST kérést kell intéznie a szerver felé.
+Definiáljunk egy \texttt{agent} nevű erőforrást ehhez.
+A kérésből egyértelműen ki kell derülnie, hogy az melyik ágensre vonatkozik.
+Erre egy kézenfekvő megoldás, hogy ha magában az üzenetben szerepel az ágens egyedi azonosítója is, amelyet az ágens a virtuális térbe való bejelentkezéskor kap a szervertől.
+
+% TODO: POST -> Saját pozíció felterjesztése, az ágens adatait kell szerializálni.
+
+\begin{python}
+{
+  "agent_id": 1,
+  "x": 10, "y": 20, "z": 30,
+  "rotation": 40
+}
+\end{python}
 
 \Section{Kliens alkalmazás}
+
+A kliens alkalmazásnak a központi szerver erőforrásaihoz kell hozzáférnie.
+Ilyen jellegű alkalmazásoknál tipikusan a kliens az egy webböngésző, jelen esetben viszont egy grafikus Python alkalmazásról van szó.
+A kérések kezelését ilyen esetben például a \texttt{requests} modul segítségével lehet egyszerűen megoldani.
+
+% https://www.w3schools.com/python/module_requests.asp
+
+Feltételezhetjük, hogy a szerver szintén az alhálózaton van, továbbá, hogy az üzenetek nem túl nagy méretűek, így a kérések küldése és feldolgozása szinkron módon történhet.
+
+\SubSection{Pozíciók interpolálása}
+
+A rendszer szempontjából a központi szerveres megvalósítás szűk keresztmetszetet jelenthet, olyan tekintetben, hogy nem reális, hogy minden kliens minden képkocka kirajzolás előtt lekérdezi a szerveren lévő aktuális adatokat.
+Tegyük fel ugyanis, hogy minden kliens 25 képkockát rajzoltat ki, és egyidejűleg 10 kliensünk van.
+Hogy ha minden kliens egyszer lekérdezi az aktuális állapotot, és átküldi a saját adatait, akkor az azt jelenti, hogy másodpercenként 500 kérést kellene feldolgoznia a szervernek.
+A feladat jellegéből adódik, hogy az ágensek számával a kérések száma lineárisan fog változni.
+A konstans tényezőn (tehát a szükséges lekérdezések számán kliensenként) viszont lehet javítani azzal, hogy ha például a szinkronizációs pontok alacsonyabb frekvenciára vannak beállítva.
+Ennek az optimális értéke függ a kliensek számától, a hálózati kommunikáció sebességétől, továbbá a szerver saját válaszidejétől.
+
+\Section{Megbízhatóság és biztonság}
+
+Mivel az alkalmazás több számítógépen működik egyidejűleg, ahol a kliens egy eseményvezérelt program, így több tekintetben is egy aszinkron alkalmazásról beszélhetünk.
+
+% TODO: Szinkronizációs problémák. Mindegyik kliens egy kicsit mást lát a térből idő tekintetében is.
+
+% TODO: Bejelentkezés, üzenetek validálása (Hasonlóan, mint bármilyen más webalkalmazás esetében) Authentikáció
+
+% TODO: Leírni, hogy ha szinkron esetről van szó, és kiesik a szerver, akkor az összes kliens le fog fagyni, ahogy a szerver felé indít egy aktuális kérést.
