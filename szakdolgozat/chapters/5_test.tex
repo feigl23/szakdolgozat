@@ -1,7 +1,22 @@
 \Chapter{Interakció és kommunikáció a virtuális térben}
 
-\Section{Szerver}
+Ahhoz, hogy a kliensek kooperálni tudjanak a virtuális térben meg kell oldani az eszközök közötti kommunikációt.
+Feltételezhetjük, hogy az eddigiekben bemutatott alkalmazásnak (továbbiakban kliensnek) van hozzáférése a helyi hálózathoz.
+Ezáltal szerver-kliens architektúra szerint megoldható az eszközök közötti kommunikáció.
 
-REST API kialakítása
+A következő szakaszokban azt vizsgáljuk meg, hogy a központi szerver milyen feladatokat lát ez, azzal a kommunikáció hogyan oldható meg interfészek, protokollok szintjén.
 
-Ide lehet leírni azt, hogy 
+Az ezt követő részben a korábban bemutatott kliens alkalmazás kiegészítése kerül részletezésre, hogy az alkalmas legyen arra, hogy a többi klienssel megossza az adatokat a központi szerveren keresztül.
+
+\Section{Központi szerver}
+
+Egyenrangú kliens alkalmazásokat feltételezve a virtuális térben lévő ágensek és entitások adatait a központi szervernek kell kezelnie.
+
+% TODO: Kezelt adatok, adatszerkezetek
+
+\Section{REST API}
+
+% TODO: GET -> összes pozíció lekérdezése
+% TODO: POST -> Saját pozíció felterjesztése
+
+\Section{Kliens alkalmazás}
