@@ -14,7 +14,9 @@ from tracker import *
 from draw_background import *
 from camera import *
 from constans import *
+from timer import *
 import cv2
+import time
 
 
 cap = cv2.VideoCapture(0)
@@ -31,6 +33,7 @@ class Game:
         self.camera = Camera()
         self.background = Background()
         self.constans = Constans()
+        self.timer = Timer()
         self.x =-2
         self.y=-4
         self.z =20
@@ -46,6 +49,7 @@ class Game:
         self.rvec = []
         self.tvec = []
         self.i=0
+        self.first=True
 
 
     def init(self):
@@ -65,10 +69,10 @@ class Game:
 
 
     def capture(self):
+        s,self.frame = cap.read()
+        self.rvec,self.tvec, self.ids = self.traker.track(self.frame, self.mtx, self.dist)
+        self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
         if(self.anim == False):
-            s,self.frame = cap.read()
-            self.rvec,self.tvec, self.ids = self.traker.track(self.frame, self.mtx, self.dist)
-            self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
             if(self.rvec !=[]):
                 self.draw_scene()
             else:
@@ -76,15 +80,28 @@ class Game:
                 glutSwapBuffers()
 
         else:
-            self.is_not_end =True
-            game.i = 1
-            while(self.is_not_end):
-                s,self.frame = cap.read()
-                self.rvec,self.tvec, self.ids = self.traker.track(self.frame, self.mtx, self.dist)
-                self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
+            if(self.blue.length == self.lilac.length or self.blue.length>self.lilac.length):
+                ido = 0.5/(self.blue.length*1000000000)
+            else:
+                ido = 0.5/(self.lilac.length*1000000000)
+            if(self.first):
+                self.first = False
+                self.timer.start()
+
+                game.i = 1
                 self.direct_animation.direct(self)
                 glutPostRedisplay()
                 glutSwapBuffers()
+                glFlush()
+            else:
+                if(self.timer.elapsed_time >= ido):
+                    self.i+=1
+                    self.timer.start()
+                self.direct_animation.direct(self)
+                glutPostRedisplay()
+                glutSwapBuffers()
+                glFlush()
+
 
 
     def draw_scene(self):

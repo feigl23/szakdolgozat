@@ -46,6 +46,7 @@ class DirectAnim:
                     game.is_not_end =False
                     game.blue.box =-1
                     game.blue.anim =""
+                    game.first=True
             elif(game.run_lilac == True and game.run_blue != True ):
                 game.collision.collision(game.lilac, game.blue, game.box)
                 game.lilac.which_animation(game.i,game.box)
@@ -56,6 +57,7 @@ class DirectAnim:
                     game.is_not_end =False
                     game.lilac.box =-1
                     game.lilac.anim =""
+                    game.first=True
             elif(game.run_blue == True and game.run_lilac == True):
                 if(game.blue.anim == game.lilac.anim):
                     game.collision.collision(game.blue, game.lilac, game.box)
@@ -67,6 +69,7 @@ class DirectAnim:
                         game.blue.box =-1
                         game.lilac.box =-1
                         game.lilac.anim=""
+                        game.first=True
 
                 else:
                     if(game.blue.length>game.lilac.length):
@@ -87,6 +90,7 @@ class DirectAnim:
                                 game.is_not_end = game.run_blue = game.anim= False
                                 game.blue.box =-1
                                 game.blue.anim=""
+                                game.first=True
                     else:
                         if(game.blue.length>=game.lilac.length):
                             game.collision.collision(game.blue, game.lilac, game.box)
@@ -101,15 +105,16 @@ class DirectAnim:
                         else:
                             game.collision.collision(game.blue, game.lilac, game.box)
                             game.lilac.which_animation(game.i,game.box)
-                            game.blue.draw_model(i)
+                            game.blue.draw_model(game.i)
                             if(game.i == game.lilac.length-1):
                                 game.is_not_end =game.anim= game.run_lilac = False
                                 game.lilac.box =-1
                                 game.lilac.anim=""
+                                game.first=True
 
             else:
                 game.is_not_end = game.run_lilac= game.anim = game.run_blue =  False
                 game.lilac.box =-1
                 game.blue.box =-1
             glPopMatrix()
-        game.i+=1
+        game.timer.stop()

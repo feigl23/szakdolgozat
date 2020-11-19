@@ -36,19 +36,19 @@ class Lilac:
             self.walk_models[i-1].generate()
         self.const_dist = 0.4 /(len(self.walk_models)-1)
 
-        #for i in range(1,21):
-        #    if(i<10):
-        #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
-        #    else:
-        #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
-        #    self.jump_models[i-1].generate()
+        for i in range(1,21):
+            if(i<10):
+                self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+            else:
+                self.jump_models.append(OBJ("models/jump/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+            self.jump_models[i-1].generate()
 
-        #for i in range(1,16):
-        #    if(i<10):
-        #        self.grab_models.append(OBJ("models/grab/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
-        #    else:
-        #        self.grab_models.append(OBJ("models/grab/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
-        #    self.grab_models[i-1].generate()
+        for i in range(1,16):
+            if(i<10):
+                self.grab_models.append(OBJ("models/grab/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+            else:
+                self.grab_models.append(OBJ("models/grab/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+            self.grab_models[i-1].generate()
 
     def draw_model(self):
         glPushMatrix()

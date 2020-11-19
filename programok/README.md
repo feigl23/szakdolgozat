@@ -22,3 +22,5 @@ https://rdmilligan.wordpress.com/2015/10/15/augmented-reality-using-opencv-openg
 http://openglsamples.sourceforge.net/cube_py.html 
 
 https://stackoverflow.com/questions/50764623/object-is-wrong-displaced-in-ar-aruco-opengl
+
+https://realpython.com/python-timer/

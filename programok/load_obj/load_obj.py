@@ -45,8 +45,8 @@ class LoadOBJ:
     def main(self):
         glutInit()
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-        glutInitWindowPosition(300, 150) 
-        glutInitWindowSize(640,480) 
+        glutInitWindowPosition(300, 150)
+        glutInitWindowSize(640,480)
         glutCreateWindow("Load object")
         glutKeyboardFunc(self.keyboardF)
         self.init()

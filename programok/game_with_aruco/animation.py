@@ -21,6 +21,7 @@ class Animation:
             model.walk_models[index-1].render()
             glPopAttrib()
             glPopMatrix()
+
             #time.sleep(0.00001)
 
     def jump(self,model,ind):

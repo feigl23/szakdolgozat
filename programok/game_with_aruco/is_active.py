@@ -30,6 +30,7 @@ class isActive:
             if( index not in box.remove):
                 box.remove.append(index)
                 self.colors.append(box.boxes['color'][index])
+
                 self.right+=1
                 self.check_is_active(box)
 

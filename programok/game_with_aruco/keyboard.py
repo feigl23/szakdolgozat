@@ -61,7 +61,7 @@ class Keyboard:
 
         ## lilac
         if key == b'l':
-            game.lilac.rot_z =90
+            game.lilac.rot_z +=90
         elif key == b'i':
             if(game.run_lilac != True):
                 game.lilac.anim="walk"
@@ -106,7 +106,7 @@ class Keyboard:
                     game.lilac.axis="y"
                     game.lilac.dist=game.lilac.const_dist
         elif key == b'j':
-                    game.lilac.rot_z =90
+                    game.lilac.rot_z -=90
 
         elif key == b'p':
             if(game.run_lilac != True):
