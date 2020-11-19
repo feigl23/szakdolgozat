@@ -5,7 +5,7 @@ from OpenGL.GLUT import *
 class Collision:
     def __init__(self):
         self.limit = [-17.8,-7.8,17.8]
-        self.criteria = [0.4, 1.5]
+        self.criteria = [0.4, 1.8]
         self.stop = False
 
     def collision(self,model,other,box):

@@ -9,6 +9,8 @@ class Box:
         self.isActive = isActive()
         self.remove=[]
         self.is_over = False
+        self.right=True
+        self.left = False
         self.boxes ={
         "model" : [],
         "color" : [],
@@ -45,7 +47,8 @@ class Box:
         if("y" in axis):
             self.boxes['y'][m]= self.boxes['y'][m]+dist
         else:
-            self.boxes['x'][m]= self.boxes['x'][m]+dist-0.1
+            self.boxes['x'][m]= self.boxes['x'][m]+dist
+
         self.isActive.check_spot(self,m)
         if len(self.remove) == len(self.boxes['model']):
             self.is_over = True

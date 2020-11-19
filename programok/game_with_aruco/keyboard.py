@@ -3,12 +3,12 @@ class Keyboard:
     def keyboardF(self,game,key):
         ## blue
         if key == b'a':
-                game.blue.rot_z +=90
+                game.blue.rot_z -=90
         elif key == b'w':
             if(game.run_blue != True):
-                game.run_blue = True
-                game.anim = True
                 game.blue.anim = "walk"
+                game.anim = True
+                game.run_blue = True
                 game.blue.length = 31
                 if game.blue.rot_z == 90 or game.blue.rot_z ==-270 :
                     game.blue.axis = "x"
@@ -24,8 +24,8 @@ class Keyboard:
                     game.blue.dist =-1*game.blue.const_dist
         elif key == b's':
             if(game.run_blue != True):
-                game.run_blue= True
                 game.blue.anim="walk"
+                game.run_blue= True
                 game.anim = True
                 game.blue.length = 31
                 if  game.blue.rot_z == -90 or game.blue.rot_z == 270:
@@ -39,21 +39,21 @@ class Keyboard:
                     game.blue.dist =-1*game.blue.const_dist
                 else:
                     game.blue.axis = 'y'
-                    game.blue.dist =-game.blue.const_dist
+                    game.blue.dist =game.blue.const_dist
 
         elif key ==  b'd':
-                game.blue.rot_z -=90
+                game.blue.rot_z +=90
         elif key == b'e':
             if(game.run_blue != True):
+                game.blue.anim="grab"
                 game.run_blue = True
                 game.anim = True
-                game.blue.anim="grab"
                 game.blue.length=16
         elif key == b' ':
             if(game.run_blue != True):
+                game.blue.anim="jump"
                 game.run_blue = True
                 game.anim = True
-                game.blue.anim="jump"
                 game.blue.length=21
 
         if(game.blue.rot_z==360 or game.blue.rot_z ==-360):
@@ -61,12 +61,12 @@ class Keyboard:
 
         ## lilac
         if key == b'l':
-            game.lilac.rot_z +=90
+            game.lilac.rot_z =90
         elif key == b'i':
             if(game.run_lilac != True):
+                game.lilac.anim="walk"
                 game.run_lilac= True
                 game.anim = True
-                game.lilac.anim="walk"
                 game.lilac.length = 31
                 if game.lilac.rot_z == 90 or game.lilac.rot_z == -270:
                     game.lilac.axis="x"
@@ -86,9 +86,9 @@ class Keyboard:
 
         elif key == b'k':
             if(game.run_lilac != True):
+                game.lilac.anim="walk"
                 game.run_lilac = True
                 game.anim = True
-                game.anim_name="walk"
                 game.lilac.length = 31
                 if  game.lilac.rot_z == -90 or game.lilac.rot_z == 270:
                     game.lilac.axis="x"
@@ -106,20 +106,20 @@ class Keyboard:
                     game.lilac.axis="y"
                     game.lilac.dist=game.lilac.const_dist
         elif key == b'j':
-                    game.lilac.rot_z -=90
+                    game.lilac.rot_z =90
 
         elif key == b'p':
             if(game.run_lilac != True):
+                game.lilac.length=21
+                game.lilac.anim="jump"
                 game.run_lilac = True
                 game.anim = True
-                game.lilac.anim="grab"
-                game.lilac.length=16
         elif key == b'o':
             if(game.run_lilac != True):
+                game.lilac.length=16
+                game.lilac.anim="grab"
                 game.run_lilac = True
                 game.anim = True
-                game.lilac.anim="jump"
-                game.lilac.length=21
 
         if(game.lilac.rot_z==360 or game.lilac.rot_z ==-360):
             game.lilac.rot_z = 0

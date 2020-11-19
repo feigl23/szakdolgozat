@@ -51,3 +51,9 @@ játékosok.
 
     Az inputokat kezeli és minden szükséges változónak megadja a megfelelő értéket.
     A kék pingvin a w,s,a,d,space,e a lila a i,j,k,o,p billentyűket használja.
+
+
+
+https://free3d.com/3d-model/emperor-penguin-601811.html
+https://free3d.com/3d-model/fantasy-castle-40715.html
+https://free3d.com/3d-model/crate-86737.html

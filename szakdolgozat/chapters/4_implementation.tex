@@ -72,7 +72,9 @@ A modellek átszínezésére az OpenGL \texttt{glColorf} függvényét használt
 \item CYM (szubtraktív): ,,Szubtraktív színkeverés esetén azt írjuk elő, hogy mennyi türkiz (Cyan), bíbor (Magenta) és sárga (Yellow) színt kell kivonnunk a legösszetettebb színből, a fehérből (a papírszíne) a kívánt szín előállítása érdekébe.”\cite{fenyek_szinek}
 \end{itemize}
 
-A \texttt{glColor3f} az RGB bázisrendszert használja fel, tehát a három paramétere egy-egy lebegőpontos szám (az egész számokra vonatkozó változata a \texttt{glColor}) továbbá a \texttt{glColor4f} rendelkezik egy negyedik paraméterrel is, az \texttt{alpha}-val, ami az átlátszóságot határozza meg.
+A \texttt{glColor} az RGB bázisrendszert használja fel, tehát a három paramétere egy-egy szám, ami a piros, zöld és kék színeket jelöli.
+
+A \texttt{glColor3*}, ahol a * a számok típusát jelöli.(int,float...) Az egész számokra vonatkozó változata a \texttt{glColor3i}), a float \texttt{glColor3f},továbbá a \texttt{glColor4*} rendelkezik egy negyedik paraméterrel is, az \texttt{alpha}-val, ami az átlátszóságot határozza meg.
 Például: 
 \begin{python}
 glColor3f(0.0,0.0,0.0) #fekete

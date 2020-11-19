@@ -47,6 +47,7 @@ class Game:
         self.tvec = []
         self.i=0
 
+
     def init(self):
         glDepthFunc(GL_LESS)
         glEnable(GL_DEPTH_TEST)
@@ -70,6 +71,10 @@ class Game:
             self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
             if(self.rvec !=[]):
                 self.draw_scene()
+            else:
+                glutPostRedisplay()
+                glutSwapBuffers()
+
         else:
             self.is_not_end =True
             game.i = 1
@@ -112,6 +117,16 @@ class Game:
                     self.blue.draw_model()
                     self.lilac.draw_model()
                     self.box.draw_models()
+                    glPushMatrix()
+                    glPushAttrib(GL_CURRENT_BIT)
+                    if(self.box.right != True):
+                        glTranslate(13,6,28)
+                    if(self.box.left != True):
+                        glTranslate(-13,6,29)
+                    glColor4f(0.0,1.0,1.0,1)
+                    glutSolidCube(5.8)
+                    glPopAttrib()
+                    glPopMatrix()
                     glPopMatrix()
                 glutPostRedisplay()
                 glutSwapBuffers()
