@@ -1,9 +1,9 @@
 # PINGVINES Játék
 
 A játék célja a dobozok eltüntetése, a szökőkutakba kell bele tolni őket.
-Minden pingvin csak a saját színével megegyező dobozt tolhatja, különben
-véget ér a játék, a játékosok veszettek.
-Ha minden doboz eltűnik, akkor ér véget a játék, ebben az esetben nyertek a
+Minden pingvin csak a saját színével megegyező dobozt tolhatja, egyszerre csak egy kút aktív és 
+pontosan annyi doboz kell bele amennyi játékos van.
+Ha minden doboz eltűnik, akkor ér véget a játék,nyernek a
 játékosok.  
 
 ### animation.py:
@@ -17,6 +17,10 @@ játékosok.
     a közelben és mikor nem. Ha nincs simán lepörög az animáció, ha van, akkor
     a karakter halad a megfelelő irányba és tolja maga előtt a dobozt. (a doboz
     mozgását a Box osztály valósítja meg)
+
+### boy.py:
+
+    A doboz modellek bertöltését, kirajzolását, egy adott épen tolt modell kirajzolását végző osztály.
 
 ### blue.py és lilac.py:
 
@@ -36,12 +40,24 @@ játékosok.
     Megnézi a modellek egymáshoz való helyzetét, a modell dobozokhoz való helyzetét,
     valamint azt, hogy a játéktérben maradt-e.
 
+### camera.py
+
+    Visszaadja a pillanatnyi videóképet.
+
+### constans.py:
+
+    A kamera  mátrix és disztorziós együtthatók betöltését és számításhoz szükséges függvényt tartalmazó osztály.
+
 ### direct_animation.py:
 
     Az animáció irányító osztály. Meghatározza, hogy a pozícióváltás melyik
     modellere vonatkozik, meghívja az animációt meghatározó függvényt,
     meghívja az ütközésvizsgálatot végző függvényt, majd az utolsó mozdulatkor
     vissza állítja és hamissá teszi a megfelelő változókat a következő animációhoz.
+
+### draw_brackground.py:
+
+    A kamera kép háttér textúrává való alakítását és kirajzolását végzni.
 
 ### game.py:
 
@@ -52,8 +68,23 @@ játékosok.
     Az inputokat kezeli és minden szükséges változónak megadja a megfelelő értéket.
     A kék pingvin a w,s,a,d,space,e a lila a i,j,k,o,p billentyűket használja.
 
+###tracker.py:
 
+    Az ArUco marker felismeréséért és a megfelelő forgásvektorok és eltolásvektorok visszaadásáért felelős osztály.
 
+### timer.py:
+    
+    Az animációk időzítéséhez szükséges osztály.
+
+### is_active.py:
+
+    A kutak figyelése, aktivitás váltás.
+
+#### A felhasznált modellek:
 https://free3d.com/3d-model/emperor-penguin-601811.html
 https://free3d.com/3d-model/fantasy-castle-40715.html
 https://free3d.com/3d-model/crate-86737.html
+
+
+#### A felhasznált kép:
+https://miro.medium.com/max/500/1*KOj47lkJHi9w8bxAvFAvEg.jpeg

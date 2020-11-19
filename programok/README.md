@@ -24,3 +24,5 @@ http://openglsamples.sourceforge.net/cube_py.html
 https://stackoverflow.com/questions/50764623/object-is-wrong-displaced-in-ar-aruco-opengl
 
 https://realpython.com/python-timer/
+
+https://www.pygame.org/wiki/OBJFileLoader

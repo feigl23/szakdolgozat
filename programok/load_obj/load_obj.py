@@ -27,20 +27,20 @@ class LoadOBJ:
         self.model.generate()
 
     def draw_model(self):
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            glLoadIdentity()
-            #glTranslate(0,-20,-60)
-            glPushMatrix()
-            #glRotate(180,0,1,0)
-            #glScale(0.1,0.1,0.1)
-            glTranslate(0,0,-2)
-            self.model.render()
-            glPopMatrix()
-            glutSwapBuffers()
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glLoadIdentity()
+        #glTranslate(0,-20,-60)
+        glPushMatrix()
+        #glRotate(180,0,1,0)
+        #glScale(0.1,0.1,0.1)
+        glTranslate(0,0,-2)
+        self.model.render()
+        glPopMatrix()
+        glutSwapBuffers()
 
     def keyboardF(self,key,x,y):
         if key == b'\x1b':
-          sys.exit()
+            sys.exit()
 
     def main(self):
         glutInit()

@@ -28,7 +28,7 @@ class Penguin:
 
     def keyboardF(self,key,x,y):
         if key == b'\x1b':
-          sys.exit()
+            sys.exit()
 
     def draw_obj(self):
         glEnable(GL_TEXTURE_2D)

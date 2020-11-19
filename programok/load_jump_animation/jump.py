@@ -31,22 +31,22 @@ class Jump:
                 self.penguins.append(OBJ("models/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
             self.penguins[i-1].generate()
     def draw_model(self):
-            for i in range(1,21):
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-                glPushMatrix()
-                glLoadIdentity()
-                glTranslate(0,-0.8,-2)
-                glRotate(-90,1,0,0)
-                glRotate(-180,0,0,1)
-                self.penguins[i-1].render()
-                glPopMatrix()
-                glutPostRedisplay()
-                glutSwapBuffers()
-                time.sleep(.01)
+        for i in range(1,21):
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+            glPushMatrix()
+            glLoadIdentity()
+            glTranslate(0,-0.8,-2)
+            glRotate(-90,1,0,0)
+            glRotate(-180,0,0,1)
+            self.penguins[i-1].render()
+            glPopMatrix()
+            glutPostRedisplay()
+            glutSwapBuffers()
+            time.sleep(.01)
 
     def keyboardF(self,key,x,y):
         if key == b'\x1b':
-          sys.exit()
+            sys.exit()
 
     def main(self):
         glutInit()

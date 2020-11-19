@@ -44,7 +44,7 @@ class Trieder:
 
     def keyboardF(self,key,x,y):
         if key == b'\x1b':
-          sys.exit()
+            sys.exit()
 
     def main(self):
         glutInit()

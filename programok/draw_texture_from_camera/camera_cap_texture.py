@@ -14,7 +14,7 @@ height = 500
 
 def keyboardF(key,x,y):
     if key == b'\x1b':
-      sys.exit()
+        sys.exit()
 
 def cap_texture():
     red,frame = cap.read() #aktuális kamera kép

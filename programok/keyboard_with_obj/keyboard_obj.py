@@ -31,36 +31,36 @@ class KeyboardObj:
 
 
     def draw_trieder(self):
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            glLoadIdentity()
-            glTranslate(0,0,-5)
-            glPushAttrib(GL_CURRENT_BIT)
-            glBegin(GL_LINES)
-            glColor3f(1, 0, 0)
-            glVertex3f(0, 0, 0)
-            glVertex3f(10, 0, 0)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glLoadIdentity()
+        glTranslate(0,0,-5)
+        glPushAttrib(GL_CURRENT_BIT)
+        glBegin(GL_LINES)
+        glColor3f(1, 0, 0)
+        glVertex3f(0, 0, 0)
+        glVertex3f(10, 0, 0)
 
-            glColor3f(0, 1, 0)
-            glVertex3f(0, 0, 0)
-            glVertex3f(0, 10, 0)
+        glColor3f(0, 1, 0)
+        glVertex3f(0, 0, 0)
+        glVertex3f(0, 10, 0)
 
-            glColor3f(0, 0, 1)
-            glVertex3f(0, 0, 0)
-            glVertex3f(0, 0, 10)
-            glEnd()
-            glPopAttrib()
-            glTranslate(self.x,self.y,self.z)
-            glScale(2,2,2)
+        glColor3f(0, 0, 1)
+        glVertex3f(0, 0, 0)
+        glVertex3f(0, 0, 10)
+        glEnd()
+        glPopAttrib()
+        glTranslate(self.x,self.y,self.z)
+        glScale(2,2,2)
 
-            self.model.render()
-            glutPostRedisplay()
-            glutSwapBuffers()
+        self.model.render()
+        glutPostRedisplay()
+        glutSwapBuffers()
 
     def keyboardF(self,key,x,y):
         if key == b'\x1b':
-          sys.exit()
+            sys.exit()
         elif key == b' ':
-          self.z +=1
+            self.z +=1
 
     def arrows(self,key, x, y):
         if key == GLUT_KEY_LEFT:

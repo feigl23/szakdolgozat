@@ -18,6 +18,10 @@ játékosok.
     a karakter halad a megfelelő irányba és tolja maga előtt a dobozt. (a doboz
     mozgását a Box osztály valósítja meg)
 
+### boy.py:
+
+    A doboz modellek bertöltését, kirajzolását, egy adott épen tolt modell kirajzolását végző osztály.
+
 ### blue.py és lilac.py:
 
     A karakterek modelljeinek betöltése és animáció nélküli kirajzolása történik

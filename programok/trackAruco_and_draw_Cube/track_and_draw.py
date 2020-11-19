@@ -47,50 +47,50 @@ class Cube:
             return [],[],0
 
     def compositeArray(self,rvec, tvec):
-            v = np.c_[rvec, tvec.T]
-            v_ = np.r_[v, np.array([[0,0,0,1]])]
-            return v_
+        v = np.c_[rvec, tvec.T]
+        v_ = np.r_[v, np.array([[0,0,0,1]])]
+        return v_
 
     def draw_cube(self,rvec,tvec, ids):
-            alpha = self.mtx[0][0]
-            beta = self.mtx[1][1]
-            cx = self.mtx[0][2]
-            cy = self.mtx[1][2]
-            f = 1000.0
-            n = 1.0
+        alpha = self.mtx[0][0]
+        beta = self.mtx[1][1]
+        cx = self.mtx[0][2]
+        cy = self.mtx[1][2]
+        f = 1000.0
+        n = 1.0
 
-            view = np.array([
-            [(alpha)/cx, 0,       0,                0 ],
-            [0,          beta/cy, 0,                0 ],
-            [0,          0,       -(f+n)/(f-n),     -1],
-            [0,          0,       (-2.0*f*n)/(f-n), 0 ],
-            ])
+        view = np.array([
+        [(alpha)/cx, 0,       0,                0 ],
+        [0,          beta/cy, 0,                0 ],
+        [0,          0,       -(f+n)/(f-n),     -1],
+        [0,          0,       (-2.0*f*n)/(f-n), 0 ],
+        ])
 
-            glLoadMatrixd(view.T)
+        glLoadMatrixd(view.T)
 
-            glMatrixMode(GL_MODELVIEW)
-            glLoadIdentity()
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        glPushMatrix()
+
+        if not ids is None:
+            tvec[0][0][0] = tvec[0][0][0]
+            tvec[0][0][1] = -tvec[0][0][1]
+            tvec[0][0][2] = -tvec[0][0][2]
+
+            rvec[0][0][1] = -rvec[0][0][1]
+            rvec[0][0][2] = -rvec[0][0][2]
+
+            m = self.compositeArray(cv2.Rodrigues(rvec)[0], tvec[0][0])
             glPushMatrix()
-
-            if not ids is None:
-                tvec[0][0][0] = tvec[0][0][0]
-                tvec[0][0][1] = -tvec[0][0][1]
-                tvec[0][0][2] = -tvec[0][0][2]
-
-                rvec[0][0][1] = -rvec[0][0][1]
-                rvec[0][0][2] = -rvec[0][0][2]
-
-                m = self.compositeArray(cv2.Rodrigues(rvec)[0], tvec[0][0])
-                glPushMatrix()
-                glLoadMatrixd(m.T)
-                glColor3f(0.0,0.5,1.0)
-                glutSolidCube(10.0)
-                glPopMatrix()
-
+            glLoadMatrixd(m.T)
+            glColor3f(0.0,0.5,1.0)
+            glutSolidCube(10.0)
             glPopMatrix()
 
-            glFlush();
-            glutSwapBuffers()
+        glPopMatrix()
+
+        glFlush();
+        glutSwapBuffers()
 
 
     def cap_texture(self):

@@ -24,34 +24,33 @@ class Keyboard:
 
 
     def draw_trieder(self):
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            glLoadIdentity()
-            glTranslate(self.x,self.y,self.z)
-            # Hogy latszodjon a kek is: a felso glTranslate() helyett:
-            #glTranslate(0,-8,-10)
-            #glRotate(90,0,1,1)
-            glBegin(GL_LINES)
-            glColor3f(1, 0, 0)
-            glVertex3f(0, 0, 0)
-            glVertex3f(10, 0, 0)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glLoadIdentity()
+        glTranslate(self.x,self.y,self.z)
+        # Hogy latszodjon a kek is: a felso glTranslate() helyett:
+        #glTranslate(0,-8,-10)
+        #glRotate(90,0,1,1)
+        glBegin(GL_LINES)
+        glColor3f(1, 0, 0)
+        glVertex3f(0, 0, 0)
+        glVertex3f(10, 0, 0)
 
-            glColor3f(0, 1, 0)
-            glVertex3f(0, 0, 0)
-            glVertex3f(0, 10, 0)
+        glColor3f(0, 1, 0)
+        glVertex3f(0, 0, 0)
+        glVertex3f(0, 10, 0)
 
-            glColor3f(0, 0, 1)
-            glVertex3f(0, 0, 0)
-            glVertex3f(0, 0, 10)
-            glEnd()
-            glutPostRedisplay()
-            glutSwapBuffers()
+        glColor3f(0, 0, 1)
+        glVertex3f(0, 0, 0)
+        glVertex3f(0, 0, 10)
+        glEnd()
+        glutPostRedisplay()
+        glutSwapBuffers()
 
     def keyboardF(self,key,x,y):
-        print(key)
         if key == b'\x1b':
-          sys.exit()
+            sys.exit()
         elif key == b' ':
-          self.y -=1
+            self.y -=1
 
     def arrows(self,key, x, y):
         if key == GLUT_KEY_LEFT:

@@ -50,6 +50,7 @@ class Game:
         self.tvec = []
         self.i=0
         self.first=True
+        self.was =0
 
 
     def init(self):
@@ -106,9 +107,17 @@ class Game:
 
     def draw_scene(self):
         if(self.box.is_over):
-            glClearColor(0.8, 0.8, 1.0, 0.0)
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            print("VÉGE")
+            if(self.was <3):
+                self.was+=1
+                glClearColor(0.8, 0.8, 1.0, 0.0)
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+                bg =cv2.imread("images/win.jpg")
+                self.background.draw(bg,self.dist, self.mtx,self.texture_background,[],[])
+                glutPostRedisplay()
+                glutSwapBuffers()
+                glFlush()
+            else:
+                sys.exit()
         else:
                 glEnable(GL_DEPTH_TEST)
                 glDisable(GL_TEXTURE_2D)

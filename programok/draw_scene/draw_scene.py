@@ -89,7 +89,7 @@ class DrawScene:
 
     def keyboardF(self,key,x,y):
         if key == b'\x1b':
-          sys.exit()
+            sys.exit()
         elif key ==b'w':
             self.y -=1
         elif key == b's':

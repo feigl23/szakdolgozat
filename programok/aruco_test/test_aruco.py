@@ -7,6 +7,7 @@ from PIL import Image
 def save_data(rvec, tvec, path):
 
     cv_file = cv2.FileStorage(path, cv2.FILE_STORAGE_WRITE)
+
     cv_file.write("RVEC", rvec)
     cv_file.write("TVEC", tvec)
 
