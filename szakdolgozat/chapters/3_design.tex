@@ -23,7 +23,7 @@ A kiterjeszetett valóság fontos eszköze a markerek, így azok használata jó
 A vonalkódokat és a QR kódokat az információ tároláson túl használhatjuk pozíció becslésére is.
 A QR-kód neve \textit{Quick Response}-t, vagyis gyors választ jelent.
 Ez egy kétdimenziós kód. Működésében nagyon hasonlít a vonalkódhoz, gyakorlatilag annak egy fejlettebb változatáról van szó.
-Míg egy vonalkód esetében jellemzően 13 számjegy kerül tárolásra, addig a QR kód akár 7000 számjegyet és 4300 alfanumerikus karaktert tud kódolni. (Tipikusan például egy weboldal URL-jét.)
+Míg egy vonalkód esetében jellemzően 13 számjegy kerül tárolásra, addig a QR kód akár 7000 számjegyet és 4300 alfanumerikus karaktert tud kódolni, például egy weboldal URL-jét \cite{tiwari2016introduction}.
 Ezekre láthatunk egy-egy példát \aref{fig:barcode}. ábrán.
 
 \begin{figure}[htp]
@@ -86,11 +86,11 @@ Míg accelerometer tengely alapú elmozdulást mér, addig a giroszkóp az accel
 
 \Section{Az Aruco marker használata}
 
-Az \textit{ArUco} (\textit{Augmented Reality University of Cordoba}) markereket 2014-ben fejlesztette ki kollégáival S. Garrido-Jurado Spanyolországban.
+Az \textit{ArUco} (\textit{Augmented Reality University of Cordoba}) markereket 2014-ben fejlesztette ki kollégáival S. Garrido-Jurado Spanyolországban \cite{avola2016practical}.
 Az ArUco könyvtár OpenCV alapú, nyílt forráskódú, C++ nyelvű függvénykönyvtár.
 Ar ArUco markerek két részből állnak: egy fekete keretből és az egyedi bináris mintából, ami azonosítja a markert (mint ahogy például \aref{fig:kep}. ábrán látható).
 
-Alapvetően az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozatban felvetett kamerapozíció becslési problémákhoz. A detektálást számos beépített függvény segíti.
+Alapvetően az OpenCV-s támogatottsága miatt került kiválasztásra a dolgozatban felvetett kamerapozíció becslési problémákhoz. A detektálást számos beépített függvény segíti \cite{garrido2018opencv}.
 
 \begin{figure}[htp]
     \centering

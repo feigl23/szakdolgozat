@@ -14,7 +14,7 @@ A következő szakaszokban ennek a Python nyelvű implementációja kerül rész
 
 \SubSection{OpenGL, PyOpenGL}
 
-Az OpenGL egy grafikus nyelv, amely függvénykönyvtár formájában rendelkezésre álló implementációjával 2D-s és 3D-s alakzatokat tudunk megjeleníteni. Nagyon elterjedt, elérhető és támogatott a fő operációs rendszereken (Linux, macOS, Windows), valamint számos programozási nyelvvel kompatibilis \cite{opengl}.
+Az OpenGL egy grafikus nyelv, amely függvénykönyvtár formájában rendelkezésre álló implementációjával 2D-s és 3D-s alakzatokat tudunk megjeleníteni. Nagyon elterjedt, elérhető és támogatott a fő operációs rendszereken (Linux, macOS, Windows), valamint számos programozási nyelvvel kompatibilis \cite{madsen2016opengl}.
 
 Az OpenGL pythonnal használható verziója a cross-platform, nyíltforráskodú \textit{PyOpenGL}. A PyOpenGL támogatja a GL, GLU és GLUT könyvtárakat.
 Továbbá lehetőség van a \textit{PyGame} függvénykönyvtár használatára OpenGL-s kódok megvalósításához.
@@ -28,9 +28,9 @@ A program Wavefront OBJ formátumú modellekkel dolgozik, amelyekhez anyagjellem
 \item \texttt{obj}: A Wavefront Technologies által a Advanced Visualizer animációs csomagjukhoz kifejleszett obj fájlformátum egy geometria-definíciós formátum. 
 Annak köszönhetően, hogy nyílt formátum, más 3D-s grafikus alkalmazások gyártói átvették.
 
-Az obj egy egyszerű formátum ( akár ember által is olvasható), ami semmi mást nem add meg, mint a 3D geometriát, mint például a csúcsok helyzetét, az egyes textúra koordináta-csúcsok helyzetét, a csúcsok normálisát, az egyes sokszögeket csúcsok listájaként, textúra csúcsokat \cite{obj}.
+Az obj egy egyszerű formátum ( akár ember által is olvasható), ami semmi mást nem add meg, mint a 3D geometriát, mint például a csúcsok helyzetét, az egyes textúra koordináta-csúcsok helyzetét, a csúcsok normálisát, az egyes sokszögeket csúcsok listájaként, textúra csúcsokat.
 
-\item \texttt{mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak meghatározását tartalmazza, amelyekhez OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy newmtl utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokot \cite{mtl}.
+\item \texttt{mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak meghatározását tartalmazza, amelyekhez OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy newmtl utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokot.
 \end{itemize} 
 
 A program fő elemei az ágensek. 
@@ -177,10 +177,10 @@ A következő függvények kerültek felhasználásra.
 \begin{itemize}
 \item A \texttt{glutKeyBoardFunc()}-nek három paramétere van: \texttt{key} a generált ASCII karakter, az \texttt{x} és \texttt{y} pedig az egér pozíciója abban az időpontban, mikor a billentyű lenyomás történt a \texttt{GLUT} ablakhoz képest.
 
-Ezzel a funkcióval csak a kilépéshez szükséges \texttt{ESC} billentyű lenyomás kezelődött le és a \texttt{space}, a nyíl billentyűkhöz egy másik funkció szükséges \cite{keyboardfunc}.
+Ezzel a funkcióval csak a kilépéshez szükséges \texttt{ESC} billentyű lenyomás kezelődött le és a \texttt{space}, a nyíl billentyűkhöz egy másik funkció szükséges.
 \item A \texttt{glutSpecialFunc()} szükséges speciális billentyűk lenyomásának kezeléséhez,  
-aminek szintén három paramétere van, a key, ami egy \texttt{GLUT\_KEY\_*} konstans, és az \texttt{x} és \texttt{y}, amik ugyanazt jelölik, mint az előző esetben, az egér relatív helyzetét az ablakhoz képest \cite{keyboardspec}.
+aminek szintén három paramétere van, a key, ami egy \texttt{GLUT\_KEY\_*} konstans, és az \texttt{x} és \texttt{y}, amik ugyanazt jelölik, mint az előző esetben, az egér relatív helyzetét az ablakhoz képest.
 \item A \texttt{glutMouseFunc()} az egér billentyűinek a lenyomását a  tudjuk nyomon követni, a mozgását pedig a \texttt{glutMotionFunc()}-al vagy a \texttt{glutPassiveMotionFunc()}-al. 
 
-A glutMotionFunc azt az eshetőséget kezelei le, amikor egy vagy több billentyű lenyomás történt és közben lett mozgatva az egér. A \texttt{glutPassiveMotionFunc()} pedig azt, amikor úgy lett mozgatva az egér, hogy nem lett lenyomva egyetlen egér gomb sem \cite{mousemot},\cite{mousefunc}.
+A glutMotionFunc azt az eshetőséget kezelei le, amikor egy vagy több billentyű lenyomás történt és közben lett mozgatva az egér. A \texttt{glutPassiveMotionFunc()} pedig azt, amikor úgy lett mozgatva az egér, hogy nem lett lenyomva egyetlen egér gomb sem.
 \end{itemize}

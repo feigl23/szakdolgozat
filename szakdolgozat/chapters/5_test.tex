@@ -33,7 +33,7 @@ Egy lehetséges megoldás, hogy a virtuális tér állapotára vonatkozóan ilye
 \Section{REST API}
 
 A REST alapvetően egy állapotmentes protokoll.
-Az a fő előnye, hogy az erőforrások felé intézett kérésekben minden olyan információ szerepel, amely a válasz kiszámításához/összerakásához szükséges.
+Az a fő előnye, hogy az erőforrások felé intézett kérésekben minden olyan információ szerepel, amely a válasz kiszámításához/összerakásához szükséges \cite{sohan2017study}.
 
 Tegyük fel, hogy a kooperációs teret egy \texttt{world} nevű elérési pont jelöli.
 Az elérési útvonalban ezt érdemes úgy szerepeltetni, hogy \texttt{/api/world}.
@@ -155,8 +155,8 @@ Ez többféle formában is jelentkezhet.
 \begin{itemize}
 	\item Rövid, átmeneti hálózati hibáról van szó. A klienseknek (vagy akár a szervernek is) érdemes interpolálni a kimaradt időszeletet.
 	\item Egy kliens teljesen kieshet (gyakorlatilag, mint ha kijelentkezne).
-	\item Amennyiben például a hálózat hiba vagy a megnövekedett feldolgozási idő csak késleltetést okoz, akkor érdemes lehet a használhatatlan üzeneteket (állapotfrissítéseket).
-	\item A szerver hosszabb kiesését külön hibaüzenet formájában érdemes jelezni a hibát a klienseknek.
+	\item Amennyiben például a hálózat hiba vagy a megnövekedett feldolgozási idő csak késleltetést okoz, akkor érdemes lehet a használhatatlan üzeneteket (állapotfrissítéseket) eldobni.
+	\item A szerver hosszabb kiesése esetén külön hibaüzenet formájában érdemes jelezni a hibát a klienseknek.
 \end{itemize}
 
 Az említett problémák egy kis részét képezik az aktuálisan bemutatott alkalmazáshoz hasonló aszinkron, elosztott "valós" idejű alkalmazásoknál.

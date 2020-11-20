@@ -9,7 +9,7 @@ A következőkben ezek tisztázására kerül sor.
 A témakör fogalomrendszere az alábbi három megközelítés köré épül.
 \begin{itemize}
 \item[AR] (\textit{Augmented Reality}):
-A kiterjesztett vagy augmentált valóság alatt a valóság kibővítését értjük. Ehhez valamilyen eszköz kameráján keresztül kell szemlélnünk a teret. Fontos kiemelni, hogy az augmentálás azt jelenti, hogy a valós képre kerülnek rá a plusz elemek.
+A kiterjesztett vagy augmentált valóság alatt a valóság kibővítését értjük. Ehhez valamilyen eszköz kameráján keresztül kell szemlélnünk a teret. Fontos kiemelni, hogy az augmentálás azt jelenti, hogy a valós képre kerülnek rá a plusz elemek \cite{schmalstieg2016augmented}.
 \item[VR] (\textit{Virtual reality}): A virtuális valóság, a valóság teljes kizárása és egy virtuális környezetbe kerülést jelent. (Eszközkészletében megjelenhetnek azonban olyan elemek, amelyek a valóságos térből kapott információk segítségével teszik módosíthatóvá a virtuális teret. Ilyenek például a különböző elmozdulásszenzorok.)
 \item[MR] (\textit{Mixed Reality}): Az AR és VR keveréke. A valós teret bővíti ki, ahogy az AR, azonban itt a cél a virtuális és valós környezet határának elmosása. Nagyobb hangsúlyt kap az interakció. 
 \end{itemize}
@@ -30,8 +30,8 @@ rendszerek, azaz olyan apró (karakterisztikus méretük jellemzően 20\-1000 mi
 A telefonok jellemzően a következő MEMS szenzorokat tartalmazzák:
 \begin{itemize}
 
-\item {\bf Gyorsulásérzékelő} (accelerometer): Az eszközre ható gyorsulást igyekszik mérni. Ezt az eszközre hatókból tudja becsülni (Newton 2. törvényének megfelelően az $F = m \cdot a$ összefüggésből) \cite{gyorsulas}.
-\item {\bf Giroszkóp}: Szögben történő elfordulást és annak sebességét méri/becsli \cite{giroszkop}.
+\item {\bf Gyorsulásérzékelő} (accelerometer): Az eszközre ható gyorsulást igyekszik mérni. Ezt az eszközre hatókból tudja becsülni (Newton 2. törvényének megfelelően az $F = m \cdot a$ összefüggésből).
+\item {\bf Giroszkóp}: Szögben történő elfordulást és annak sebességét méri/becsli.
 \item {\bf Inerciális szenzor}: accelerometer és giroszkóp együttese.
 \item Fontos érzékelő még a távolságérzékelő, iránytű, fényváltozás érzékelő.
 \end{itemize}
@@ -44,7 +44,7 @@ Az AR eszközökön belül egy speciális kategóriát képviselnek a \textit{he
 
 2019 legnépszerűbb AR headsetjei a következők.
 \begin{itemize}
-\item {\bf Microsoft Hololens 2}: Egy vezeték nélküli AR headset, ami két éles kijelzővel rendelkezik, ezért jobb felhasználói élményt bíztosít, mint a versenytársai.
+\item {\bf Microsoft Hololens 2} \cite{kalantari2018exploring}: Egy vezeték nélküli AR headset, ami két éles kijelzővel rendelkezik, ezért jobb felhasználói élményt bíztosít, mint a versenytársai.
 
 A interakciót a 3D-s objektumokkal a \textit{Holographic Processing Unit} biztosítja, illetve el van látva egy HD kamerával, számos mikrofonnal és fényérzékelővel.
 
@@ -72,16 +72,17 @@ Az Enterprise plusz funkciói a többi Google Glass-hoz képest:
 \item hangvezérlés,
 \item könnyebb súly,
 \item hosszabb akkumulátor élettartam,
-\item gyorsabb processzor és 8 MP kamera. \cite{arhardware}
+\item gyorsabb processzor és 8 MP kamera \cite{arhardware}.
 \end{itemize}
 \end{itemize}
+
+% https://media.icdn.hu/content/entity/2019/02/49540/opt-5d286519c7a88hololens2-01.jpg
 
 \begin{figure}[htp]
     \centering
    	\includegraphics[scale=0.1]{images/holo.jpg}
-	\caption{Hololens 2 kiterjesztett valóság szemüveg}
+	\caption{Hololens 2 kiterjesztett valóság szemüveg (forrás: \url{https://media.icdn.hu})}
 	\label{fig:hololens}
-	\cite{hololens}
 \end{figure}
 
 Az említett headset-ek kereskedelmi forgalomban kaphatók, ám magas áruk miatt nehezen terjednek. 
@@ -96,13 +97,13 @@ A következőket tekinthetjük a dolgozat megírásának idejében a leginkább 
 \item {\bf Oculus Quest 2}: Könnyű a használata, azonban Facebook fiók hozzáadást igényel. \Aref{fig:occulus}. ábrán láthatunk róla egy képet.
 \item {\bf PlayStation VR}: PS4 konzol szükséges hozzá. Sok játék elérhető hozzá. Nem a legjobbb a mozgás követésének a tekintetében.
 \item {\bf Oculus Rift S}: Nem vezeték nélküli, így korlátoltabb a mozgás tér.  Kényelmesebb, mint az előző verziója, micwl könnyű. Viszonylag sok játék érhető el hozzá.
-\item {\bf Samsung Gear VR}: Samsunk okostelefonnal használható (Galaxy S8-tól felfelé) \cite{vrheadset}.
+\item {\bf Samsung Gear VR}: Samsung okostelefonnal használható (Galaxy S8-tól felfelé).
 \end{itemize}
 
 \begin{figure}[htp]
     \centering
    	\includegraphics[scale=1]{images/oculus.png}
-	\caption{Oculus Quest 2 virtuális valóság szemüveg és a hozzá tartozó vezérlők\cite{occulus}}
+	\caption{Oculus Quest 2 virtuális valóság szemüveg és a hozzá tartozó vezérlők (forrás: \url{https://d3bzyjrsc4233l.cloudfront.net})}
 	\label{fig:occulus}
 \end{figure}
 
@@ -110,7 +111,7 @@ A következőkben néhány népszerű kontroller kerül említésre.
 \begin{itemize}
 \item \textbf{HTC Vive}: Képes követni a kéz mozdulatot, az ujjak mozgását.
 \item \textbf{3DRudder}: Lábbal vezérelhető.
-\item \textbf{SteelSeries Stratus XL}: Konzolhoz való kontroller kialakítású \cite{kontroller}.
+\item \textbf{SteelSeries Stratus XL}: Konzolhoz való kontroller kialakítású.
 \end{itemize}
 
 A VR kesztyűk egy külön alkategóriát képviselnek.
@@ -120,7 +121,7 @@ Ilyenek például az \textit{ExoGlove}, \textit{ManusVR} és a \textit{GloveOne}
 \begin{figure}[htp]
     \centering
    	\includegraphics[scale=0.6]{images/gloveone.jpg}
-	\caption{OneGlove VR kesztyű \cite{gloveOne}}
+	\caption{OneGlove VR kesztyű (forrás: \url{https://transhumanity.net})}
 	\label{fig:gloveone}
 \end{figure}
 
@@ -130,7 +131,7 @@ Ilyen eszközök például a \textit{TeslaSuit} (\ref{fig:teslasuit}. ábra)) é
 \begin{figure}[htp]
     \centering
    	\includegraphics[scale=0.3]{images/tesla.jpg}
-	\caption{TeslaSuit VR ruha \cite{tesla}}
+	\caption{TeslaSuit VR ruha (forrás: \url{https://uncrate.com/teslasuit})}
 	\label{fig:teslasuit}
 \end{figure}
 
@@ -147,7 +148,7 @@ Marker lehet egyszerűbb információt hordozó bináris minta kerettel (példá
 
 \SubSection{Marker nélküli megoldások}
 
-A marker nélküli kiterjesztett valóság jellemzően SLAM-et (\textit{Simultaneous Localization and Mapping}) használ környezet felmérése és követésére.
+A marker nélküli kiterjesztett valóság jellemzően SLAM-et (\textit{Simultaneous Localization and Mapping}) használ környezet felmérése és követésére \cite{stachniss2016simultaneous}.
 Érzékelheti például, hogy hol a padló, a plafon vagy a falak.
 A megjelenített tartalmakat így a környezethez lehet viszonyítani, tájolni.
 
@@ -156,7 +157,7 @@ hanem az egész környezethez számítja az alkalmazás annak pozícióját.
 
 \Section{Szoftverek, fejlesztőeszközök}
 
-A következőkben az elterjedt szoftveres eszközkészletek bemutatására kerül majd sor.
+A következőkben az elterjedt szoftveres eszközkészletek bemutatására kerül majd sor \cite{hanafi2019comparative}.
 
 \SubSection{Apple ARKit}
 
@@ -247,7 +248,7 @@ MixedReality Toolkit (Hololens),
 Xzimg,
 DroidAR,
 HP Reveal Studio,
-BlippBuilder \cite{arsdks}.
+BlippBuilder.
 \end{itemize}
 
 \Section{Unity}
