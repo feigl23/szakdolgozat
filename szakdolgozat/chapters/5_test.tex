@@ -37,11 +37,14 @@ Az a fő előnye, hogy az erőforrások felé intézett kérésekben minden olya
 
 Tegyük fel, hogy a kooperációs teret egy \texttt{world} nevű elérési pont jelöli.
 Az elérési útvonalban ezt érdemes úgy szerepeltetni, hogy \texttt{/api/world}.
+Elsődlegesen ez felelős a virtuális kollaborációs tér adatainak a megosztásáért.
+E mellett még további erőforrásokra is szükség van, amelyeket funkciók szerint csoportosítva részletez a dolgozat a következő szakaszokban.
 
 \SubSection{Bejelentkezés a virtuális térbe}
 
-\texttt{/api/login}
-Egy példa kérés a szerver felé.
+A kooperációs térhez való csatlakozáshoz authentikálni kell a klienst.
+Mivel nem egy szenzitív alkalmazásról van szó, ezért ez esetben a kliensnek elegendő átküldenie a nevét a szervernek az \texttt{/api/login} elérési pontra.
+Egy példa bejelentkezési kérés a szerver felé.
 \begin{python}
 { "name": "Agent Name" }
 \end{python}
@@ -50,17 +53,47 @@ Például, hogy ha az első bejelentkező ágensről van szó, akkor
 \begin{python}
 { "agent_id": 1 }
 \end{python}
-
-% TODO: Készíteni példát hibaüzenetre!
+Amennyiben valamilyen probléma lépne fel a kérés kiszolgálása közben, akkor a szerver hibaüzenetet ad vissza (HTTP hibakód formájában).
 
 \SubSection{Entitások adatainak lekérdezése}
 
 Az adatok lekérdezéséhez a kliens egy GET kérést küld a \texttt{world} erőforrás felé.
 Az a válaszüzenetben visszaadja az összes entitás állapotát.
 
-Tegyük fel, hogy a térben két ágens és két mozgatható elem van már csak.
+Tegyük fel, hogy a térben két ágens és két mozgatható elem van csak.
+Az egyik ágens le szeretné kérdezni, hogy melyik entitás hol van a térben.
+Ehhez egy GET kérést kell küldenie a kliensnek a \texttt{/api/world} elérési ponthoz.
+Alapesetben ebben nem kell szerepelnie semmilyen további adatnak, mivel feltételezzük, hogy a kliens számára az összes adatra szüksége van.
+A kérésre a választ az alábbi formában kapja.
+\begin{python}
+{
+  "entities": [
+    {
+      "id": 1,
+      "position": [1, 2, 3],
+      "direction": [2, -3, 0]
+    },
+    {
+      "id": 2,
+      "position": [5, 1, 4],
+      "direction": [2, 1, 0]
+    },
+    {
+      "id": 3,
+      "position": [3, 1, 4],
+      "direction": [-1, -2, 0]
+    },
+    {
+      "id": 4,
+      "position": [5, 0, 7],
+      "direction": [3, 3, 0]
+    }
+  ]
+}
+\end{python}
+Ebben tehát az entitások egyedi azonosítói szerint szerepelnek a hozzájuk tartozó pozíciók és irányok.
 
-% TODO: Üres üzenetre, további bejelentkezőkre váró üzenet.
+Amennyiben a kliens még nem lenne bejelentkezve, úgy erre a kérésre egy üres válasz fog érkezni (tehát hogy a kliens számára elérhető aktuális virtuális térben nincsenek még elemek).
 
 \SubSection{Saját pozíció visszaküldése}
 
@@ -101,9 +134,30 @@ Ennek az optimális értéke függ a kliensek számától, a hálózati kommunik
 \Section{Megbízhatóság és biztonság}
 
 Mivel az alkalmazás több számítógépen működik egyidejűleg, ahol a kliens egy eseményvezérelt program, így több tekintetben is egy aszinkron alkalmazásról beszélhetünk.
+A következő szakaszokban felsorolásra kerül néhány probléma, amely felmerült a rendszer kialakítása közben.
 
-% TODO: Szinkronizációs problémák. Mindegyik kliens egy kicsit mást lát a térből idő tekintetében is.
+\SubSection{Időben eltérő világállapot}
 
-% TODO: Bejelentkezés, üzenetek validálása (Hasonlóan, mint bármilyen más webalkalmazás esetében) Authentikáció
+A konstrukcióból adódik, hogy a kooperatív tér aktuális állapota a rendszer minden eleménél (beleértve az összes klienst és a központi szervert is) eltérő.
+Ez abból adódik, hogy az állapot szinkronizálása időbe telik, és bármelyik kliensben történhet olyan változás (például billentyűesemény) amelyről a szerver (és így a többi kliens sem) értesült még.
+Ilyen szempontból tehát a szerver nem jelent kivételt, mivel az az adatokat a kliensektől kapja eltérő időpontokban.
 
-% TODO: Leírni, hogy ha szinkron esetről van szó, és kiesik a szerver, akkor az összes kliens le fog fagyni, ahogy a szerver felé indít egy aktuális kérést.
+\SubSection{Kliensek jogosultságainak kezelése}
+
+A példaként létrehozott kollaborációs tér egy egyszerű példája annak, hogy hogyan lehet több klienst egy virtuális térbe összekapcsolni, és azt különböző perspektívákból megjeleníteni.
+Nagyobb, komplikáltabb alkalmazások, terek és feladatok esetében érdemes a térhez való hozzáférést szigorítani, azt hasonló jogosultságokhoz kötni, mint amelyek úgy általában a webalkalmazásokban megtalálhatóak.
+(A kooperációs térben való részvétel tehát a hagyományos értelemben vett \textit{session}-ként kezelhető.)
+
+\SubSection{Kliensek és a szerver kiesése}
+
+Különböző okok miatt (például hálózati vagy eszköz problémából adódóan) megszakadhat a kapcsolat a szerver és a kliens között.
+Ez többféle formában is jelentkezhet.
+\begin{itemize}
+	\item Rövid, átmeneti hálózati hibáról van szó. A klienseknek (vagy akár a szervernek is) érdemes interpolálni a kimaradt időszeletet.
+	\item Egy kliens teljesen kieshet (gyakorlatilag, mint ha kijelentkezne).
+	\item Amennyiben például a hálózat hiba vagy a megnövekedett feldolgozási idő csak késleltetést okoz, akkor érdemes lehet a használhatatlan üzeneteket (állapotfrissítéseket).
+	\item A szerver hosszabb kiesését külön hibaüzenet formájában érdemes jelezni a hibát a klienseknek.
+\end{itemize}
+
+Az említett problémák egy kis részét képezik az aktuálisan bemutatott alkalmazáshoz hasonló aszinkron, elosztott "valós" idejű alkalmazásoknál.
+Az alkalmazás későbbi fejlesztése során érdemes ezeket és a lehetségi megoldásokat közelebbről megvizsgálni.

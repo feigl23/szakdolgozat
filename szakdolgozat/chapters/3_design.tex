@@ -208,7 +208,7 @@ rvec, tvec, 0.01)
 Erről láthatunk egy képet \aref{fig:felismeres_aruco}. ábrán.
 \begin{figure}[htp]
     \centering
-   	\includegraphics[width=4truecm, height=2.8truecm]{images/felismeres_aruco.png}
+   	\includegraphics[scale=0.6]{images/felismeres_aruco.png}
 	\caption{A demó eredménye}
 	\label{fig:felismeres_aruco}
 \end{figure}
@@ -221,7 +221,7 @@ Ezen programrésznek a tesztelésére készítettem a nyomtatott markeremről k�
 
 Azon kijelentés, hogy ha takarásba kerül a marker bármely része, akkor nem lesz továbbá felismerhető teljesen helytálló, mivel a program nem találta meg a markert, hogy ha annak egy aránylag kis része már ki volt takarva.
 
-A programban az eredményt a vektorokat a fent már említett \texttt{estimatePoseSingleMarkers} adja vissza.
+A programban az eredményt a vektorokat a fent már említett \texttt{estimatePoseSingle} \texttt{Markers} adja vissza.
 
 Az \texttt{rvec} a marker kamerához képest vett elfordulása az $x$, $y$ és $z$ tengelyeken, a \texttt{tvec} pedig a marker eltolása ugyanezekhez. Tehát egy markerhez két vektorhármast kapunk vissza.
 
