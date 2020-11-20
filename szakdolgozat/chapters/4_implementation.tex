@@ -152,27 +152,24 @@ A glutMotionFunc azt az eshetőséget kezelei le, amikor egy vagy több billenty
 
 \Section{Demó alkalmazások}
 
-A dolgozat készítése során számos demó alkalmazást készítettem, amik amelett, hogy a \texttt{python}, \texttt{OpenGL}, \texttt{OpenCV}, \texttt{ArUco} által nyújtott lehetőségek közelebbi megismerésére szolgáltak, kiválóak szemléltetésnek.
+A dolgozat készítése során számos demó alkalmazást készítettem, amik amellett, hogy a \textit{Python}, \textit{OpenGL}, \textit{OpenCV}, \textit{ArUco} által nyújtott lehetőségek közelebbi megismerésére szolgáltak, kiválóak szemléltetésnek.
 
 A demók közül kiemelnék néhányat a következőkben.
 
-A kamera kalibrációjáról, az ArUco marker felismeréséről már szó esett fentebb, ezért ezeket most mellőzöm.
+A kamera kalibrációjáról, az ArUco marker felismeréséről már szó esett az előzőekben.
 
-A demók között előfordul igen egyszerű, akár csak egyetlen feladatot ellátó programkód is. Ilyen például a kamera képét megjelenítő vagy egy kockát kirajzoló alkalmazás is.
+A demók között előfordul igen egyszerű, akár csak egyetlen feladatot ellátó programkód is. Ilyen például a kamera képét megjelenítő vagy egy kockát kirajzoló alkalmazás.
 
 Nem sokkal bonyolultabbak a bemenetek lekezelésére készült demók, ahol lehetőség nyílik a térben való kamera mozgásra, egy másikban egy kocka és egy harmadikban egy modell navigálására.
 
-Külön hangsúlyt kapott a kamera kép háttérként való felhasználásása, lépésekre bontva a folyamatot, többféle verziót is készítettem. Ezek közé tartozik, hogy egyszerűen csak textúraként felhasználva az ablak hátterének állítottam be a kamera képet, mikor egy kockára helyeztem textúraként, valamit, mikor a háttérként felhasználás mellett rajzoltam is rá egy modellt.
+Külön hangsúlyt kapott a kamera kép háttérként való felhasználása. Lépésekre bontva a folyamatot, többféle verziót is készítettem. Ezek közé tartozik, hogy egyszerűen csak textúraként felhasználva az ablak hátterének állítottam be a kamera képet, mikor egy kockára helyeztem textúraként, valamit, mikor a háttérként felhasználás mellett rajzoltam is rá egy modellt.
 
 Az elkészítette animációk betöltésére és kirajzolására is készült példakód, azonban a játékban időkerettel lett megvalósítva az animáció eltérően az ezekben található módszertől.
 
-A példa program (\texttt{game} mappában található) elkészítése előtt elkészítettem pár markerre kirajzolós demót is, ahol a legnagyobb problémát a megfelelő transzformációk és
+A példa program (\texttt{game} mappában található) elkészítése előtt elkészítettem pár markerre kirajzolós demó programot is, amely esetében a legnagyobb problémát a megfelelő transzformációk és
 a poziciónálás jelentették. Ezek alapul szolgáltak a késsőbbiekben elkészült programhoz, ahol már egy egész jelenet kerül kirajzolásra.
 A példa programnak megtalálható a demók között egy olyan verziója is, ami nem használja fel sem az ArUco markert, sem a kamera képet. 
-A szemléltetés végett két ágenst helyeztem el a térben, amiket a megfelelő billenytűzet segítségével lehet írányítni és azokkal végigjátszani a játékot.
+A szemléltetés végett két ágenst helyeztem el a térben, amiket a megfelelő billentyűk segítségével lehet írányítni és azokkal végigjátszani a játékot.
 A végső alkalmazáshoz képest abban tér el, hogy itt nincs lehetőség arra, hogy hozzáérjen az ágens a saját színétől eltérő dobozhoz, akkor ugyanis végetér a játék.
 
-A végső példa program a marker segítségével valósít meg egy kiterjesztett valóságos játékot, ahol játék célja és szabályai fentebb említetésre kerültek. 
-
-
-
+A végső példa program a marker segítségével valósít meg egy kiterjesztett valóságos játékot a korábban leírt játékszabályok szerint.
