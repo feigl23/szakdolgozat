@@ -62,39 +62,6 @@ Felhasználtam továbbá doboz modelleket, amiknek az elmozgatása a feladat (\r
 	\label{fig:box}
 \end{figure}
 
-%\SubSection{Fények és anyagjellemzők}
-%
-%Az objektumok megjelenítéséhez elengedhetetlenek a megfelelő fénybeállítások.
-%A szokásos fényösszetevőket használhatjuk ez esetben is.
-%
-%\begin{itemize}
-%\item A {\bf környezeti fény} (\texttt{ambient light}) az ábrázolandó térrészben mindenütt jelen lévő, állandó intenzitású fény, amelynek forrása, iránya nem ismert (gondoljunk olyan nappali fényre, amikor a nap a felhők mögött van).
-%\item A {\bf szórt fénynek} (\texttt{diffuse light}) van iránya, mindig valamelyik fényforrásból jön. Fő jellemzője, hogy az objektumokkal ütközve minden irányba azonos módon és mértékben verődik vissza, tehát teljesen mindegy, hogy milyen irányból nézzük az objektumokat, a hatás csak a fényforrástól, az anyagtulajdonságoktól és a pontbeli normálistól függ.
-%\item A {\bf tükröző fénynek} (\texttt{specular light}) is van iránya és forrása, és hatása nemcsak az anyag-tulajdonságoktól és a pontbeli normálistól, hanem a nézőponttól is függ. Gondoljunk egy sima felületű fémgömbre, amit erős, koncentrált fénnyel világítunk meg. Megfelelő szögből nézve egy fényes (többnyire fehér) foltot látunk, amelynek mérete és helye a nézőponttól függ, fejünket mozgatva a folt is mozog, mígnem eltűnik. \cite{fenyek_szinek}
-%\end{itemize}
-%
-%\SubSection{A modellek átszínezése:}
-%
-%A modellek átszínezésére az OpenGL \texttt{glColorf} függvényét használtam, ahhoz azonban hogy ezt alkalmazni tudjuk, meg kell érteni, miként értelmezzük a színeket a számítógép grafikában.
-%
-%,,A színeket legcélszerűbb egy háromdimenziós tér pontjaiként felfogni. A tér egy bázisának(koordináta-rendszerének) rögzítése után minden színt egy számhármas segítségével lehetazonosítani. A számítógépi grafikában két színmegadási (színkeverési) mód, kétféle bázisterjedt el.”
-%\begin{itemize}
-%\item  RGB (additív): ,,Additív színkeverés esetén azt írjuk elő, hogy mennyi vörös (Red), zöld (Green) és kék (Blue) színkomponenst adjunk a fekete színhez, a fekete képernyőhöz.”
-%\item CYM (szubtraktív): ,,Szubtraktív színkeverés esetén azt írjuk elő, hogy mennyi türkiz (Cyan), bíbor (Magenta) és sárga (Yellow) színt kell kivonnunk a legösszetettebb színből, a fehérből (a papírszíne) a kívánt szín előállítása érdekébe.”\cite{fenyek_szinek}
-%\end{itemize}
-%
-%A \texttt{glColor} az RGB bázisrendszert használja fel, tehát a három paramétere egy-egy szám, ami a piros, zöld és kék színeket jelöli.
-%
-%A \texttt{glColor3*}, ahol a * a számok típusát jelöli.(int,float...) Az egész számokra vonatkozó változata a \texttt{glColor3i}), a float \texttt{glColor3f},továbbá a \texttt{glColor4*} rendelkezik egy negyedik paraméterrel is, az \texttt{alpha}-val, ami az átlátszóságot határozza meg.
-%Például: 
-%\begin{python}
-%glColor3f(0.0,0.0,0.0) #fekete
-%glColor3f(1.0,1.0,1.0) #feher
-%glColor3f(1.0,0.0,0.0) #piros
-%glColor3f(0.0,1.0,0.0) #zold
-%glColor3f(0.0,0.0,1.0) #kek
-%\end{python}
-
 \Section{Interaktív elemek}
 
 A színtér interkatív elmei az ágensek és a dobozok. 
@@ -122,7 +89,7 @@ Ez azt jelenti, hogy figyeljük a modellek egymáshoz való helyzetét a térben
 Ez azt jelenti, hogy  mozoghat  például az $y$ tengely mentén, ha az adott irányban nincs előtte akadály.
 Ha mindkét művelettel akadályba ütközne, akkor nem haladhat az adott irányba.
  
-Az első dolog, amit meghatároztam az az volt, hogy a $z$ tengelyen (ez jelenleg a fel és le írány a játékban) nem sülyedhet 0 alá az ágensek értéke, mert akkor a kastélyba modellbe és alá esne egy részük.
+Az első dolog, amit meghatároztam az az volt, hogy a $z$ tengelyen (ez jelenleg a fel és le írány a játékban) nem sülyedhet 0 alá az ágensek értéke, mert akkor a kastély modellbe és alá esne egy részük.
 
 A következő lépésben a tér azon részét határoztam meg, ami a játékteret képezi (a kastély modell kertje), hogy a falakon ne tudjanak áthaladni a modellek, tehát tényleg ne legyenek képesek elhagyni a játék végéig.
 
@@ -136,8 +103,6 @@ Az ágenseknél továbbá azt is figyelmbe kell venni, hogy a kódban át lettek
 
 Ugyanez vonatkozik a doboz modellek való ütközésvizsgálatra, mindig lesz valamekkora plusz érték, ami a modell szélét hivatott jelenteni.
 
-Az, hogy figyelembe vesszük, hogy az ágens modelljének az alja hogyan viszonyul a doboz tetejéhez, lehetővé teszi, hogy az ágens ne essen bele a dobozba, hanem megálljon annak a tetején.
-
 A programban ez egy olyan osztályban valósul meg, ami megkapja a tér modelljeit és azt a modellt, aminek figyelnie kell a pozicóját.
  
 Minden lépés előtt ellenőrzi, hogy az adott lépéssel nem ütközne-e akadályba és csak akkor valósulhat meg a lépés, ha nincs akadály.
@@ -150,11 +115,11 @@ A kastély falain nem lehet átjutni és az ajtók sem használhatóak.
 
 A feladat, amit el kell végeznie a karaktereknek az az, hogy a saját színűkhöz tartozó dobozokat kell a megfelelő helyre jutatniuk, ami jelen esetben a szökőkútak egyike. 
 
-Bármelyik játékos bármelyik szökőkútat használhajta erre a célra.
+A szökőkútak közül egyszerre csak egy aktív (amelyik nincs takarva), csak azzal van lehetőség a dobozok eltűntétésére. Minden esteben az előforduló színek közül pontosan egy kerülhet az aktív szökőkútba (különben nem tűnik el, ha ugyanolyat próbálnak beletolni). Ha a megfelelő mennyiségű doboz eltűnik, akkor a másik kút lesz aktív.
 
-Fontos, hogy minden játékos csak a saját színével megegyező színű dobozt képes mozgatni és csak azt szabad mozgatnia. Azonban csak az tilos, hogy eltolja, például hozzá érhet vagy megállhat rajta. 
+Fontos, hogy minden játékos csak a saját színével megegyező színű dobozt képes mozgatni és csak azt szabad mozgatnia. Azonban csak az tilos, hogy eltolja, például hozzá érhet.
 
-Ha nem a saját dobozát próbálja meg eltolni (például hamar végez és megpróbál segíteni a társának), akkor a játék végetér.
+Ha nem a saját dobozát próbálja meg eltolni (például hamar végez és megpróbál segíteni a társának), akkor sem változik semmi, csupán egyhelyben jár.
 
 Minden játékosnak a saját részét szabad csak megcsinália a kiszabott feladatból. 
 
@@ -171,9 +136,9 @@ A játékosoknak minden esetben együtt kell működniűk, mert csak akkor jutna
 
 \SubSection{Billentyű, egér funkciók}
 
-Az ágens irányításához (lépés előre, hátra, fordulás, ugrás, doboz megfogása) különböző billenytűket haszbnáltam (például w,s,a,d) és a space-t billentyűket használtam fel, a  programból való kilépéshez az „ESC” billentyűt. Továbbá ez egér lehetővé teszi, hogy más szögből lássuk a jelenetet.
+Az ágens irányításához (lépés előre, hátra, fordulás, ugrás, doboz megfogása) különböző billenytűket használtam fel (például w,s,a,d és space billentyűket), a  programból való kilépéshez az „ESC” billentyűt. 
 
-A következő függvények kerültek felhasználásra.
+A következő függvények felhasználására van lehetőség:
 \begin{itemize}
 \item A \texttt{glutKeyBoardFunc()}-nek három paramétere van: \texttt{key} a generált ASCII karakter, az \texttt{x} és \texttt{y} pedig az egér pozíciója abban az időpontban, mikor a billentyű lenyomás történt a \texttt{GLUT} ablakhoz képest.
 
@@ -184,3 +149,30 @@ aminek szintén három paramétere van, a key, ami egy \texttt{GLUT\_KEY\_*} kon
 
 A glutMotionFunc azt az eshetőséget kezelei le, amikor egy vagy több billentyű lenyomás történt és közben lett mozgatva az egér. A \texttt{glutPassiveMotionFunc()} pedig azt, amikor úgy lett mozgatva az egér, hogy nem lett lenyomva egyetlen egér gomb sem.
 \end{itemize}
+
+\Section{Demó alkalmazások}
+
+A dolgozat készítése során számos demó alkalmazást készítettem, amik amelett, hogy a \texttt{python}, \texttt{OpenGL}, \texttt{OpenCV}, \texttt{ArUco} által nyújtott lehetőségek közelebbi megismerésére szolgáltak, kiválóak szemléltetésnek.
+
+A demók közül kiemelnék néhányat a következőkben.
+
+A kamera kalibrációjáról, az ArUco marker felismeréséről már szó esett fentebb, ezért ezeket most mellőzöm.
+
+A demók között előfordul igen egyszerű, akár csak egyetlen feladatot ellátó programkód is. Ilyen például a kamera képét megjelenítő vagy egy kockát kirajzoló alkalmazás is.
+
+Nem sokkal bonyolultabbak a bemenetek lekezelésére készült demók, ahol lehetőség nyílik a térben való kamera mozgásra, egy másikban egy kocka és egy harmadikban egy modell navigálására.
+
+Külön hangsúlyt kapott a kamera kép háttérként való felhasználásása, lépésekre bontva a folyamatot, többféle verziót is készítettem. Ezek közé tartozik, hogy egyszerűen csak textúraként felhasználva az ablak hátterének állítottam be a kamera képet, mikor egy kockára helyeztem textúraként, valamit, mikor a háttérként felhasználás mellett rajzoltam is rá egy modellt.
+
+Az elkészítette animációk betöltésére és kirajzolására is készült példakód, azonban a játékban időkerettel lett megvalósítva az animáció eltérően az ezekben található módszertől.
+
+A példa program (\texttt{game} mappában található) elkészítése előtt elkészítettem pár markerre kirajzolós demót is, ahol a legnagyobb problémát a megfelelő transzformációk és
+a poziciónálás jelentették. Ezek alapul szolgáltak a késsőbbiekben elkészült programhoz, ahol már egy egész jelenet kerül kirajzolásra.
+A példa programnak megtalálható a demók között egy olyan verziója is, ami nem használja fel sem az ArUco markert, sem a kamera képet. 
+A szemléltetés végett két ágenst helyeztem el a térben, amiket a megfelelő billenytűzet segítségével lehet írányítni és azokkal végigjátszani a játékot.
+A végső alkalmazáshoz képest abban tér el, hogy itt nincs lehetőség arra, hogy hozzáérjen az ágens a saját színétől eltérő dobozhoz, akkor ugyanis végetér a játék.
+
+A végső példa program a marker segítségével valósít meg egy kiterjesztett valóságos játékot, ahol játék célja és szabályai fentebb említetésre kerültek. 
+
+
+
