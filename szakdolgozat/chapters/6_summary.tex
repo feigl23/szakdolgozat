@@ -1,1 +1,21 @@
 \Chapter{Összefoglalás}
+
+A dolgozat áttekintette az elterjedt AR/VR eszközöket, azok funkcióit. Ez ahhoz volt szükséges, hogy adjon egy rálátást, hogy a témakörben milyen lehetőségek vannak a virtuális terek kialakítására.
+
+A bemutatott rendszer egy nagyon lényeges eleme az, amelyik a kameraképből megállapítja a kamera pozícióját a virtuális térben. Ennek technikai megvalósítása egy külön fejezetet kapott. Lényegi kérdés volt, hogy szükség van-e markerre a probléma megoldásához. Miután a vizsgálatok alapján kiderült, hogy a pozícióbecslés csak azok segítségével tud megbízható lenni, a megfelelő marker típus kiválasztása jelentette a következő megoldandó feladatot. A fellelhető leírások és szoftveres eszközök alapján az ArUco markerre esett a választás.
+Külön figyelmet igényelt a kamera kalibrálása, a marker paramétereinek meghatározása, majd az összeállított pozícióbecslő rendszer tesztelése.
+
+A dolgozat következő nagyobb egysége a tér megjelenítésével foglalkozik.
+A megfelelő technológiák megválasztása ebben az esetben sem volt egyszerű.
+Az OpenCV-vel és OpenGL-el való egyszerű integrálhatóság alapján a Python programozási nyelv került kiválasztásra.
+
+Össze kellett gyűjteni és elő kellett készíteni a virtuális tér objektumait.
+Ezek esetében is külön kisebb, egymástól függetlenül futtatható alkalmazások készültek, amelyekkel ki lehet próbálni a rendszer funkcióit.
+
+Definiálásra majd megvalósításra került az a szabályrendszer, amely megszabja a virtuális térben a kooperáció módját.
+
+A dolgozat ezt követően leírja az eszközök összekapcsolásának REST API-n keresztül történő megvalósításának módját koncepció szintjén.
+
+Összességében elmondható, hogy a dolgozat jellegükben erősen eltérő problémák megoldásait és azok integrálásának módját mutatja be.
+
+Későbbi fejlesztési lehetőségként többek között új modellek és animációk hozzáadása, teljesítményoptimalizálás és a rendszer kooperatív feladványokkal történő bővítése szerepel.
