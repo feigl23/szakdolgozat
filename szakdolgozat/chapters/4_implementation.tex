@@ -70,7 +70,7 @@ A dobozok pedig olyan irányú elmozdulásra, amerre tolják őket.
 
 \SubSection{Animáció}
 
-Ahhoz, hogy a program látványosabb legyen animációkra van szükség, így a modell nem csak elmozul például olyan írányba, amerre szeretnénk, hanem az animáció használata séta hatását kelti.
+Ahhoz, hogy a program látványosabb legyen animációkra van szükség, így a modell nem csak elmozul például olyan irányba, amerre szeretnénk, hanem az animáció használata séta hatását kelti.
 
 A modellek formátuma azonban nem támogatja az animációkat, ezért minden egyes mozdulatnak külön modell készült (a hozzátartozó mtl fájllal).
 
@@ -84,7 +84,7 @@ Fontos, hogy minden egyes mozdulatot rajzolását úgy kell megvalósítani, hog
  
 \SubSection{Ütközésvizsgálat}
 
-Az ágensek megfelelő tértészben tartása végett (tehát hogy ne tudják elhagyni a kastélyt, ne sétáljanak át egymáson, illetve más modelleken) szükség van ütközésvizsgálatra.
+Az ágensek megfelelő térrészben tartása végett (tehát hogy ne tudják elhagyni a kastélyt, ne sétáljanak át egymáson, illetve más modelleken) szükség van ütközésvizsgálatra.
 Ez azt jelenti, hogy figyeljük a modellek egymáshoz való helyzetét a térben, a távolságot közöttük, és ha túl közel kerülnek egymáshoz, akkor megakadályozzuk, hogy tovább haladjon a mozogni képes modell.
 Ez azt jelenti, hogy  mozoghat  például az $y$ tengely mentén, ha az adott irányban nincs előtte akadály.
 Ha mindkét művelettel akadályba ütközne, akkor nem haladhat az adott irányba.
@@ -113,9 +113,9 @@ A játék fő színhelye az előbb említett kastély modell, amiből nem lehet 
 
 A kastély falain nem lehet átjutni és az ajtók sem használhatóak.
 
-A feladat, amit el kell végeznie a karaktereknek az az, hogy a saját színűkhöz tartozó dobozokat kell a megfelelő helyre jutatniuk, ami jelen esetben a szökőkútak egyike. 
+A feladat, amit el kell végeznie a karaktereknek az az, hogy a saját színűkhöz tartozó dobozokat kell a megfelelő helyre jutatniuk, ami jelen esetben a szökőkutak egyike. 
 
-A szökőkútak közül egyszerre csak egy aktív (amelyik nincs takarva), csak azzal van lehetőség a dobozok eltűntétésére. Minden esteben az előforduló színek közül pontosan egy kerülhet az aktív szökőkútba (különben nem tűnik el, ha ugyanolyat próbálnak beletolni). Ha a megfelelő mennyiségű doboz eltűnik, akkor a másik kút lesz aktív.
+A szökőkutak közül egyszerre csak egy aktív (amelyik nincs takarva), csak azzal van lehetőség a dobozok eltűntetésére. Minden esteben az előforduló színek közül pontosan egy kerülhet az aktív szökőkútba (különben nem tűnik el, ha ugyanolyat próbálnak beletolni). Ha a megfelelő mennyiségű doboz eltűnik, akkor a másik kút lesz aktív.
 
 Fontos, hogy minden játékos csak a saját színével megegyező színű dobozt képes mozgatni és csak azt szabad mozgatnia. Azonban csak az tilos, hogy eltolja, például hozzá érhet.
 
@@ -164,10 +164,10 @@ Nem sokkal bonyolultabbak a bemenetek lekezelésére készült demók, ahol lehe
 
 Külön hangsúlyt kapott a kamera kép háttérként való felhasználása. Lépésekre bontva a folyamatot, többféle verziót is készítettem. Ezek közé tartozik, hogy egyszerűen csak textúraként felhasználva az ablak hátterének állítottam be a kamera képet, mikor egy kockára helyeztem textúraként, valamit, mikor a háttérként felhasználás mellett rajzoltam is rá egy modellt.
 
-Az elkészítette animációk betöltésére és kirajzolására is készült példakód, azonban a játékban időkerettel lett megvalósítva az animáció eltérően az ezekben található módszertől.
+Az elkészített animációk betöltésére és kirajzolására is készült példakód, azonban a játékban időkerettel lett megvalósítva az animáció eltérően az ezekben található módszertől.
 
 A példa program (\texttt{game} mappában található) elkészítése előtt elkészítettem pár markerre kirajzolós demó programot is, amely esetében a legnagyobb problémát a megfelelő transzformációk és
-a poziciónálás jelentették. Ezek alapul szolgáltak a késsőbbiekben elkészült programhoz, ahol már egy egész jelenet kerül kirajzolásra.
+a poziciónálás jelentették. Ezek alapul szolgáltak a későbbiekben elkészült programhoz, ahol már egy egész jelenet kerül kirajzolásra.
 A példa programnak megtalálható a demók között egy olyan verziója is, ami nem használja fel sem az ArUco markert, sem a kamera képet. 
 A szemléltetés végett két ágenst helyeztem el a térben, amiket a megfelelő billentyűk segítségével lehet írányítni és azokkal végigjátszani a játékot.
 A végső alkalmazáshoz képest abban tér el, hogy itt nincs lehetőség arra, hogy hozzáérjen az ágens a saját színétől eltérő dobozhoz, akkor ugyanis végetér a játék.
