@@ -26,7 +26,7 @@ class Game:
         self.castle = Castle()
         self.penguins = []
         self.boxes = []
-        self.max = 1
+        self.max = 2
         self.box = 4*self.max
         for i in range(0,self.max):
             self.penguins.append(Penguin())
@@ -167,8 +167,8 @@ class Game:
     def keyboardF(self,key,x,y):
         if key == b'\x1b':
              sys.exit()
-
-        self.keyboard.keyboardF(self.models_data['penguins'][self.user_id], self.penguins[self.user_id], key)
+        print(self.models_data['penguins'][self.user_id], self.penguins[self.user_id])
+        #self.keyboard.keyboardF(self.models_data['penguins'][self.user_id], self.penguins[self.user_id], key)
 
     def main(self):
         glutInit()

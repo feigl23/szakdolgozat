@@ -23,7 +23,7 @@ class Penguin:
         #        self.walk_models.append(OBJ("models/walk/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
         #    self.walk_models[i-1].generate()
 
-        self.const_dist = 0.4 / 30
+        self.const_dist = 0.4 / (len(self.walk_models)-1)
 
         #for i in range(1,21):
         #    if(i<10):
