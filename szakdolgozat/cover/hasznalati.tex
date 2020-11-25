@@ -24,14 +24,6 @@ Felhasználható marker:
 	\label{fig:marker}
 \end{figure}
 
-%Ami soknál felvolt használva forrás linkek :
-%https://rdmilligan.wordpress.com/2015/10/15/augmented-reality-using-opencv-opengl-and-blender/
-%http://openglsamples.sourceforge.net/cube_py.html 
-%https://stackoverflow.com/questions/50764623/object-is-wrong-displaced-in-ar-aruco-opengl
-%https://realpython.com/python-timer/
-%https://www.pygame.org/wiki/OBJFileLoader
-%képekről link modellekről link? :)
-
 
 \begin{itemize}
 \item \textbf{program} (a végső program): 
@@ -49,7 +41,7 @@ Minden játékoshoz 4 doboz tartozik, maximum négy fő vehet részt a játékba
 \end{figure}
 \item \textbf{Tesztelési lehetőség}: el kell indítani a server.py-t, aztán pedig a game.py-t, ez egyetlen kliens-t szimulál.
 Ha nem állítódik le a server.py, de a game.py újraindítódik, akkor az már a következő kliensek számít.
-A játék jelenleg 2 klienssel működik, de ezt lehet bővíteni a kezdőadatok megadásával.
+A játék jelenleg 3 klienssel működik (a modellek betöltési ideje miatt), de ezt lehet bővíteni a kezdőadatok megadásával.
 \end{itemize}
 \item \textbf{demos}:
 \begin{itemize}
@@ -75,12 +67,22 @@ A kalibrációhoz felhasznált képek az Images mappában találhatók.
 Az eredmény a log.json-ben tárolódik.
 Ebbe az álományba mentődik ki a kamera mátrix és a disztorziós együtthatók.
 
-A harmadik fejezetben említett kalibrációs kód a megjelölt forrásban szereplő kódot használtam fel hozzá. 
-%https://medium.com/@aliyasineser/opencv-camera-calibration-e9a48bdd1844
+A harmadik fejezetben említett kalibrációs kód, a forrásban szereplő kódot használtam fel hozzá. 
+
+Forrás: 
+
+\texttt{https://medium.com/@aliyasineser/}
+
+\texttt{opencv-camera-calibration-e9a48bdd1844}
 \item camera\_calibration\_and\_aruco\_demo:
 A \textbf{calibration.py} fájlt kell futattni.
-A harmadik fejezetben említett demó, a megjelölt forrásban szereplő kódot használtam fel hozzá. 
-%https://medium.com/@aliyasineser/aruco-marker-tracking-with-opencv-8cb844c26628
+A harmadik fejezetben említett demó, a forrásban szereplő kódot használtam fel hozzá. 
+
+Forrás: 
+
+\texttt{https://medium.com/@aliyasineser/}
+
+\texttt{aruco-marker-tracking-with-opencv-8cb844c26628}
 \item camera\_func:
 A \textbf{camera.py} fájlt kell futattni.
 Az aktuális kameraképet visszaadó funkció szerepel benne. 
@@ -103,9 +105,16 @@ A \textbf{draw\_trieder.py} fájlt kell futattni.
 A (0,0,0) pontba kirajzolódik egy triéder.
 \item game:
 A \textbf{game.py} fájlt kell futattni.
+Az elkészült program egy egyszerűbb verziója. Nem használ aruco marker felismerést, nincs szerver-kliens kommunikáció.
+Egy egyszerű OpenGL játék, amiben ugyan az a feladat, mint az elkészült programban, beletolni a dobozokat a kutakba, minden pingvin csak a saját színével megegyező dobozt tolhatja.
+Itt minden kút aktív és nincs korlátozás az egymás után egy színű dobozok eltűntetésével kapcsolatban.
+Az egyik pingvin a \texttt{w,s,a,d,e,space} a másik a \texttt{i,k,l,j,o,p} billentyűkkel irányítható.
 \item game\_with\_aruco:
 A \textbf{game.py} fájlt kell futattni.
-%https://realpython.com/python-timer/
+Az elkészült program egy próbaverziója. Itt már megtörténik a marker felismerés és az arra való rajzolás, azonban ez sem többfelhasználós.
+A szabályok ugyanazok, mint az elkészült programban, tehát minden pingvin csak a saját színével megegyező dobozt tolhatja, egyszerre csak egy kút aktív és
+pontosan annyi doboz kell bele amennyi játékos van.
+Az egyik pingvin a \texttt{w,s,a,d,e,space} a másik a \texttt{i,k,l,j,o,p} billentyűkkel irányítható.
 \item keyboard:
 A \textbf{keyboard.py} fájlt kell futattni.
 A (0,0,0) pontba kirajzolódik egy triéder. A nyíl billyentyűkkel előre, hátra illeve 
@@ -170,3 +179,29 @@ A \textbf{track\_and\_draw.py} fájlt kell futattni.
 Aruco marker felismerés majd egy pingvin modell rajzolása a markerre.
 \end{itemize}
 \end{itemize}
+
+
+A demókhoz és a programhoz felhasznált források, kódok:
+
+\begin{itemize}
+\item \texttt{https://rdmilligan.wordpress.com/2015/10/15/}
+
+\texttt{augmented-reality-using-opencv-opengl-and-blender/}
+
+\item \texttt{http://openglsamples.sourceforge.net/cube\_py.html }
+
+\item \texttt{https://stackoverflow.com/questions/50764623/}
+
+
+\texttt{object-is-wrong-displaced-in-ar-aruco-opengl}
+
+\item \texttt{ https://realpython.com/python-timer/}
+
+\item  Az objektum betöltések mindig ezzel történtek:
+
+\texttt{https://www.pygame.org/wiki/OBJFileLoader} 
+
+
+
+\end{itemize}
+

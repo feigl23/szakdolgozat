@@ -24,7 +24,7 @@ class Game:
         self.castle = Castle()
         self.penguins = []
         self.boxes = []
-        self.max = 2
+        self.max = 3
         self.box = 4*self.max
         for i in range(0,self.max):
             self.penguins.append(Penguin())

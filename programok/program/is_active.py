@@ -36,13 +36,13 @@ class isActive:
 
 
     def check_is_active(self, leng, game, castle):
-        if castle['fountain_box']%2 ==0 and castle['fountain_right']:
+        if castle['fountain_box']% game.max ==0 and castle['fountain_right']:
             castle['fountain_right'] =False
             castle['fountain_left']=True
             game.own_model['penguin']['disap'] == False
 
 
-        if castle['fountain_box']%2 ==0 and castle['fountain_left']:
+        if castle['fountain_box']%game.max ==0 and castle['fountain_left']:
             castle['fountain_left'] =False
             castle['fountain_right']=True
             game.own_model['penguin']['disap'] == False

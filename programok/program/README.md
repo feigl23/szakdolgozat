@@ -15,6 +15,7 @@ https://free3d.com/3d-model/crate-86737.html
 
 #### A felhasznált képek:
 https://miro.medium.com/max/500/1*KOj47lkJHi9w8bxAvFAvEg.jpeg
+https://chev.me/arucogen/
 
 
 ### Tesztelni a következőképpen lehet:
@@ -30,4 +31,4 @@ https://miro.medium.com/max/500/1*KOj47lkJHi9w8bxAvFAvEg.jpeg
 
   A karaktert a w,s,a,d billentyűkkel lehet irányítani, a space-szel ugrani és az e billentyűvel tolni a dobozt.
 
-  A program két játékosra lett tervezve ( ezt lehet bővíteni a megfelelő kezdőadatok felvételével a data.py-ban és a game.py-ban a maximum érétket)
+  A program három játékosra lett felkészítve ( ezt lehet bővíteni a megfelelő kezdőadatok felvételével a data.py-ban és a game.py-ban a maximum érétket)
