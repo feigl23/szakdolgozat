@@ -13,8 +13,16 @@
 \end{itemize}
 
 
-A demók és program teszteléséhez szükséges egy kamera, egy marker (egy olyan, ami a megfelelő könyvtárba tartozik, mint ide kell a forrásmegjel.),
+A demók és program teszteléséhez szükséges egy kamera, egy marker (egy olyan, ami a megfelelő könyvtárba tartozik),
 OpenCV, PyOpenGL,PyGame,ArUco, python3, falcon, waitress, requests és egyéb csomagok, amiket hiányolhat a futtatás közben.
+
+Felhasználható marker: 
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[scale=0.4]{images/marker.png}
+	\caption{marker (forrás:https://chev.me/arucogen/)}
+	\label{fig:marker}
+\end{figure}
 
 %Ami soknál felvolt használva forrás linkek :
 %https://rdmilligan.wordpress.com/2015/10/15/augmented-reality-using-opencv-opengl-and-blender/
@@ -33,6 +41,12 @@ Minden pingvin csak a saját színével megegyező dobozt tolhatja, egyszerre cs
 pontosan annyi doboz kell bele amennyi játékos van. Ha megfelelő számú doboz kerül bele, az eddig nem aktív kút lesz az aktív.
 Ha minden doboz eltűnik, akkor ér véget a játék,nyernek a játékosok.  
 Minden játékoshoz 4 doboz tartozik, maximum négy fő vehet részt a játékban.
+\begin{figure}[htp]
+    \centering
+   	\includegraphics[scale=0.1]{images/win.jpg}
+	\caption{A játék vége(forrás:https://miro.medium.com/max/500/1\*KOj47lkJHi9w8bxAvFAvEg.jpeg)}
+	\label{fig:win}
+\end{figure}
 \item \textbf{Tesztelési lehetőség}: el kell indítani a server.py-t, aztán pedig a game.py-t, ez egyetlen kliens-t szimulál.
 Ha nem állítódik le a server.py, de a game.py újraindítódik, akkor az már a következő kliensek számít.
 A játék jelenleg 2 klienssel működik, de ezt lehet bővíteni a kezdőadatok megadásával.

@@ -25,7 +25,7 @@ https://miro.medium.com/max/500/1*KOj47lkJHi9w8bxAvFAvEg.jpeg
 
   A modell betöltések miatt időbe telik, míg elindul a game.py.
 
-  A teszteléshez szükséges egy kamera, egy marker (egy olyan, ami a megfelelő könyvtárba tartozik, mint images/marker.svg),
+  A teszteléshez szükséges egy kamera, egy marker (egy olyan, ami a megfelelő könyvtárba tartozik, mint images/marker.png),
   OpenCV, PyOpenGL,aruco, python3, falcon, waitress, requests és egyéb csomagok, amiket hiányolhat a futtatás közben.
 
   A karaktert a w,s,a,d billentyűkkel lehet irányítani, a space-szel ugrani és az e billentyűvel tolni a dobozt.
