@@ -132,7 +132,7 @@ A kalibrációt végző függvénynek a sorok és oszlopok számára, a négyzet
 
 A folyamat során meg kell határozni a fekete-fehérré tett képen szereplő a sakktábla minta sarokpontjait
 \texttt{findChessboardCorners()} függvénnyel, majd pontosabbá tenni azok koordinátáit
-\texttt{cornerSubPix()}-lel, például az alábbi módon.
+\texttt{cornerSubPix()}-lel, például az alábbi módon \cite{opencvcalib}.
 \begin{python}
 ret, corners = cv2.findChessboardCorners(gray, (width, height), None)
 ...

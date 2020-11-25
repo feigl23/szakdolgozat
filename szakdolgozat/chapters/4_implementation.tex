@@ -19,7 +19,7 @@ Az OpenGL egy grafikus nyelv, amely függvénykönyvtár formájában rendelkez�
 Az OpenGL pythonnal használható verziója a cross-platform, nyíltforráskodú \textit{PyOpenGL}. A PyOpenGL támogatja a GL, GLU és GLUT könyvtárakat.
 Továbbá lehetőség van a \textit{PyGame} függvénykönyvtár használatára OpenGL-s kódok megvalósításához.
 
-A dolgozathoz tartozó program felhasználja mindhárom könyvtárat, és a modell betöltéshez a \textit{PyGame}-et is.
+A dolgozathoz tartozó program felhasználja mindhárom könyvtárat, és a modell betöltéshez a \textit{PyGame}-et is \cite{pycube}.
 
 \SubSection{Modellek}
 
@@ -28,7 +28,7 @@ A program Wavefront OBJ formátumú modellekkel dolgozik, amelyekhez anyagjellem
 \item \texttt{obj}: A Wavefront Technologies által a Advanced Visualizer animációs csomagjukhoz kifejleszett obj fájlformátum egy geometria-definíciós formátum. 
 Annak köszönhetően, hogy nyílt formátum, más 3D-s grafikus alkalmazások gyártói átvették.
 
-Az obj egy egyszerű formátum ( akár ember által is olvasható), ami semmi mást nem add meg, mint a 3D geometriát, mint például a csúcsok helyzetét, az egyes textúra koordináta-csúcsok helyzetét, a csúcsok normálisát, az egyes sokszögeket csúcsok listájaként, textúra csúcsokat.
+Az obj egy egyszerű formátum (ember által is olvasható), ami semmi mást nem add meg, mint a 3D geometriát, mint például a csúcsok helyzetét, az egyes textúra koordináta-csúcsok helyzetét, a csúcsok normálisát, az egyes sokszögeket csúcsok listájaként, textúra csúcsokat.
 
 \item \texttt{mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak meghatározását tartalmazza, amelyekhez OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy newmtl utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokot.
 \end{itemize} 
@@ -73,25 +73,27 @@ Felhasználtam továbbá doboz modelleket, amiknek az elmozgatása a feladat (\r
 	\label{fig:box}
 \end{figure}
 
+Az objektumok betöltését a \textit{PyGame} objektum betöltőjével oldottam meg \cite{objloader}.
+
 \Section{Interaktív elemek}
 
-A színtér interkatív elmei az ágensek és a dobozok. 
-Az ágensek képesek fordulni, előrehaladni, ugorni. 
-A dobozok pedig olyan irányú elmozdulásra, amerre tolják őket.
+A színtér interkatív elemei az ágensek és a dobozok. 
+Az ágensek képesek fordulni, haladni előre és ugrani. 
+A dobozok olyan irányba tudna elmozdulni, amerre tolják őket.
 
 \SubSection{Animáció}
 
 Ahhoz, hogy a program látványosabb legyen animációkra van szükség, így a modell nem csak elmozul például olyan irányba, amerre szeretnénk, hanem az animáció használata séta hatását kelti.
 
-A modellek formátuma azonban nem támogatja az animációkat, ezért minden egyes mozdulatnak külön modell készült (a hozzátartozó mtl fájllal).
+A modellek formátuma azonban nem támogatja az animációkat, ezért minden egyes mozdulatnak külön modell készült (a hozzátartozó \texttt{mtl} fájllal).
 
 Az animációk elkészítéséhez elsőnek a modell úgynevezett vázára van szükség, azt kell elkészíteni, és azt lehet a továbbiakban animálni. 
  
 Az elkészült animációk a következők: ugrás, séta és a dobozok tolásához a doboz megfogása és elengedése.
 
-Az animáció elkészítéséhez a Blender nevű program lett felhasználva. 
+Az animáció elkészítéséhez a \textit{Blender} nevű programot használtam \cite{blenderar}. 
 
-Fontos, hogy minden egyes mozdulatot rajzolását úgy kell megvalósítani, hogy minden más modell és a kamera képből készült háttér is kirajzolódik.
+% Fontos, hogy minden egyes mozdulatot rajzolását úgy kell megvalósítani, hogy minden más modell és a kamera képből készült háttér is kirajzolódik.
  
 \SubSection{Ütközésvizsgálat}
 
@@ -135,13 +137,6 @@ Ha nem a saját dobozát próbálja meg eltolni (például hamar végez és megp
 Minden játékosnak a saját részét szabad csak megcsinália a kiszabott feladatból. 
 
 A játékosoknak minden esetben együtt kell működniűk, mert csak akkor jutnak ki, ha minden doboz eltűnt. Ebben valósul meg a játék kooperatív jellege. 
-
-\begin{figure}[htp]
-    \centering
-   	\includegraphics[scale=0.7]{images/game.png}
-	\caption{Egy felülnézetes kép a játékból}
-	\label{fig:game}
-\end{figure}
 
 \Section{Az elemek vezérlése}
 
