@@ -1,6 +1,7 @@
 
 class Keyboard:
-    def keyboardF(self,model,peng,key):
+    def keyboardF(self,model,peng,game,key):
+
         if key == b'a':
                 model['rot_z'] -=90
         elif key == b'w':
@@ -48,3 +49,5 @@ class Keyboard:
                 model["anim_i"] =0
         if(model['rot_z']==360 or model['rot_z'] ==-360):
             model['rot_z'] = 0
+        game.models_data[str(game.user_id)] = game.own_model
+        game.requests.upload_world_changes(game.models_data)

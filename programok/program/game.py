@@ -1,4 +1,3 @@
-
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
@@ -13,20 +12,19 @@ from tracker import *
 from draw_background import *
 from camera import *
 from constans import *
-from timer import *
+from rest_reqs import *
+from data import *
 import cv2
 import time
-
 
 cap = cv2.VideoCapture(0)
 
 class Game:
     def __init__(self):
-        self.user_id= 0
         self.castle = Castle()
         self.penguins = []
         self.boxes = []
-        self.max = 1
+        self.max = 2
         self.box = 4*self.max
         for i in range(0,self.max):
             self.penguins.append(Penguin())
@@ -39,7 +37,9 @@ class Game:
         self.camera = Camera()
         self.background = Background()
         self.constans = Constans()
-        self.timer = Timer()
+        self.requests = Requests()
+        self.data = Data()
+        self.user_id= self.requests.require_user_id()
         self.x =-2
         self.y=-4
         self.z =10
@@ -53,42 +53,8 @@ class Game:
         self.i=0
         self.first=True
         self.was =0
-        self.fountain={"left": True,"right": False}
-        self.models_data = { 'penguins':[{
-            "id" :self.user_id,
-            "position":(0,3.2,5.5),
-            "rot_z" : 180,
-            "axis" : "y",
-            "anim" : "",
-            "color" : [1,0,1],
-            "length":0,
-            "box" :-1,
-            "box_axis" : "" ,
-            "anim_i":0
-            }],
-            'boxes':[
-            {
-            "id" :1,
-            "color" : [1,0,1],
-            "position" : (-14,13,30),
-            },
-            {
-            "id" :2,
-            "color" : [1,0,1],
-            "position" : (-14,-2,30),
-            },
-            { "id" :3,
-            "color" : [1,0,1],
-            "position" : (-10,-2,30),
-            },
-            {
-            "id" :4,
-            "color" : [1,0,1],
-            "position" : (-10,13,30),
-            }],
-            'castle':{
-                "position" : (0,0,-30),
-            }}
+        self.own_model= None
+        self.models_data = None
 
     def init(self):
         glDepthFunc(GL_LESS)
@@ -105,54 +71,75 @@ class Game:
         self.view,self.mtx,self.dist = self.constans.get_matrix()
         glEnable(GL_TEXTURE_2D)
         self.texture_background = glGenTextures(1)
+        if(self.user_id ==0):
+            self.models_data = self.data.getdata()
+            self.requests.upload_world_changes(self.models_data)
+            self.own_model = self.models_data[str(self.user_id)]
+        else:
+            self.models_data = self.requests.require_world_state()
+            self.own_model = self.models_data[str(self.user_id)]
 
 
     def capture(self):
-        s,self.frame = cap.read()
-        self.rvec,self.tvec, self.ids = self.traker.track(self.frame, self.mtx, self.dist)
-        self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
+        if(game.user_id ==0 ):
+            castle = self.own_model['castle']
+        else:
+            castle =self.models_data['0']['castle']
+        if(castle['fountain_box'] != self.box):
+            self.models_data = self.requests.require_world_state()
+            #print('New world:')
+            #print(self.models_data)
+            s,self.frame = cap.read()
+            self.rvec,self.tvec, self.ids = self.traker.track(self.frame, self.mtx, self.dist)
+            self.background.draw(self.frame,self.dist, self.mtx,self.texture_background,self.rvec, self.tvec)
 
-        glEnable(GL_DEPTH_TEST)
-        glDisable(GL_TEXTURE_2D)
-        glLoadMatrixd(self.view)
+            glEnable(GL_DEPTH_TEST)
+            glDisable(GL_TEXTURE_2D)
+            glLoadMatrixd(self.view)
 
-        glMatrixMode(GL_MODELVIEW)
-        glLoadIdentity()
-        if not self.ids is None and self.rvec != []:
-            self.tvec[0][0][0] = self.tvec[0][0][0]
-            self.tvec[0][0][1] = -self.tvec[0][0][1]
-            self.tvec[0][0][2] = -self.tvec[0][0][2]
+            glMatrixMode(GL_MODELVIEW)
+            glLoadIdentity()
+            if not self.ids is None and self.rvec != []:
+                self.tvec[0][0][0] = self.tvec[0][0][0]
+                self.tvec[0][0][1] = -self.tvec[0][0][1]
+                self.tvec[0][0][2] = -self.tvec[0][0][2]
 
-            self.rvec[0][0][1] = -self.rvec[0][0][1]
-            self.rvec[0][0][2] = -self.rvec[0][0][2]
+                self.rvec[0][0][1] = -self.rvec[0][0][1]
+                self.rvec[0][0][2] = -self.rvec[0][0][2]
 
-            rot_m = self.constans.compositeArray(cv2.Rodrigues(self.rvec)[0], self.tvec[0][0])
-            glPushMatrix()
-            glLoadMatrixd(rot_m.T)
-            glTranslate(self.x,self.y,self.z)
-            game.castle.draw_model(self.models_data['castle'])
-            for model_d in self.models_data['penguins']:
-                self.direct.direct(model_d, self)
+                rot_m = self.constans.compositeArray(cv2.Rodrigues(self.rvec)[0], self.tvec[0][0])
+                glPushMatrix()
+                glLoadMatrixd(rot_m.T)
+                glTranslate(self.x,self.y,self.z)
+                game.castle.draw_model(self.own_model['castle'])
+                for k in self.models_data:
+                    if k != str(self.user_id):
+                        self.direct.direct(self.models_data[k]['penguin'], self)
+                    else:
+                        self.direct.direct(self.own_model['penguin'], self)
 
-            for box in self.models_data['boxes']:
-                self.boxes[box['id']-1].draw_model(box)
+                for l in self.models_data:
+                    for m in self.models_data[l]['boxes']:
+                        self.boxes[(self.models_data[l]['boxes'][m]['id']-1)].draw_model(self.models_data[l]['boxes'][m])
 
-            glPushMatrix()
-            glPushAttrib(GL_CURRENT_BIT)
-            if(self.fountain['right'] != True):
-                glTranslate(13,6,29)
-            if(self.fountain['left'] != True):
-                glTranslate(-13,6,29)
-            glColor4f(0.0,1.0,1.0,1)
-            glutSolidCube(6)
-            glPopAttrib()
-            glPopMatrix()
-            glPopMatrix()
-        glutPostRedisplay()
-        glutSwapBuffers()
+                glPushMatrix()
+                glPushAttrib(GL_CURRENT_BIT)
+                if(castle['fountain_right'] != True):
+                    glTranslate(13,6,29)
+                if(castle['fountain_left']!= True):
+                    glTranslate(-13,6,29)
+                glColor4f(0.0,1.0,1.0,1)
+                glutSolidCube(6)
+                glPopAttrib()
+                glPopMatrix()
+                glPopMatrix()
+            glutPostRedisplay()
+            glutSwapBuffers()
+            self.requests.upload_world_changes(self.models_data)
+        else:
+            self.draw_over()
 
-    def draw_scene(self):
-        if(self.box.is_over):
+    def draw_over(self):
             if(self.was <3):
                 self.was+=1
                 glClearColor(0.8, 0.8, 1.0, 0.0)
@@ -168,7 +155,7 @@ class Game:
         if key == b'\x1b':
              sys.exit()
 
-        self.keyboard.keyboardF(self.models_data['penguins'][self.user_id], self.penguins[self.user_id], key)
+        self.keyboard.keyboardF(self.own_model['penguin'], self.penguins[self.user_id],game, key)
 
     def main(self):
         glutInit()

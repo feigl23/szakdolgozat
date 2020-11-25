@@ -8,31 +8,38 @@ class Collision:
         self.criteria = [0.4, 1.8]
         self.stop = False
 
-    def collision(self,peng,model, models_data):
+    def collision(self,peng,model, models_data, game):
         self.stop =False
 
-        for box in models_data['boxes']:
-            if (model['position'][1]*5 + peng.dist <= box['position'][1]+self.criteria[1] and model['position'][1]*5 + peng.dist >= box['position'][1]-self.criteria[1]
-                and model['position'][0]*5 + peng.dist <= box['position'][0]+self.criteria[1] and model['position'][0]*5 + peng.dist >= box['position'][0]-self.criteria[1]):
-                    self.stop = True
-                    model['box'] = box['id']
-                    model['box_axis'] = model['axis']
-                    game.boxes[box['id']].new_pos(box,model['axis'], game)
+        for l in models_data:
+            for m in models_data[l]['boxes']:
+                if (model['position'][1]*5 + peng.dist <= models_data[l]['boxes'][m]['position'][1]+self.criteria[1] and model['position'][1]*5 + peng.dist >= models_data[l]['boxes'][m]['position'][1]-self.criteria[1]
+                    and model['position'][0]*5 + peng.dist <= models_data[l]['boxes'][m]['position'][0]+self.criteria[1] and model['position'][0]*5 + peng.dist >= models_data[l]['boxes'][m]['position'][0]-self.criteria[1]):
+                        self.stop = True
+                        model['box'] = models_data[l]['boxes'][m]['id']
+                        model['box_axis'] = model['axis']
+                        if(model['color'] == models_data[l]['boxes'][m]['color']):
+                            game.boxes[models_data[l]['boxes'][m]['id']].new_pos(game.own_model["boxes"][m],model['axis'], peng.dist,game, model['anim'])
 
 
-        for other in models_data['penguins']:
-            if('y' in model['axis']):
-                if(model['position'][1]*5+peng.dist >= self.limit[2] or model['position'][1]*5+peng.dist <= self.limit[1]):
-                        self.stop = True
-                elif((model['position'][1] +peng.dist) <= other['position'][1]+self.criteria[0] and model['position'][0] <= other['position'][0]+self.criteria[0]/2
-                    and model['position'][0] >= other['position'][0]-self.criteria[0]/2 and (model['position'][1] +peng.dist) >= other['position'][1]-self.criteria[0]):
-                        self.stop = True
-            if('x' in model['axis']):
-                if(model['position'][0]*5+peng.dist  >= self.limit[2] or model['position'][0]*5+peng.dist <= self.limit[0]):
-                        self.stop = True
-                elif((model['position'][0] +peng.dist) <= other['position'][0]+self.criteria[0] and (model['position'][0] +peng.dist) >= other['position'][0]-self.criteria[0]
-                    and model['position'][1] <= other['position'][1]+self.criteria[0]/2 and model['position'][1] >= other['position'][1]-self.criteria[0]/2 ):
-                        self.stop = True
+        if('y' in model['axis']):
+            if(model['position'][1]*5+peng.dist <= self.limit[1] or model['position'][1]*5+peng.dist >= self.limit[2]):
+                self.stop = True
+        if('x' in model['axis']):
+            if(model['position'][0]*5+peng.dist  <= self.limit[0] or model['position'][0]*5+peng.dist >= self.limit[2]):
+                self.stop = True
+
+        for k in models_data:
+            if(k != str(model['id'])):
+                if('y' in model['axis']):
+                    if((model['position'][1] +peng.dist) <= models_data[k]['penguin']['position'][1]+self.criteria[0] and model['position'][0] <= models_data[k]['penguin']['position'][0]+self.criteria[0]/2
+                        and model['position'][0] >= models_data[k]['penguin']['position'][0]-self.criteria[0]/2 and (model['position'][1] +peng.dist) >= models_data[k]['penguin']['position'][1]-self.criteria[0]):
+                            self.stop = True
+                if('x' in model['axis']):
+                    if((model['position'][0] +peng.dist) <= models_data[k]['penguin']['position'][0]+self.criteria[0] and (model['position'][0] +peng.dist) >= models_data[k]['penguin']['position'][0]-self.criteria[0]
+                        and model['position'][1] <= models_data[k]['penguin']['position'][1]+self.criteria[0]/2 and model['position'][1] >= models_data[k]['penguin']['position'][1]-self.criteria[0]/2 ):
+
+                            self.stop = True
 
         if(self.stop):
             block = True

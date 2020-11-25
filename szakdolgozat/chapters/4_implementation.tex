@@ -33,6 +33,8 @@ Az obj egy egyszerű formátum ( akár ember által is olvasható), ami semmi m�
 \item \texttt{mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak meghatározását tartalmazza, amelyekhez OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy newmtl utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokot.
 \end{itemize} 
 
+A programok és demók elkészítéséhez a modelleket a modelleket ábrázoló képekhez társított forrásoldalakról töltöttem le.  
+
 A program fő elemei az ágensek. 
 A modell, amit felhasználtam erre a célra egy császárpingvin (\ref{fig:pingvin}. ábra). 
 Minden ágenst ilyen modellel jelenít meg a program, csupán a színük változik, ami pedig a programkódban kerül megvalósításba.
@@ -77,8 +79,8 @@ A modellek formátuma azonban nem támogatja az animációkat, ezért minden egy
 Az animációk elkészítéséhez elsőnek a modell úgynevezett vázára van szükség, azt kell elkészíteni, és azt lehet a továbbiakban animálni. 
  
 Az elkészült animációk a következők: ugrás, séta és a dobozok tolásához a doboz megfogása és elengedése.
- 
-%A programkódban az animácókat úgy valósítottam meg, hogy egymás után, apró szünetet beiktatva betöltöttem a modelleket egymás helyére.
+
+Az animáció elkészítéséhez a Blender nevű program lett felhasználva. 
 
 Fontos, hogy minden egyes mozdulatot rajzolását úgy kell megvalósítani, hogy minden más modell és a kamera képből készült háttér is kirajzolódik.
  
@@ -150,26 +152,4 @@ aminek szintén három paramétere van, a key, ami egy \texttt{GLUT\_KEY\_*} kon
 A glutMotionFunc azt az eshetőséget kezelei le, amikor egy vagy több billentyű lenyomás történt és közben lett mozgatva az egér. A \texttt{glutPassiveMotionFunc()} pedig azt, amikor úgy lett mozgatva az egér, hogy nem lett lenyomva egyetlen egér gomb sem.
 \end{itemize}
 
-\Section{Demó alkalmazások}
 
-A dolgozat készítése során számos demó alkalmazást készítettem, amik amellett, hogy a \textit{Python}, \textit{OpenGL}, \textit{OpenCV}, \textit{ArUco} által nyújtott lehetőségek közelebbi megismerésére szolgáltak, kiválóak szemléltetésnek.
-
-A demók közül kiemelnék néhányat a következőkben.
-
-A kamera kalibrációjáról, az ArUco marker felismeréséről már szó esett az előzőekben.
-
-A demók között előfordul igen egyszerű, akár csak egyetlen feladatot ellátó programkód is. Ilyen például a kamera képét megjelenítő vagy egy kockát kirajzoló alkalmazás.
-
-Nem sokkal bonyolultabbak a bemenetek lekezelésére készült demók, ahol lehetőség nyílik a térben való kamera mozgásra, egy másikban egy kocka és egy harmadikban egy modell navigálására.
-
-Külön hangsúlyt kapott a kamera kép háttérként való felhasználása. Lépésekre bontva a folyamatot, többféle verziót is készítettem. Ezek közé tartozik, hogy egyszerűen csak textúraként felhasználva az ablak hátterének állítottam be a kamera képet, mikor egy kockára helyeztem textúraként, valamit, mikor a háttérként felhasználás mellett rajzoltam is rá egy modellt.
-
-Az elkészített animációk betöltésére és kirajzolására is készült példakód, azonban a játékban időkerettel lett megvalósítva az animáció eltérően az ezekben található módszertől.
-
-A példa program (\texttt{game} mappában található) elkészítése előtt elkészítettem pár markerre kirajzolós demó programot is, amely esetében a legnagyobb problémát a megfelelő transzformációk és
-a poziciónálás jelentették. Ezek alapul szolgáltak a későbbiekben elkészült programhoz, ahol már egy egész jelenet kerül kirajzolásra.
-A példa programnak megtalálható a demók között egy olyan verziója is, ami nem használja fel sem az ArUco markert, sem a kamera képet. 
-A szemléltetés végett két ágenst helyeztem el a térben, amiket a megfelelő billentyűk segítségével lehet írányítni és azokkal végigjátszani a játékot.
-A végső alkalmazáshoz képest abban tér el, hogy itt nincs lehetőség arra, hogy hozzáérjen az ágens a saját színétől eltérő dobozhoz, akkor ugyanis végetér a játék.
-
-A végső példa program a marker segítségével valósít meg egy kiterjesztett valóságos játékot a korábban leírt játékszabályok szerint.

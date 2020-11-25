@@ -10,24 +10,21 @@ class Penguin:
         self.jump_models = []
         self.grab_models = []
         self.dist = 0
-        self.const_dist =0
+        self.const_dist =-(0.4 / 30)
         self.block = False
 
     def model_init(self):
         self.model = OBJ("models/Penguin/PenguinBaseMesh.obj", swapyz=True)
         self.model.generate()
-        #for i in range(1,31):
-        #    if(i<10):
-        #        self.walk_models.append(OBJ("models/walk/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
-        #    else:
-        #        self.walk_models.append(OBJ("models/walk/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
-        #    self.walk_models[i-1].generate()
-
-        self.const_dist = 0.4 / 30
-
+        for i in range(1,31):
+            if(i<10):
+                self.walk_models.append(OBJ("models/walk/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+            else:
+                self.walk_models.append(OBJ("models/walk/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
+            self.walk_models[i-1].generate()
         #for i in range(1,21):
         #    if(i<10):
-         #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
+        #         self.jump_models.append(OBJ("models/jump/RiggedPenguin_00000"+str(i)+".obj", swapyz=True))
         #    else:
         #        self.jump_models.append(OBJ("models/jump/RiggedPenguin_0000"+str(i)+".obj", swapyz=True))
         #    self.jump_models[i-1].generate()

@@ -24,15 +24,21 @@ class Box:
             glPopAttrib()
             glPopMatrix()
 
-    def new_pos(self,model, axis, game):
-        if(game.dist>0):
-            dist = game.dist+0.1
-        else:
-            dist = game.dist-0.1
-        if("y" in axis):
-            model['position'][1]= model['position'][1]+dist
-        else:
-            model['position'][0]= model['position'][0]+dist
-        self.isActive.check_spot(game.fountain,box, game.max)
-        #if len(self.remove) == len(self.boxes['model']):
-        #    self.is_over = True
+    def new_pos(self,model, axis,dist, game,anim):
+
+        in_spot=self.isActive.check_spot(model, game.max, game)
+        if(anim =="grab"):
+            if(dist>0):
+                dist_add = dist+0.2
+            else:
+                dist_add = dist-0.2
+            pos=list(model['position'])
+            if("y" in axis):
+                pos[1] = pos[1]+dist_add
+            if("x" in axis):
+                pos[0] = pos[0]+dist_add
+            model['position'] = tuple(pos)
+            if(in_spot):
+                del game.own_model['boxes'][str(model['id'])]
+            game.models_data[str(game.user_id)] = game.own_model
+            game.requests.upload_world_changes(game.models_data)

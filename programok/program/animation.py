@@ -5,12 +5,14 @@ from objloader import *
 import time
 
 class Animation:
-    def walk(self,model,peng,index):
-            if(peng.block == False):
+    def walk(self,model,peng,index,block):
+            if(block == False):
+                pos=list(model['position'])
                 if("y" in model["axis"]):
-                    model['position'][1] = model["position"][1] + peng.dist
+                    pos[1] = pos[1]+peng.dist
                 if("x" in model['axis']):
-                    model['position'][0] = model['position'][0] + peng.dist
+                    pos[0] = pos[0]+peng.dist
+                model['position'] = tuple(pos)
             glPushMatrix()
             glScale(5,5,5)
             glTranslate(model['position'][0], model['position'][1], model['position'][2])
@@ -37,10 +39,12 @@ class Animation:
 
     def grab(self,model,peng,i_n):
             if(model['box'] !=-1):
-                if("y" in model['axis']):
-                    model['position'][1] = model['position'][1]+peng.dist
-                else:
-                    model['position'][0] = model['position'][0]+peng.dist
+                pos=list(model['position'])
+                if("y" in model["axis"]):
+                    pos[1] = pos[1]+peng.dist
+                if("x" in model['axis']):
+                    pos[0] = pos[0]+peng.dist
+                model['position'] = tuple(pos)
                 glPushMatrix()
                 glScale(5,5,5)
                 glTranslate(model['position'][0],model['position'][1],model['position'][2])

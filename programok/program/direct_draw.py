@@ -17,7 +17,8 @@ class DirectDraw:
 
     def which_animation(self,model_d,peng, id, game):
         if model_d['id'] == id:
-            block = game.collision.collision(peng, model_d, game.models_data)
+            model_d = game.own_model['penguin']
+            block = game.collision.collision(peng, model_d, game.models_data, game)
         else:
             block =  False
         if(model_d['anim_i'] == (model_d['length']-1)):
@@ -25,7 +26,7 @@ class DirectDraw:
             model_d['anim'] = ""
         if(model_d['anim_i'] != -1):
             if("walk" in model_d['anim']):
-                self.animation.walk(model_d, peng,model_d['anim_i'])
+                self.animation.walk(model_d, peng,model_d['anim_i'],block)
             elif("jump" in model_d['anim']):
                 self.animation.jump(model_d, peng,model_d['anim_i'])
             elif("grab" in model_d['anim']):
