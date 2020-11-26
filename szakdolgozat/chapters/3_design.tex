@@ -12,7 +12,7 @@ A következő szakaszokban a két jellegzetes megközelítés kerül részletez�
 
 \SubSection{Klasszikus markeres megoldások}
 
-A kiterjeszetett valóság fontos eszköze a markerek, így azok használata jól támogatottnak mondható. Számos nyílt forráskodú könytár rendelkezésre áll a klasszikus értelemben vett markerekből.
+A kiterjeszetett valóság fontos eszközei a markerek, így azok használata jól támogatottnak mondható. Számos nyílt forráskódú könytár rendelkezésre áll a klasszikus értelemben vett markerekből.
 
 \bigskip
 
@@ -58,14 +58,12 @@ Ezekre láthatunk példákat \aref{fig:markerek}. ábrán.
 \SubSection{Betanítható markerek}
 
 A kiterjesztett valóság technikai fejlődéssel a markerek is bonyolultabbá váltak, lehetőség nyílt hétköznapi tárgyak, épületek és egyéb valós objektumok markerként történő kezelésére.
-
 Természetesen ezek detektálása nehezebb, illetve betanítást igényel.
-
-Léteznek továbbá úgynevezett marker nélküli (\textit{markerless}) AR alkalmazások is, amelyekben a szenzorok felmérik környezetet és megfelelő helyre pozicionálják a megjelenítendő objektumot/objektumokat. Egy ismert példa erre a földrajzi koordináták felhasználásával működő \textit{Pokemon GO} játék.
+Léteznek továbbá úgynevezett marker nélküli (\textit{markerless}) AR alkalmazások is, amelyekben a szenzorok felmérik a környezetet, és a megfelelő helyre pozicionálják a megjelenítendő objektumot/objektumokat. Egy ismert példa erre a földrajzi koordináták felhasználásával működő \textit{Pokemon GO} játék.
 
 \Section{Inerciális szenzorok}
 
-A fejlettebb telefonokban található inerciális szenzorok fontosak a kiterjeszett valóság felhasználásával készült alkalmazások müködtetéséhez.
+A fejlettebb telefonokban található inerciális szenzorok fontosak a kiterjeszett valóság felhasználásával készült alkalmazások működtetéséhez.
 
 Az inerciális szenzorok gyorsulásérzékelőkből és giroszkópokból állnak, minél nagyobb a számuk, annál pontosabb eredményeket képesek biztosítani.
 
@@ -74,7 +72,7 @@ Az inerciális szenzorokkkal a telefon térbeli helyzetének és annak változá
 Az accelerométer a telefon helyzetének változását méri a $x$, $y$ és $z$ tengelyeket alapul véve.
 
 A telefonokban található giroszkóp (vagy röviden \textit{gyro} szenzor) a gyorsulásmérő egy fejlettebb verziója.
-Míg accelerometer tengely alapú elmozdulást mér, addig a giroszkóp az acceletométert felhasználva minden apró változást érzékel. Pontosabb adatokat kaphatunk vele.
+Míg accelerometer tengely alapú elmozdulást mér, addig a giroszkóp az accelerométert felhasználva minden apró változást érzékel. Pontosabb adatokat kaphatunk vele.
 \Aref{fig:inertial}. ábrán láthatjuk, hogy például hogyan néz ki egy ilyen szenzor.
 
 \begin{figure}[htp]
@@ -122,7 +120,7 @@ A kamera kalibrációjához $6 \times 9$-es sakktábla mintát használtam (\ref
 	\label{fig:calibration}
 \end{figure}
 
-A kalibráció eredményességéhez a négyzeteknek szabályosnak, egyformának kell lenniük és fontos, hogy a nyomtatás során a minta ne torzuljon el, ne legyen átméretezve.
+A kalibráció eredményességéhez a négyzeteknek szabályosnak, egyformának kell lenniük, és fontos, hogy a nyomtatás során a minta ne torzuljon el, ne legyen átméretezve.
 
 A pontosság növelése érdekében a képeket érdemes minél változatosabb szögben és távolságból elkészíteni. Valamint ügyelni kell arra, hogy a lap egyenesen, egy síkban legyen tartva, ezért célszerű megfelelő támaszt használni hozzá.
 
@@ -130,9 +128,9 @@ A kalibráció során kapjuk meg a későbbiekben nélkülözhetetlen együtthat
 
 A kalibrációt végző függvénynek a sorok és oszlopok számára, a négyzetek oldalhosszára és a fent említett képekre van szüksége.
 
-A folyamat során meg kell határozni a fekete-fehérré tett képen szereplő a sakktábla minta sarokpontjait
-\texttt{findChessboardCorners()} függvénnyel, majd pontosabbá tenni azok koordinátáit
-\texttt{cornerSubPix()}-lel, például az alábbi módon \cite{opencvcalib}.
+A folyamat során meg kell határozni a küszöbölt képen szereplő sakktábla minta sarokpontjait
+\texttt{findChessboardCorners()} függvénnyel, majd pontosabbá tenni azok koordinátáit a
+\texttt{cornerSubPix()} függvénnyel, például az alábbi módon \cite{opencvcalib}.
 \begin{python}
 ret, corners = cv2.findChessboardCorners(gray, (width, height), None)
 ...
@@ -163,24 +161,24 @@ amely 4, 5, 8, 12 vagy 14 elemből állhat.
 
 \item {\bf rvecs}: A mintákhoz tartozó elforgatási vektorok becsült kimeneti vektora.
 
-\item {\bf tvecs}: A mintákhoz tartozó vektorok becsült kimeneti vektor
+\item {\bf tvecs}: A mintákhoz tartozó vektorok becsült kimeneti vektor.
 \end{itemize}
 
 \SubSection{Demo alkalmazás}
 
-A markerek detektálásának eredményességét befolyásolják a fényviszonyok, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a mérete. Továbbá óriási hátrány, hogy ha takarásba kerül egy része a markernek (legyen ez akármilyen kicsi), mivel akkor nem lesz felismerhető.
+A markerek detektálásának eredményességét befolyásolják a fényviszonyok, a kamerához viszonyított pozíció, a minta bonyolultsága, a szög amiben látszik és a mérete. Továbbá óriási hátrány, hogy ha takarásba kerül egy része a markernek (legyen ez akármilyen kicsi), akkor az már nem lesz felismerhető.
 
-Az ArUco marker felismerésére használt demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a kalibrációból kapott \texttt{camera\_matrix} és a \texttt{dist\_Coefficient} felhasználásával detektálja a markert az élő képen.
+Az \textit{ArUco} marker felismerésére használt demó alkalmazás bekalibrálja a kamerát (ha ez még nem történt meg), majd a kalibrációból kapott \texttt{camera\_matrix} és a \texttt{dist\_Coefficient} felhasználásával detektálja a markert az élő képen.
 
 A folyamatos kapcsolat érdekében egy végtelen ciklus van a programban.
 Ezután kapcsolatot kell teremteni a kamerával és mindig az adott pillanatnyi képpel dolgozni.
-Ehhez az OpenCV \texttt{VideoCapture} függvényére van szükség. A 0 index a laptop saját beépített kameráját jelöli, ha csatlakoztatható USB-s kamerával szeretnénk dolgozni, akkor az 1 paramétert kell megadni.
+Ehhez az \textit{OpenCV} \texttt{VideoCapture} függvényére van szükség. A 0 index a laptop saját beépített kameráját jelöli, ha csatlakoztatható USB-s kamerával szeretnénk dolgozni, akkor az 1 paramétert kell megadni.
 \begin{python}
 cap = cv2.VideoCapture(0)
 ...
 ret, frame = cap.read()
 \end{python}
-A kamera kép olvasásakor visszakapott második paraméterre lesz szükségünk, ami maga a kép. Ha valamilyen okból kifolyólag nem sikerül olvasni, akkor hamis értékkel és üres képpel tér vissza.
+A kamerakép olvasásakor visszakapott második paraméterre lesz szükségünk, ami maga a kép. Ha valamilyen okból kifolyólag nem sikerül olvasni, akkor hamis értékkel és üres képpel tér vissza.
 
 Ha meg van a kép, meg kell adni a megfelelő könyvtárat, amiben szerepel a marker, amit fel akarunk ismerni. Jelen esetben ez a \texttt{DICT\_4X4\_100}.
 \begin{python}
@@ -215,7 +213,7 @@ Erről láthatunk egy képet \aref{fig:felismeres_aruco}. ábrán.
 
 \SubSection{A marker felismerésére készített program tesztje}
 
-A végső programban az ArUco marker felismerés egy olyan függvényként jelenik meg, ami megkap egy képet és ha talál rajta markert, akkor visszaadja a megfelelő vektorokat (elforgatás és eltolás vektorokkal).
+A végső programban az \textit{ArUco} marker felismerés egy olyan függvényként jelenik meg, ami megkap egy képet és ha talál rajta markert, akkor visszaadja a megfelelő vektorokat (elforgatás és eltolás vektorokkal).
 
 Ezen programrésznek a tesztelésére készítettem a nyomtatott markeremről képeket, és megnéztem milyen eredményeket ad vissza és felismeri-e a képen szereplő markert.
 
@@ -229,10 +227,10 @@ Ezen vektorok fogják a későbbiekben meghatározni a kirajzolandó modellek he
 
 A lentebb szereplő képekhez kapott értékek közül néhány:
 \begin{itemize}
-\item 1. kép \texttt{rvec} és \texttt{tvec} értékei::
+\item 1. kép \texttt{rvec} és \texttt{tvec} értékei:
 \[[-0.00010618, -0.00181233, 0.04695004]\]
 \[[ 1.91320312, -1.6522394,  0.60923043]\]
-\item 2. kép \texttt{rvec} és \texttt{tvec} értékei::
+\item 2. kép \texttt{rvec} és \texttt{tvec} értékei:
 \[[-0.00082155,  0.00022395,  0.06280824]\]
 \[[ 1.83895896, -1.46640971,  0.69940467]\]
 \item 3. kép \texttt{rvec} és \texttt{tvec} értékei:
@@ -244,7 +242,7 @@ A lentebb szereplő képekhez kapott értékek közül néhány:
 \end{itemize}
 
 Látható például, hogy az 5. kép eltolási és forgatási vektorainak értéke nagyobb, mint a 1. vagy 2., hisz ez messzebb van a képen a kamerához képest és jobban el van forgatva, mint a másik kettő.
-Természetesen ha nem ismeri fel a amerkert, vagy nincs marker a képen 0 értéket add vissza a program.
+Amennyiben nem ismeri fel a markert, vagy nincs marker a képen 0 értéket add vissza a program.
 
 \Aref{fig:detect}. ábrán láthatunk olyan képeket, amelyeknél sikeres volt a marker detektálása, \aref{fig:not_detect}. ábrán pedig olyanokat, amelyre sikertelen.
 

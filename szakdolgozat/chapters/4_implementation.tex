@@ -16,37 +16,37 @@ A következő szakaszokban ennek a Python nyelvű implementációja kerül rész
 
 Az OpenGL egy grafikus nyelv, amely függvénykönyvtár formájában rendelkezésre álló implementációjával 2D-s és 3D-s alakzatokat tudunk megjeleníteni. Nagyon elterjedt, elérhető és támogatott a fő operációs rendszereken (Linux, macOS, Windows), valamint számos programozási nyelvvel kompatibilis \cite{madsen2016opengl}.
 
-Az OpenGL pythonnal használható verziója a cross-platform, nyíltforráskodú \textit{PyOpenGL}. A PyOpenGL támogatja a GL, GLU és GLUT könyvtárakat.
-Továbbá lehetőség van a \textit{PyGame} függvénykönyvtár használatára OpenGL-s kódok megvalósításához.
+Az OpenGL Python-nal használható verziója a cross-platform, nyíltforráskodú \textit{PyOpenGL}. A PyOpenGL támogatja a GL, GLU és GLUT könyvtárakat.
+Továbbá lehetőség van a \textit{PyGame} függvénykönyvtár használatára OpenGL-es kódok megvalósításához.
 
-A dolgozathoz tartozó program felhasználja mindhárom könyvtárat, és a modell betöltéshez a \textit{PyGame}-et is \cite{pycube}.
+A dolgozathoz tartozó program felhasználja mindhárom könyvtárat, és a modell betöltéshez a \textit{PyGame}-et is \cite{objloader}.
 
 \SubSection{Modellek}
 
 A program Wavefront OBJ formátumú modellekkel dolgozik, amelyekhez anyagjellemzőket leíró, \texttt{mtl} kiterjesztésű fájlokkal textúrát is rendelhetünk. 
 \begin{itemize}
-\item \texttt{obj}: A Wavefront Technologies által a Advanced Visualizer animációs csomagjukhoz kifejleszett obj fájlformátum egy geometria-definíciós formátum. 
+\item \texttt{obj}: A Wavefront Technologies által az Advanced Visualizer animációs csomagjukhoz kifejleszett objektum fájlformátum, amely egy geometria-definíciós formátum. 
 Annak köszönhetően, hogy nyílt formátum, más 3D-s grafikus alkalmazások gyártói átvették.
 
-Az obj egy egyszerű formátum (ember által is olvasható), ami semmi mást nem add meg, mint a 3D geometriát, mint például a csúcsok helyzetét, az egyes textúra koordináta-csúcsok helyzetét, a csúcsok normálisát, az egyes sokszögeket csúcsok listájaként, textúra csúcsokat.
+Az obj egy egyszerű (ember által is olvasható) szöveges formátum, amely olyan adatokat ad meg, mint a 3D geometriát: a csúcsok helyzetét, az egyes textúra koordináta-csúcsok helyzetét, a csúcsok normálisát, az egyes sokszögeket csúcsok listájaként, textúra csúcsokat.
 
-\item \texttt{mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak meghatározását tartalmazza, amelyekhez OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy newmtl utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokot.
+\item \texttt{mtl}: Az MTL fájl egy segédfájl, amely a modell anyagainak leírását tartalmazza, amelyekhez az OBJ fájl hozzáférhet. Az OBJ fájlnak meg kell adnia az MTL fájl nevét. Az MTL fájl az anyagok definícióinak sorrendjét tartalmazza. Mindegyik definíció egy \texttt{newmtl} utasítással kezdődik, amely meghatározza az anyag nevét, majd azon sorok következnek, amelyek megadják az adott tulajdonságokat.
 \end{itemize} 
 
 A programok és demók elkészítéséhez a modelleket egy 3D modell letöltő oldalról töltöttem le. Számos lehetőség van ingyenes modelleket találni az interneten,
 azonban ezek kiterjesztése, tulajdonságai nem mindig felelnek meg az elképzeléseknek.
-A számomra leghasznosabb oldalnak a \texttt{https://free3d.com/3d-models/obj} oldal bizonyult, hisz minden felhasznált modellem ide köthető.
+A számomra leghasznosabb oldalnak a \url{https://free3d.com/3d-models/obj} oldal bizonyult, hisz minden felhasznált modellem eredeti változata innen származik.
 \begin{itemize}
 \item pingvin modell:
 
-\texttt{https://free3d.com/3d-model/emperor-penguin-601811.html}
-\item kastély modell: \texttt{https://free3d.com/3d-model/fantasy-castle-40715.html}
-\item doboz modell: \texttt{https://free3d.com/3d-model/crate-86737.html}
+\url{https://free3d.com/3d-model/emperor-penguin-601811.html}
+\item kastély modell: \url{https://free3d.com/3d-model/fantasy-castle-40715.html}
+\item doboz modell: \url{https://free3d.com/3d-model/crate-86737.html}
 \end{itemize}
 
 A program fő elemei az ágensek. 
 A modell, amit felhasználtam erre a célra egy császárpingvin (\ref{fig:pingvin}. ábra). 
-Minden ágenst ilyen modellel jelenít meg a program, csupán a színük változik, ami pedig a programkódban kerül megvalósításba.
+Minden ágenst ilyen modellel jelenít meg a program, csupán a színük változik, ami pedig a programkódban kerül megvalósításra.
 
 \begin{figure}[htp]
     \centering
@@ -64,7 +64,7 @@ A program szinterének fő eleme a kastély modell, ahol maga a jelenet játszó
 	\label{fig:castle}
 \end{figure}
 
-Felhasználtam továbbá doboz modelleket, amiknek az elmozgatása a feladat (\ref{fig:box}. ábra). Ezen modellek színének manipulációja szintén a programban történik.
+Felhasználtam továbbá doboz modelleket, amiknek az elmozgatása a feladat az ágensek számára (\ref{fig:box}. ábra). Ezen modellek színének manipulációja szintén a programban történik.
 
 \begin{figure}[htp]
     \centering
@@ -105,7 +105,6 @@ Ha mindkét művelettel akadályba ütközne, akkor nem haladhat az adott irány
 Az első dolog, amit meghatároztam az az volt, hogy a $z$ tengelyen (ez jelenleg a fel és le írány a játékban) nem sülyedhet 0 alá az ágensek értéke, mert akkor a kastély modellbe és alá esne egy részük.
 
 A következő lépésben a tér azon részét határoztam meg, ami a játékteret képezi (a kastély modell kertje), hogy a falakon ne tudjanak áthaladni a modellek, tehát tényleg ne legyenek képesek elhagyni a játék végéig.
-
 Ez az $x$ és $y$ tengelyre jelent korlátozásokat.
 
 A további lépés az ágensek poziciójának figyelése, hogy az ágensek egymáson ne tudjanak áthaladni. Ehhez minden pozició változás előtt meg kell vizsgálni, hogy az adott lépéssel nem kerülnek e a másik modell olyan közvetlen közelébe, ami már nem megengedett.
@@ -123,37 +122,35 @@ Minden lépés előtt ellenőrzi, hogy az adott lépéssel nem ütközne-e akad�
 \Section{A kastély, mint játéktér}
 
 A játék fő színhelye az előbb említett kastély modell, amiből nem lehet kijutni csak akkor, ha a karakterek teljesítik a rájuk kiszabott feladatot.
-
 A kastély falain nem lehet átjutni és az ajtók sem használhatóak.
 
-A feladat, amit el kell végeznie a karaktereknek az az, hogy a saját színűkhöz tartozó dobozokat kell a megfelelő helyre jutatniuk, ami jelen esetben a szökőkutak egyike. 
+A feladat, amit el kell végeznie a karaktereknek az az, hogy a saját színűkhöz tartozó dobozokat kell a megfelelő helyre juttatniuk, ami jelen esetben a szökőkutak egyike. 
 
-A szökőkutak közül egyszerre csak egy aktív (amelyik nincs takarva), csak azzal van lehetőség a dobozok eltűntetésére. Minden esteben az előforduló színek közül pontosan egy kerülhet az aktív szökőkútba (különben nem tűnik el, ha ugyanolyat próbálnak beletolni). Ha a megfelelő mennyiségű doboz eltűnik, akkor a másik kút lesz aktív.
+A szökőkutak közül egyszerre csak egy aktív (amelyik nincs takarva), csak azzal van lehetőség a dobozok eltüntetésére. Minden esteben az előforduló színek közül pontosan egy kerülhet az aktív szökőkútba (különben nem tűnik el, ha ugyanolyat próbálnak beletolni). Ha a megfelelő mennyiségű doboz eltűnik, akkor a másik kút lesz aktív.
 
 Fontos, hogy minden játékos csak a saját színével megegyező színű dobozt képes mozgatni és csak azt szabad mozgatnia. Azonban csak az tilos, hogy eltolja, például hozzá érhet.
 
-Ha nem a saját dobozát próbálja meg eltolni (például hamar végez és megpróbál segíteni a társának), akkor sem változik semmi, csupán egyhelyben jár.
+Ha nem a saját dobozát próbálja meg eltolni (például hamar végez és megpróbál segíteni a társának), akkor sem változik semmi, csupán egy helyben jár.
 
 Minden játékosnak a saját részét szabad csak megcsinália a kiszabott feladatból. 
-
 A játékosoknak minden esetben együtt kell működniűk, mert csak akkor jutnak ki, ha minden doboz eltűnt. Ebben valósul meg a játék kooperatív jellege. 
 
 \Section{Az elemek vezérlése}
 
 \SubSection{Billentyű, egér funkciók}
 
-Az ágens irányításához (lépés előre, hátra, fordulás, ugrás, doboz megfogása) különböző billenytűket használtam fel (például w,s,a,d és space billentyűket), a  programból való kilépéshez az „ESC” billentyűt. 
+Az ágens irányításához (lépés előre, hátra, fordulás, ugrás, doboz megfogása) különböző billenytűket használtam fel (például \texttt{w}, \texttt{s}, \texttt{a}, \texttt{d} és szóköz billentyűket), a  programból való kilépéshez az \texttt{ESC} billentyűt. 
 
 A következő függvények felhasználására van lehetőség:
 \begin{itemize}
 \item A \texttt{glutKeyBoardFunc()}-nek három paramétere van: \texttt{key} a generált ASCII karakter, az \texttt{x} és \texttt{y} pedig az egér pozíciója abban az időpontban, mikor a billentyű lenyomás történt a \texttt{GLUT} ablakhoz képest.
 
-Ezzel a funkcióval csak a kilépéshez szükséges \texttt{ESC} billentyű lenyomás kezelődött le és a \texttt{space}, a nyíl billentyűkhöz egy másik funkció szükséges.
+Ezzel a funkcióval csak a kilépéshez szükséges \texttt{ESC} billentyűt kezelhető le, a \texttt{space}, a nyíl billentyűkhöz egy másik funkció szükséges.
 \item A \texttt{glutSpecialFunc()} szükséges speciális billentyűk lenyomásának kezeléséhez,  
 aminek szintén három paramétere van, a key, ami egy \texttt{GLUT\_KEY\_*} konstans, és az \texttt{x} és \texttt{y}, amik ugyanazt jelölik, mint az előző esetben, az egér relatív helyzetét az ablakhoz képest.
-\item A \texttt{glutMouseFunc()} az egér billentyűinek a lenyomását a  tudjuk nyomon követni, a mozgását pedig a \texttt{glutMotionFunc()}-al vagy a \texttt{glutPassiveMotionFunc()}-al. 
+\item A \texttt{glutMouseFunc()} az egér billentyűinek a lenyomását tudjuk nyomon követni, a mozgását pedig a \texttt{glutMotionFunc()}-al vagy a \texttt{glutPassiveMotionFunc()}-al. 
 
-A glutMotionFunc azt az eshetőséget kezelei le, amikor egy vagy több billentyű lenyomás történt és közben lett mozgatva az egér. A \texttt{glutPassiveMotionFunc()} pedig azt, amikor úgy lett mozgatva az egér, hogy nem lett lenyomva egyetlen egér gomb sem.
+A \texttt{glutMotionFunc} azt az eshetőséget kezeli le, amikor egy vagy több billentyű lenyomás történt és közben lett mozgatva az egér. A \texttt{glutPassiveMotionFunc()} pedig azt, amikor úgy lett mozgatva az egér, hogy nem lett lenyomva egyetlen egérgomb sem.
 \end{itemize}
 
 

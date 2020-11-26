@@ -4,7 +4,7 @@ Ahhoz, hogy a kliensek kooperálni tudjanak a virtuális térben meg kell oldani
 Feltételezhetjük, hogy az eddigiekben bemutatott alkalmazásnak (továbbiakban kliensnek) van hozzáférése a helyi hálózathoz.
 Ezáltal szerver-kliens architektúra szerint megoldható az eszközök közötti kommunikáció.
 
-A következő szakaszokban azt vizsgáljuk meg, hogy a központi szerver milyen feladatokat lát ez, azzal a kommunikáció hogyan oldható meg interfészek, protokollok szintjén.
+A következő szakaszokban azt vizsgáljuk meg, hogy a központi szerver milyen feladatokat lát el, azzal a kommunikáció hogyan oldható meg interfészek, protokollok szintjén.
 
 Az ezt követő részben a korábban bemutatott kliens alkalmazás kiegészítése kerül részletezésre, hogy az alkalmas legyen arra, hogy a többi klienssel megossza az adatokat a központi szerveren keresztül.
 
@@ -51,7 +51,7 @@ Egy példa bejelentkezési kérés a szerver felé.
 Erre a szerver (sikeres bejelentkezés esetén) az ágens saját, egyedi azonosítójával tér vissza.
 Például, hogy ha az első bejelentkező ágensről van szó, akkor
 \begin{python}
-{ "agent_id": 1 }
+{ "user_id": 1 }
 \end{python}
 Amennyiben valamilyen probléma lépne fel a kérés kiszolgálása közben, akkor a szerver hibaüzenetet ad vissza (HTTP hibakód formájában).
 
@@ -94,6 +94,8 @@ A kérésre a választ az alábbi formában kapja.
 Ebben tehát az entitások egyedi azonosítói szerint szerepelnek a hozzájuk tartozó pozíciók és irányok.
 
 Amennyiben a kliens még nem lenne bejelentkezve, úgy erre a kérésre egy üres válasz fog érkezni (tehát hogy a kliens számára elérhető aktuális virtuális térben nincsenek még elemek).
+
+Az aktuális implementációban a bemutatott, kastélyhoz köthető állapottér reprezentálására és átküldésére kerül sor. A szerver alkalmazás úgy készült el, hogy az állapottér konkrét megjelenési módja a szerver szempontjából ne legyen lényeges.
 
 \SubSection{Saját pozíció visszaküldése}
 
