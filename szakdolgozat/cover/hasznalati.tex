@@ -23,3 +23,36 @@
 	\item \texttt{falcon}, \texttt{waitress} és \texttt{requests} csomagok a szerver és kliens közötti kommunikációhoz.
 \end{itemize}
 
+\bigskip
+
+\noindent \textbf{A Python környezet és a függőségek telepítése}
+
+\medskip
+
+A Python értelmező és futtatókörnyezet telepítése platformonként változó.
+\begin{itemize}
+	\item Windows rendszerek esetében a Python hivatalos weboldaláról célszerű beszerezni a telepítőket: \url{https://www.python.org/downloads/}.
+	\item Linux rendszereken a Python általában a rendszer része, vagy a csomagkezelővel telepíthető.
+\end{itemize}
+
+\medskip
+
+A függőségeket érdemes külön virtuális környezetbe telepíteni.
+Virtuális környezetet létrehozni az alábbi paranccsal lehet.
+\begin{python}
+python -m venv .venv
+\end{python}
+A környezetet ezt követően aktiválni kell az \texttt{activate} futtatásával:
+\begin{python}
+source .venv/bin/activate
+\end{python}
+(Windows rendszer alatt ez az \texttt{activate.bat} segítségével oldható meg.)
+
+\noindent Ezt követően a függőségek az alábbi parancs kiadásával telepíthetők:
+\begin{python}
+pip install opencv-python aruco PyOpenGL pygame falcon requests waitress
+\end{python}
+A programok futtatásához a megfelelő Python fájlt kell megadni a Python értelmezőnek, például:
+\begin{python}
+python game.py
+\end{python}
